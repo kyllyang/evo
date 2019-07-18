@@ -7,3 +7,6 @@ git remote add all https://git.oschina.net/free/Mapper.git
 git remote set-url --add all https://github.com/abel533/Mapper.git
 
 git push all --all
+
+数据字典规则
+value：固定8位字符，前四位大写英文标识，后四位数字，不足位数补0
