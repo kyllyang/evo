@@ -52,7 +52,7 @@ mybatis:
   mapper-locations: classpath:mapper/*.xml
 zuul:
   retryable: true
-  sensitiveHeaders:
+  sensitiveHeaders: 'Access-Control-Allow-Origin'
   ignoredServices: '*'
   ribbon:
     eager-load:
