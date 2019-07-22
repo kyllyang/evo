@@ -12,7 +12,6 @@ drop table if exists sys_micro;
 drop table if exists sys_menu;
 drop table if exists sys_user_role;
 drop table if exists sys_role_func;
-drop table if exists sys_dict;
 
 create table sys_user  (
   id bigint auto_increment primary key,
@@ -22,7 +21,7 @@ create table sys_user  (
   code varchar(32) null,
   email varchar(32) null,
   mobile_number varchar(32) null,
-  freeze varchar(4) null,
+  freeze varchar(8) null,
   login_time datetime null,
   login_ip varchar(32) null,
   last_login_time datetime null,
@@ -91,15 +90,3 @@ CREATE TABLE sys_role_func  (
   func_id bigint,
   primary key (role_id, func_id)
 );
-
-create table sys_dict  (
-  id bigint auto_increment primary key,
-  label varchar(100) null,
-  value varchar(100) null,
-  type varchar(100) null,
-  sort int(11) null,
-  creator bigint(20) null,
-  create_time timestamp(0) null,
-  modifier bigint(20) null,
-  modify_time timestamp(0) null
-)

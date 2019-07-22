@@ -10,7 +10,7 @@ drop table if exists sys_data_dict;
 create table sys_data_dict
 (
   id bigint auto_increment primary key,
-  parent_key bigint null,
+  parent_key varchar(255) null,
   name varchar(255) null,
   code varchar(255) null,
   key_ varchar(255) null,
