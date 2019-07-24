@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class DataDict extends BaseXmlEntity<Long> {
+	private String parentKey;// 上级Key
 	private String name;// 名称
 	private String code;// 编码
 	private String key;// 键
