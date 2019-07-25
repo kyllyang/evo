@@ -1,3 +1,4 @@
+insert into config_property values (null, 'master', 'evo', 'default', 'evo.environment.exception.enabled', 'true', '是否在HTTP REST响应500中显示异常栈信息 [true]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.auth.jwt.issuer', 'http://evo.com', '发行人 [Default http://evo.com]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.auth.jwt.signing-key', 'ec9f563404c511e9b8790a151ed9f971', '签名', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.auth.jwt.secret-Key', '6q0SYc3w5Y28YqAtYi0XTT95rOWrybbH', 'Claims密钥，必须固定为16位或者32位', '1', now(), '1', now());
