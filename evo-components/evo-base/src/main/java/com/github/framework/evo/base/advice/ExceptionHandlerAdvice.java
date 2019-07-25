@@ -1,7 +1,6 @@
 package com.github.framework.evo.base.advice;
 
 import com.github.framework.evo.base.ApplicationEnvironment;
-import com.github.framework.evo.common.Const;
 import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.uitl.JsonUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -39,17 +38,17 @@ public class ExceptionHandlerAdvice {
 		ResponseEntity responseEntity;
 		if (exception instanceof HttpMessageNotReadableException) {
 			log.warn("缺少请求体", exception);
-			responseEntity = new ResponseEntity<>(HttpStatus.valueOf(Const.HTTP_STATUS_BAD_REQUEST));
+			responseEntity = new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 		} else if (exception instanceof BindException) {
 			BindException bindException = (BindException) exception;
 
 			log.warn("参数绑定无效", exception);
-			responseEntity = new ResponseEntity<>(toMessageList(bindException.getAllErrors()), HttpStatus.valueOf(Const.HTTP_STATUS_BAD_REQUEST));
+			responseEntity = new ResponseEntity<>(toMessageList(bindException.getAllErrors()), HttpStatus.BAD_REQUEST);
 		} else if (exception instanceof MethodArgumentNotValidException) {
 			MethodArgumentNotValidException methodArgumentNotValidException = (MethodArgumentNotValidException) exception;
 
 			log.warn("方法参数无效", exception);
-			responseEntity = new ResponseEntity<>(toMessageList(methodArgumentNotValidException.getBindingResult().getAllErrors()), HttpStatus.valueOf(Const.HTTP_STATUS_BAD_REQUEST));
+			responseEntity = new ResponseEntity<>(toMessageList(methodArgumentNotValidException.getBindingResult().getAllErrors()), HttpStatus.BAD_REQUEST);
 		} else if (exception instanceof BusinessException) {
 			BusinessException businessException = (BusinessException) exception;
 
@@ -63,7 +62,7 @@ public class ExceptionHandlerAdvice {
 			map.put("data", data);
 
 			log.error("业务异常 code={}, message={}, data={}", code, message, data == null ? null : JsonUtil.objectToJson(data), exception);
-			responseEntity = new ResponseEntity<>(map, HttpStatus.valueOf(Const.HTTP_STATUS_BUSINESS_EXCEPTION));
+			responseEntity = new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		} else {
 			log.error("服务异常", exception);
 
@@ -72,7 +71,7 @@ public class ExceptionHandlerAdvice {
 				map.put("exception", toStackTrace(exception));
 			}
 
-			responseEntity = new ResponseEntity<>(map, HttpStatus.valueOf(Const.HTTP_STATUS_INTERNAL_SERVER_ERROR));
+			responseEntity = new ResponseEntity<>(map, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 		return responseEntity;
 	}
