@@ -4,11 +4,10 @@ import com.github.framework.evo.auth.assist.JwtAssist;
 import com.github.framework.evo.auth.assist.RedisAssist;
 import com.github.framework.evo.auth.assist.VerifyResult;
 import com.github.framework.evo.auth.config.JwtConfig;
-import com.github.framework.evo.auth.exception.AccessTokenInvalidException;
-import com.github.framework.evo.auth.exception.RefreshTokenNotFoundException;
-import com.github.framework.evo.auth.exception.RefreshTokenVerifyException;
 import com.github.framework.evo.auth.model.UserDetailsDto;
 import com.github.framework.evo.common.Const;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.model.UserContext;
 import com.github.framework.evo.common.uitl.StringUtil;
 import com.github.framework.evo.data.redis.service.RedisService;
@@ -51,7 +50,7 @@ public class TokenBizz {
 	public String refresh(String token) {
 		String refreshToken = redisService.getString(redisAssist.generate(Const.BF_REFRESH_TOKEN, token));
 		if (StringUtil.isBlank(refreshToken)) {
-			throw new RefreshTokenNotFoundException(token);
+			throw new BusinessException(SR.RC.AUTH_REFRESH_TOKEN_NOT_FOUND, token);
 		}
 
 		VerifyResult verifyResult = jwtAssist.check(refreshToken);
@@ -63,7 +62,7 @@ public class TokenBizz {
 
 			return newToken;
 		} else {
-			throw new RefreshTokenVerifyException(refreshToken);
+			throw new BusinessException(SR.RC.AUTH_REFRESH_TOKEN_VERIFY, refreshToken);
 		}
 	}
 
@@ -81,13 +80,13 @@ public class TokenBizz {
 			}
 
 			if (StringUtil.isBlank(newAccessToken)) {
-				throw new AccessTokenInvalidException(accessToken);
+				throw new BusinessException(SR.RC.AUTH_ACCESS_TOKEN_INVALID, accessToken);
 			}
 
 			userContext = jwtAssist.parse(newAccessToken);
 			userContext.setAccessToken(newAccessToken);
 		} else {
-			throw new AccessTokenInvalidException(accessToken);
+			throw new BusinessException(SR.RC.AUTH_ACCESS_TOKEN_INVALID, accessToken);
 		}
 
 		return userContext;

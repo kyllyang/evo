@@ -1,13 +1,12 @@
 package com.github.framework.evo.auth.bizz;
 
 import com.github.framework.evo.auth.api.IamApi;
-import com.github.framework.evo.auth.exception.UserNotFoundException;
-import com.github.framework.evo.auth.exception.VerifyCodeInvalidException;
-import com.github.framework.evo.auth.exception.VerifyCodeSendException;
 import com.github.framework.evo.auth.model.MobileNumberParam;
 import com.github.framework.evo.auth.model.UserDetailsDto;
 import com.github.framework.evo.auth.model.VerifyCodeDto;
 import com.github.framework.evo.auth.model.VerifyCodeParam;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.sms.api.SmsApi;
 import com.github.framework.evo.sms.dto.SmsDto;
 import lombok.extern.slf4j.Slf4j;
@@ -55,14 +54,14 @@ public class MobileNumberVerifyCodeBizz {
 		if (verifyCodeBizz.check(mobileNumber, verifyCode)) {
 			UserDetailsDto userDetailsDto = iamApi.getByMobileNumber(mobileNumber);
 			if (userDetailsDto == null) {
-				throw new UserNotFoundException(mobileNumber);
+				throw new BusinessException(SR.RC.AUTH_MOBILENUMBER_NOT_FOUND, mobileNumber);
 			}
 
 			iamApi.updateLoginInfo(userDetailsDto.getId(), remoteAddr);
 			return tokenBizz.createToken(userDetailsDto);
 		}
 
-		throw new VerifyCodeInvalidException(verifyCode);
+		throw new BusinessException(SR.RC.AUTH_VERIFY_CODE_INVALID, verifyCode);
 	}
 
 	private void sendCode(String mobileNumber, String verifyCode) {
@@ -71,7 +70,7 @@ public class MobileNumberVerifyCodeBizz {
 		try {
 			smsApi.send(SmsDto.builder().phoneNo(mobileNumber).content(verifyCode).build());
 		} catch (Exception e) {
-			throw new VerifyCodeSendException("验证码发送失败", e);
+			throw new BusinessException(SR.RC.AUTH_VERIFY_CODE_SEND, mobileNumber, verifyCode);
 		}
 	}
 }

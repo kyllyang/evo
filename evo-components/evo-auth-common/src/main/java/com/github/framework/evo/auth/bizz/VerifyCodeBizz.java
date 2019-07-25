@@ -3,11 +3,12 @@ package com.github.framework.evo.auth.bizz;
 import com.github.framework.evo.auth.api.IamApi;
 import com.github.framework.evo.auth.assist.RedisAssist;
 import com.github.framework.evo.auth.config.VerifyCodeConfig;
-import com.github.framework.evo.auth.exception.MobileNumberNotFoundException;
 import com.github.framework.evo.auth.model.UserDetailsDto;
 import com.github.framework.evo.auth.model.VerifyCodeDto;
 import com.github.framework.evo.auth.model.VerifyCodeParam;
 import com.github.framework.evo.common.Const;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.uitl.AlgorithmUtil;
 import com.github.framework.evo.common.uitl.StringUtil;
 import lombok.extern.slf4j.Slf4j;
@@ -42,7 +43,7 @@ public class VerifyCodeBizz {
 		String mobileNumber = verifyCodeParam.getMobileNumber();
 		UserDetailsDto userDetailsDto = getUser(mobileNumber);
 		if (userDetailsDto == null) {
-			throw new MobileNumberNotFoundException(mobileNumber);
+			throw new BusinessException(SR.RC.AUTH_MOBILENUMBER_NOT_FOUND, mobileNumber);
 		}
 
 		String verifyCode = calcVerifyCode();

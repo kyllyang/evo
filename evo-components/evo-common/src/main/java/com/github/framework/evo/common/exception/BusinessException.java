@@ -1,5 +1,6 @@
 package com.github.framework.evo.common.exception;
 
+import com.github.framework.evo.common.SR;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,11 @@ import lombok.Setter;
  */
 public class BusinessException extends BaseException {
 	@Getter @Setter protected String code;
+	@Getter @Setter protected SR.RC rc;
+
+	public BusinessException(SR.RC rc, Object... args) {
+		this(rc.getCode(), SR.getMessage(rc, args), null, null);
+	}
 
 	public BusinessException(String message) {
 		this(null, message, null, null);

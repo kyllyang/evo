@@ -63,7 +63,7 @@ public class ExceptionHandlerAdvice {
 			map.put("data", data);
 
 			log.error("业务异常 code={}, message={}, data={}", code, message, data == null ? null : JsonUtil.objectToJson(data), exception);
-			responseEntity = new ResponseEntity<>(map, HttpStatus.valueOf(Const.HTTP_STATUS_INTERNAL_SERVER_ERROR));
+			responseEntity = new ResponseEntity<>(map, HttpStatus.valueOf(Const.HTTP_STATUS_BUSINESS_EXCEPTION));
 		} else {
 			log.error("服务异常", exception);
 

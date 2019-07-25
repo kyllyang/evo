@@ -1,11 +1,12 @@
 package com.github.framework.evo.auth.bizz;
 
-import com.github.framework.evo.common.Const;
-import com.github.framework.evo.data.redis.service.RedisService;
 import com.github.framework.evo.auth.assist.JwtAssist;
 import com.github.framework.evo.auth.assist.RedisAssist;
 import com.github.framework.evo.auth.assist.VerifyResult;
-import com.github.framework.evo.auth.exception.LogoutException;
+import com.github.framework.evo.common.Const;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
+import com.github.framework.evo.data.redis.service.RedisService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class LogoutBizz {
 		if (VerifyResult.SUCCESS != verifyResult
 				|| !redisService.delete(redisAssist.generate(Const.BF_ACCESS_TOKEN, accessToken))
 				|| !redisService.delete(redisAssist.generate(Const.BF_REFRESH_TOKEN, accessToken))) {
-			throw new LogoutException("注销异常");
+			throw new BusinessException(SR.RC.AUTH_LOGOUT, accessToken);
 		}
 	}
 }
