@@ -5,6 +5,7 @@ import com.github.framework.evo.sys.dto.UserDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -23,6 +24,9 @@ public interface UserApi {
 
 	@GetMapping("/mobile-number/{mobileNumber}")
 	UserDto getByMobileNumber(@PathVariable("mobileNumber") String mobileNumber);
+
+	@PostMapping
+	Long create(@RequestBody UserDto dto);
 
 	@PutMapping
 	void update(@RequestBody UserDto dto, @RequestHeader(Const.HTTP_HEADER_TOKEN) String token);
