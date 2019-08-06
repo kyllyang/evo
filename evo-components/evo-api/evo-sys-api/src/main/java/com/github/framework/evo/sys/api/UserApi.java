@@ -25,8 +25,8 @@ public interface UserApi {
 	@GetMapping("/mobile-number/{mobileNumber}")
 	UserDto getByMobileNumber(@PathVariable("mobileNumber") String mobileNumber);
 
-	@PostMapping
-	Long create(@RequestBody UserDto dto);
+	@PostMapping("/all")
+	Long createAll(@RequestBody UserDto dto);
 
 	@PutMapping
 	void update(@RequestBody UserDto dto, @RequestHeader(Const.HTTP_HEADER_TOKEN) String token);
