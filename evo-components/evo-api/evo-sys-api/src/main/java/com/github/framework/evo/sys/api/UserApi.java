@@ -30,4 +30,7 @@ public interface UserApi {
 
 	@PutMapping
 	void update(@RequestBody UserDto dto, @RequestHeader(Const.HTTP_HEADER_TOKEN) String token);
+
+	@PutMapping
+	void update(@RequestBody UserDto dto);
 }

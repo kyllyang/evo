@@ -78,10 +78,15 @@ public class UserBizz extends BaseXmlBizz<UserDao, User, Long, UserDto> {
 		return id;
 	}
 
-	@Transactional
-	public void updateWithRole(UserDto dto) {
+	@Override
+	public void update(UserDto dto) {
 		UserDto oldUserDto = this.get(dto.getId());
 		dto.setPassword(oldUserDto.getPassword());
+		super.update(dto);
+	}
+
+	@Transactional
+	public void updateWithRole(UserDto dto) {
 		this.update(dto);
 
 		Long[] roleIds = dto.getRoleIds();
