@@ -5,6 +5,7 @@ import com.github.framework.evo.base.dao.BaseXmlDao;
 import com.github.framework.evo.base.entity.BaseXmlEntity;
 import com.github.framework.evo.common.model.PageDto;
 import com.github.framework.evo.common.model.PageList;
+import com.github.framework.evo.common.uitl.BeanUtil;
 import com.github.framework.evo.common.uitl.DateUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,6 +84,7 @@ public abstract class BaseXmlBizz<Dao extends BaseXmlDao, E extends BaseXmlEntit
 	@SuppressWarnings("unchecked")
 	public void update(Dto dto) {
 		E entity = (E) dao.get(getPKValue(dto));
+		BeanUtil.copy(entity, dto);
 
 		entity.setUpdateBy(getUserContextId());
 		entity.setUpdateTime(DateUtil.now());
