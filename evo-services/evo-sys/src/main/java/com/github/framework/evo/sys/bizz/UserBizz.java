@@ -105,6 +105,8 @@ public class UserBizz extends BaseXmlBizz<UserDao, User, Long, UserDto> {
 	@Transactional
 	public void updatePassowrd(UserDto dto) {
 		UserDto oldUserDto = this.get(dto.getId());
+		log.info("old password: " + oldUserDto.getPassword());
+		log.info("new password: " + dto.getPassword());
 		oldUserDto.setPassword(passwordEncoder.encode(dto.getPassword()));
 		this.update(oldUserDto);
 	}
