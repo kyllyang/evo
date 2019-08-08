@@ -68,11 +68,14 @@ public class TokenBizz {
 
 	public UserContext check(String accessToken) {
 		VerifyResult verifyResult = jwtAssist.check(accessToken);
-		log.debug("检查 access token 有效性，{}", verifyResult);
 
 		UserContext userContext;
 		if (VerifyResult.SUCCESS == verifyResult) {
-			userContext = jwtAssist.parse(accessToken);
+			if (redisAssist.existAccessToken(accessToken)) {
+				userContext = jwtAssist.parse(accessToken);
+			} else {
+				throw new BusinessException(SR.RC.AUTH_ACCESS_TOKEN_INVALID, accessToken);
+			}
 		} else if (VerifyResult.EXPIRED == verifyResult) {
 			String newAccessToken = tryRefresh(accessToken);
 			if (StringUtil.isBlank(newAccessToken)) {
