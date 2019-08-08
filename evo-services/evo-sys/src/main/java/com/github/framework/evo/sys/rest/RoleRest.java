@@ -25,6 +25,11 @@ import java.util.List;
 @RequestMapping("/role")
 @RestController
 public class RoleRest extends BaseRest<RoleBizz, Long, RoleDto, RoleCondition> implements RoleApi {
+	@GetMapping
+	public List<RoleDto> findAll() {
+		return bizz.find();
+	}
+
 	@GetMapping("/id/{id}/func")
 	public RoleDto getWithFunc(@PathVariable Long id) {
 		return bizz.getWithFunc(id);
