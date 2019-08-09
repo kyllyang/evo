@@ -70,7 +70,7 @@
 	<select id="findByCodes" resultMap="RoleResultMap">
 		<include refid="select"/>
 		where
-		<foreach collection="codes" open="(" close=")" separator="," item="code">
+		<foreach collection="array" open="(" close=")" separator="," item="code">
 			#{code}
 		</foreach>
 	</select>
