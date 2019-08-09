@@ -67,6 +67,14 @@
 		</if>
 	</select>
 
+	<select id="findByCodes" resultMap="RoleResultMap">
+		<include refid="select"/>
+		where
+		<foreach collection="codes" open="(" close=")" separator="," item="code">
+			#{code}
+		</foreach>
+	</select>
+
 	<select id="findByUserId" resultMap="RoleResultMap">
 		<include refid="select"/>
 		JOIN sys_user_role t0 ON t.id = t0.role_id

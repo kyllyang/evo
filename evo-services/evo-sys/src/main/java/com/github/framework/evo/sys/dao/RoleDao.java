@@ -13,6 +13,8 @@ import java.util.Map;
  */
 @Mapper
 public interface RoleDao extends BaseXmlDao<Role, Long> {
+	List<Role> findByCodes(String[] codes);
+
 	List<Role> findByUserId(Long userId);
 
 	List<Role> findByUsername(String username);

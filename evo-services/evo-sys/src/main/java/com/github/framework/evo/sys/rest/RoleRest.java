@@ -40,6 +40,11 @@ public class RoleRest extends BaseRest<RoleBizz, Long, RoleDto, RoleCondition> i
 		return bizz.getByCode(code);
 	}
 
+	@PostMapping("/codes")
+	public List<RoleDto> findByCodes(@RequestBody String[] codes) {
+		return bizz.findByCodes(codes);
+	}
+
 	@Override
 	public List<RoleDto> findByUserId(@PathVariable Long userId) {
 		return bizz.findByUserId(userId);

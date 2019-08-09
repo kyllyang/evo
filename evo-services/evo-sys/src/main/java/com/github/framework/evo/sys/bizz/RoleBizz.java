@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -39,8 +40,12 @@ public class RoleBizz extends BaseXmlBizz<RoleDao, Role, Long, RoleDto> {
 		RoleCondition condition = new RoleCondition();
 		condition.setCode(code);
 
-		List<Role> roleList =  dao.find(condition);
+		List<Role> roleList = dao.find(condition);
 		return roleList.isEmpty() ? null : toDto(roleList.get(0));
+	}
+
+	public List<RoleDto> findByCodes(String[] codes) {
+		return codes == null || codes.length == 0 ? new ArrayList<>() : toDto(dao.findByCodes(codes));
 	}
 
 	public List<RoleDto> findByUserId(Long userId) {
