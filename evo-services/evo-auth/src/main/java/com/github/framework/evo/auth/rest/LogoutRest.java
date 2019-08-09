@@ -1,12 +1,13 @@
 package com.github.framework.evo.auth.rest;
 
 import com.github.framework.evo.auth.bizz.LogoutBizz;
-import com.github.framework.evo.common.Const;
+import com.github.framework.evo.common.uitl.HttpServletUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * User: Kyll
@@ -19,7 +20,7 @@ public class LogoutRest {
 	private LogoutBizz logoutBizz;
 
 	@PostMapping("/logout")
-	public void logout(@RequestHeader(Const.HTTP_HEADER_TOKEN) String token) {
-		logoutBizz.logout(token);
+	public void logout(HttpServletRequest request) {
+		logoutBizz.logout(HttpServletUtil.extractAccessToken(request));
 	}
 }
