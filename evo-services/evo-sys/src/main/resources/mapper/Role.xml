@@ -69,7 +69,7 @@
 
 	<select id="findByCodes" resultMap="RoleResultMap">
 		<include refid="select"/>
-		where
+		where t.code in
 		<foreach collection="array" open="(" close=")" separator="," item="code">
 			#{code}
 		</foreach>
