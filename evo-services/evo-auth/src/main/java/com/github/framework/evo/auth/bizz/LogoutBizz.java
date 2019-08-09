@@ -26,9 +26,7 @@ public class LogoutBizz {
 	private RedisService redisService;
 
 	public void logout(String accessToken) {
-		log.info("accessToken: {}", accessToken);
 		VerifyResult verifyResult = jwtAssist.check(accessToken);
-		log.info("verifyResult: {}", verifyResult);
 		if (VerifyResult.SUCCESS != verifyResult
 				|| !redisService.delete(redisAssist.generate(Const.BF_ACCESS_TOKEN, accessToken))
 				|| !redisService.delete(redisAssist.generate(Const.BF_REFRESH_TOKEN, accessToken))) {
