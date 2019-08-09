@@ -33,4 +33,7 @@ public interface UserApi {
 
 	@PutMapping
 	void update(@RequestBody UserDto dto);
+
+	@PutMapping("/with-role")
+	void updateWithRole(@RequestBody UserDto dto);
 }
