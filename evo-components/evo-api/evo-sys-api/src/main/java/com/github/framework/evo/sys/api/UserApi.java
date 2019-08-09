@@ -19,6 +19,9 @@ public interface UserApi {
 	@GetMapping("/{id}")
 	UserDto get(@PathVariable("id") Long id);
 
+	@GetMapping("/id/{id}/role")
+	UserDto getWithRole(@PathVariable("id") Long id);
+
 	@GetMapping("/username/{username}")
 	UserDto getByUsername(@PathVariable("username") String username);
 
