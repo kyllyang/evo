@@ -1,5 +1,9 @@
 package com.github.framework.evo.common.uitl;
 
+import org.apache.commons.lang3.StringUtils;
+
+import java.util.Iterator;
+
 /**
  * User: Kyll
  * Date: 2018-05-11 09:23
@@ -60,6 +64,18 @@ public class ArrayUtil {
 		}
 
 		return result;
+	}
+
+	public static String join(String[] values, String delimited) {
+		return StringUtils.join(values, delimited);
+	}
+
+	public static String join(Object[] values, String delimited) {
+		return StringUtils.join(values, delimited);
+	}
+
+	public static String join(Iterator<?> iterator, String delimited) {
+		return StringUtils.join(iterator, delimited);
 	}
 
 	/**
