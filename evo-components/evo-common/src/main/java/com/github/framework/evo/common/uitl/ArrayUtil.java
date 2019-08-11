@@ -61,4 +61,13 @@ public class ArrayUtil {
 
 		return result;
 	}
+
+	/**
+	 * 获取数组长度，当数组为null时，返回 0
+	 * @param objects 数组
+	 * @return 数组长度
+	 */
+	public static int length(Object[] objects) {
+		return objects == null ? 0 : objects.length;
+	}
 }
