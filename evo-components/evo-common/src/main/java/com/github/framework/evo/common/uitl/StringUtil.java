@@ -113,4 +113,39 @@ public class StringUtil {
 			throw new StringOperateException("字符编码转换 UTF-8 异常", e);
 		}
 	}
+
+	public static String[] split(String str, String... delimiteds) {
+		if (isBlank(str)) {
+			return null;
+		}
+		if (delimiteds == null || delimiteds.length == 0) {
+			return new String[]{str};
+		}
+
+		char c = delimiteds[0].charAt(0);
+
+		int pos = str.indexOf(c);
+		if (pos < 0) {
+			return new String[]{str};
+		}
+		List<String> strList = new ArrayList<>();
+		if (pos == 0) {
+			strList.add("");
+		} else {
+			strList.add(str.substring(0, pos));
+		}
+		while (pos >= 0) {
+			int end = str.indexOf(c, pos + 1);
+			if (end < 0) {
+				end = str.length();
+			}
+			if (end - pos == 1) {
+				strList.add("");
+			} else {
+				strList.add(str.substring(pos + 1, end));
+			}
+			pos = str.indexOf(c, pos + 1);
+		}
+		return strList.toArray(new String[0]);
+	}
 }
