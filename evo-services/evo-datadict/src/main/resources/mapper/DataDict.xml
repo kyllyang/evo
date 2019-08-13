@@ -25,6 +25,9 @@
 			<if test="id != null">
 				AND t.id = #{id}
 			</if>
+			<if test="parentKey != null">
+				AND t.parent_key = #{parentKey}
+			</if>
 			<if test="name != null">
 				AND t.name = #{name}
 			</if>

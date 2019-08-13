@@ -29,7 +29,7 @@ public class DataDictBizz extends BaseXmlBizz<DataDictDao, DataDict, Long, DataD
 		return super.find(DataDictCondition.builder().code(code).build());
 	}
 
-	public List<DataDictDto> findByParent(String parentKey) {
+	public List<DataDictDto> findByParentKey(String parentKey) {
 		return super.find(DataDictCondition.builder().parentKey(parentKey).build());
 	}
 
@@ -42,7 +42,7 @@ public class DataDictBizz extends BaseXmlBizz<DataDictDao, DataDict, Long, DataD
 
 	private void recursionByParent(List<DataDictDto> dataDictDtoList) {
 		for (DataDictDto dataDictDto : dataDictDtoList) {
-			dataDictDto.setChildren(findByParent(dataDictDto.getKey()));
+			dataDictDto.setChildren(findByParentKey(dataDictDto.getKey()));
 			recursionByParent(dataDictDto.getChildren());
 		}
 	}
