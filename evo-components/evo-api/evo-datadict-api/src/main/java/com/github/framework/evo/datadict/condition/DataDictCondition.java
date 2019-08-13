@@ -14,6 +14,7 @@ import lombok.EqualsAndHashCode;
 @Data
 public class DataDictCondition extends PageDto {
 	private Long id;
+	private String parentKey;
 	private String name;
 	private String code;
 	private String key;
