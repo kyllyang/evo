@@ -2,6 +2,7 @@ package com.github.framework.evo.common.uitl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 
 import java.time.Instant;
 import java.time.LocalDateTime;
@@ -74,5 +75,15 @@ public class DateUtil {
 
 	public static Date plusMinutes(Date date, int minutes){
 		return new DateTime(date).plusMinutes(minutes).toDate();
+	}
+
+	public static boolean inRangeTime(String time, String startTime, String endTime) {
+		String[] ts = time.split(":");
+		String[] sts = startTime.split(":");
+		String[] ets = endTime.split(":");
+		LocalTime lt = new LocalTime(Integer.parseInt(ts[0]), Integer.parseInt(ts[1]), 0, 0);
+		LocalTime slt = new LocalTime(Integer.parseInt(sts[0]), Integer.parseInt(sts[1]), 0, 0);
+		LocalTime elt = new LocalTime(Integer.parseInt(ets[0]), Integer.parseInt(ets[1]), 0, 0);
+		return lt.isAfter(slt) && lt.isBefore(elt);
 	}
 }
