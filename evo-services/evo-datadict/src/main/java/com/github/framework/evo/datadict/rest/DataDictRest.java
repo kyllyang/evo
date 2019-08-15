@@ -34,6 +34,11 @@ public class DataDictRest extends BaseRest<DataDictBizz, Long, DataDictDto, Data
 		return bizz.getByCodeAndKey(DataDictCondition.builder().code(code).key(key).build());
 	}
 
+	@GetMapping("/code/{code}/key/{key}/children")
+	public DataDictDto findByCodeAndKeyForChildren(@PathVariable String code, @PathVariable String key) {
+		return bizz.findByCodeAndKeyForChildren(DataDictCondition.builder().code(code).key(key).build());
+	}
+
 	@DeleteMapping("/id/{id}/code/{code}")
 	public void delete(@PathVariable Long id, @PathVariable String code) {
 		bizz.delete(id, code);

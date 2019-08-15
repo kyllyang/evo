@@ -20,6 +20,9 @@ public interface DataDictApi {
 	@GetMapping("/code/{code}/key/{key}")
 	DataDictDto findByCodeAndKey(@PathVariable("code") String code, @PathVariable("key") String key);
 
+	@GetMapping("/code/{code}/key/{key}/children")
+	DataDictDto findByCodeAndKeyForChildren(@PathVariable("code") String code, @PathVariable("key") String key);
+
 	@DeleteMapping("/id/{id}/code/{code}")
 	void delete(@PathVariable("id") Long id, @PathVariable("code") String code);
 }
