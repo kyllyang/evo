@@ -1,7 +1,7 @@
 package com.github.framework.evo.datadict.bizz;
 
-import com.github.framework.evo.data.redis.annotation.RedisKey;
 import com.github.framework.evo.base.bizz.BaseXmlBizz;
+import com.github.framework.evo.data.redis.annotation.RedisKey;
 import com.github.framework.evo.datadict.condition.DataDictCondition;
 import com.github.framework.evo.datadict.dao.DataDictDao;
 import com.github.framework.evo.datadict.dto.DataDictDto;
@@ -70,7 +70,7 @@ public class DataDictBizz extends BaseXmlBizz<DataDictDao, DataDict, Long, DataD
 		DataDictDto result = null;
 		if (dataDictDtoList != null) {
 			for (DataDictDto dataDictDto : dataDictDtoList) {
-				result = key.equals(dataDictDto.getKey()) ? dataDictDto : recursionByParentForFind(dataDictDto.getChildren(), key);
+				result = key.equals(dataDictDto.getKey()) ? dataDictDto : recursionByParentForFind(findByParentKey(dataDictDto.getKey()), key);
 				if (result != null) {
 					break;
 				}
