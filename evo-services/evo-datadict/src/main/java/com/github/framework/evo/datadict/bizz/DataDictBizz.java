@@ -68,10 +68,12 @@ public class DataDictBizz extends BaseXmlBizz<DataDictDao, DataDict, Long, DataD
 
 	private DataDictDto recursionByParentForFind(List<DataDictDto> dataDictDtoList, String key) {
 		DataDictDto result = null;
-		for (DataDictDto dataDictDto : dataDictDtoList) {
-			result = key.equals(dataDictDto.getKey()) ? dataDictDto : recursionByParentForFind(dataDictDto.getChildren(), key);
-			if (result != null) {
-				break;
+		if (dataDictDtoList != null) {
+			for (DataDictDto dataDictDto : dataDictDtoList) {
+				result = key.equals(dataDictDto.getKey()) ? dataDictDto : recursionByParentForFind(dataDictDto.getChildren(), key);
+				if (result != null) {
+					break;
+				}
 			}
 		}
 		return result;
