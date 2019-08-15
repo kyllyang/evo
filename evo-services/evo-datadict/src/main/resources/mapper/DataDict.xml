@@ -16,7 +16,7 @@
 	</resultMap>
 
 	<sql id="columns">
-		t.id, t.name, t.code, t.key_, t.value, t.sort,
+		t.id, t.parent_key, t.name, t.code, t.key_, t.value, t.sort,
 		t.create_by, t.create_time, t.update_by, t.update_time
 	</sql>
 
