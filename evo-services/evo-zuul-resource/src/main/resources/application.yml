@@ -1,8 +1,10 @@
 server:
   port: ${port:20020}
   tomcat:
-    max-threads: 128
-    min-spare-threads: 64
+    max-threads: 600
+    min-spare-threads: 30
+    accept-count: 600
+    max-connections: 10000
 management:
   endpoints:
     web:
