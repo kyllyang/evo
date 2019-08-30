@@ -187,23 +187,63 @@ public class DateUtil {
 		return lt.isAfter(LocalTime.parse(startTime)) && lt.isBefore(LocalTime.parse(endTime));
 	}
 
-	public static long intervalNanos(String startTime, String endTime) {
+	public static long dateIntervalNanos(String startDate, String endDate) {
+		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toNanos();
+	}
+
+	public static long dateIntervalMillis(String startDate, String endDate) {
+		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toMillis();
+	}
+
+	public static long dateIntervalMinutes(String startDate, String endDate) {
+		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toMinutes();
+	}
+
+	public static long dateIntervalHours(String startDate, String endDate) {
+		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toHours();
+	}
+
+	public static long dateIntervalDays(String startDate, String endDate) {
+		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toDays();
+	}
+
+	public static long dateTimeIntervalNanos(String startDateTime, String endDateTime) {
+		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toNanos();
+	}
+
+	public static long dateTimeIntervalMillis(String startDateTime, String endDateTime) {
+		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toMillis();
+	}
+
+	public static long dateTimeIntervalMinutes(String startDateTime, String endDateTime) {
+		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toMinutes();
+	}
+
+	public static long dateTimeIntervalHours(String startDateTime, String endDateTime) {
+		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toHours();
+	}
+
+	public static long dateTimeIntervalDays(String startDateTime, String endDateTime) {
+		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toDays();
+	}
+
+	public static long timeIntervalNanos(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toNanos();
 	}
 
-	public static long intervalMillis(String startTime, String endTime) {
+	public static long timeIntervalMillis(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toMillis();
 	}
 
-	public static long intervalMinutes(String startTime, String endTime) {
+	public static long timeIntervalMinutes(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toMinutes();
 	}
 
-	public static long intervalHours(String startTime, String endTime) {
+	public static long timeIntervalHours(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toHours();
 	}
 
-	public static long intervalDays(String startTime, String endTime) {
+	public static long timeIntervalDays(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toDays();
 	}
 }
