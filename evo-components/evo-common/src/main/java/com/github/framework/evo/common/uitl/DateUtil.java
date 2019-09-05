@@ -9,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.TemporalAccessor;
 import java.util.Date;
 
 /**
@@ -23,11 +24,11 @@ public class DateUtil {
 	private static final String PATTERN_DATE_TIME_COMPACT = "yyyyMMddHHmmss";
 
 	public static Date parseDate(String str) {
-		return parse(str, PATTERN_DATE);
+		return Date.from(LocalDate.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE)).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	public static Date parseDateCompact(String str) {
-		return parse(str, PATTERN_DATE_COMPACT);
+		return Date.from(LocalDate.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE_COMPACT)).atStartOfDay().atZone(ZoneId.systemDefault()).toInstant());
 	}
 
 	public static Date parseDatetime(String str) {
@@ -60,6 +61,26 @@ public class DateUtil {
 
 	public static String format(Date date, String pattern) {
 		return date == null ? null : DateTimeFormatter.ofPattern(pattern).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault()));
+	}
+
+	public static String formatDate(LocalDate localDate) {
+		return format(localDate, PATTERN_DATE);
+	}
+
+	public static String formatDateCompact(LocalDate localDate) {
+		return format(localDate, PATTERN_DATE_COMPACT);
+	}
+
+	public static String formatDatetime(LocalDateTime localDateTime) {
+		return format(localDateTime, PATTERN_DATE_TIME);
+	}
+
+	public static String formatDatetimeCompact(LocalDateTime localDateTime) {
+		return format(localDateTime, PATTERN_DATE_TIME_COMPACT);
+	}
+
+	public static String format(TemporalAccessor temporal, String pattern) {
+		return temporal == null ? null : DateTimeFormatter.ofPattern(pattern).format(temporal);
 	}
 
 	public static Date removeHMS(Date date) {
