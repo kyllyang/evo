@@ -16,6 +16,13 @@ import java.util.Map;
  * Date: 2018-07-15 15:43
  */
 public class BaseHelper {
+	public static <T> PageList<T> emptyPage() {
+		PageList<T> pageList = new PageList<>();
+		pageList.setPageSize(1);
+		pageList.setTotalRecord(0);
+		return pageList;
+	}
+
 	public static <T> void copyPage(PageList<T> pageList, int total, PageDto condition) {
 		pageList.setTotalRecord(total);
 		pageList.setPageNo(condition.getPageNo());
