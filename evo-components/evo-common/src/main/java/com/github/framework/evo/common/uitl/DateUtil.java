@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.Period;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -225,7 +226,7 @@ public class DateUtil {
 	}
 
 	public static long dateIntervalDays(String startDate, String endDate) {
-		return Duration.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).toDays();
+		return Period.between(LocalDate.parse(startDate), LocalDate.parse(endDate)).getDays();
 	}
 
 	public static long dateTimeIntervalNanos(String startDateTime, String endDateTime) {
