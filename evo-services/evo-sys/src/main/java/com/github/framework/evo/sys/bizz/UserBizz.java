@@ -2,6 +2,9 @@ package com.github.framework.evo.sys.bizz;
 
 import com.github.framework.evo.base.assist.BaseHelper;
 import com.github.framework.evo.base.bizz.BaseXmlBizz;
+import com.github.framework.evo.base.session.SessionHolder;
+import com.github.framework.evo.common.exception.UserContextNotExistException;
+import com.github.framework.evo.common.model.UserContext;
 import com.github.framework.evo.common.uitl.ArrayUtil;
 import com.github.framework.evo.common.uitl.DateUtil;
 import com.github.framework.evo.common.uitl.StringUtil;
@@ -32,6 +35,14 @@ public class UserBizz extends BaseXmlBizz<UserDao, User, Long, UserDto> {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private RoleBizz roleBizz;
+
+	public UserDto getInfo() {
+		UserContext userContext = SessionHolder.getUserContext();
+		if (userContext == null) {
+			throw new UserContextNotExistException();
+		}
+		return getWithRole(userContext.getId(Long.class));
+	}
 
 	public UserDto getWithRole(Long id) {
 		UserDto userDto = super.get(id);

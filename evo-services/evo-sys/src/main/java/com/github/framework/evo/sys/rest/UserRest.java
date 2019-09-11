@@ -24,6 +24,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/user")
 @RestController
 public class UserRest extends BaseRest<UserBizz, Long, UserDto, UserCondition> {
+	@GetMapping("/info")
+	public UserDto getInfo() {
+		return bizz.getInfo();
+	}
+
 	@GetMapping("/id/{id}/role")
 	public UserDto getWithRole(@PathVariable Long id) {
 		return bizz.getWithRole(id);

@@ -228,10 +228,6 @@ public class DateUtil {
 		return Math.abs(LocalDate.parse(startDate).toEpochDay() - LocalDate.parse(endDate).toEpochDay());
 	}
 
-	public static void main(String[] args) {
-		System.out.println(dateIntervalDays("2019-01-01", "2019-03-31"));
-	}
-
 	public static long dateTimeIntervalNanos(String startDateTime, String endDateTime) {
 		return Duration.between(LocalDateTime.parse(startDateTime), LocalDateTime.parse(endDateTime)).toNanos();
 	}
