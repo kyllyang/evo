@@ -17,8 +17,8 @@ public class NodeDto {
 	private String hostname;
 	private String architecture;
 	private String os;
-	private String nanoCPUs;
-	private String memoryBytes;
+	private Long nanoCPUs;
+	private Long memoryBytes;
 	private String engineVersion;
 	private String state;
 	private String addr;
