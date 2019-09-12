@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Date: 2018-05-17 15:23
  */
 @Slf4j
-@RestController
+@RestController("/sms")
 public class SmsRest implements SmsApi {
 	@Autowired
 	private SmsBizz smsBizz;
