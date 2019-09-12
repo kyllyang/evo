@@ -18,6 +18,11 @@ public class MessageRest implements MessageApi {
 	private MessageBizz messageBizz;
 
 	@Override
+	public Integer countUnread() {
+		return 0;
+	}
+
+	@Override
 	public void send(MessageDto messageDto) {
 		messageBizz.send(messageDto);
 	}

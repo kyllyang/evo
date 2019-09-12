@@ -1,7 +1,8 @@
 insert into sys_micro values ('1', '数据字典服务', 'evo-datadict', '/datadict', '1', now(), '1', now());
-insert into sys_micro values ('2', '基础服务', 'evo-sys', '/sys', '1', now(), '1', now());
-insert into sys_micro values ('3', '示例服务', 'evo-sample', '/sample', '1', now(), '1', now());
-insert into sys_micro values ('4', '管控服务', 'evo-controller', '/controller', '1', now(), '1', now());
+insert into sys_micro values ('2', '通信服务', 'evo-communication', '/communication', '1', now(), '1', now());
+insert into sys_micro values ('3', '管控服务', 'evo-controller', '/controller', '1', now(), '1', now());
+insert into sys_micro values ('4', '示例服务', 'evo-sample', '/sample', '1', now(), '1', now());
+insert into sys_micro values ('5', '基础服务', 'evo-sys', '/sys', '1', now(), '1', now());
 
 insert into sys_func values ('1', '1', null, null, 'GET', '/**/*', '1', now(), '1', now());
 insert into sys_func values ('2', '1', null, null, 'POST', '/**/*', '1', now(), '1', now());
@@ -19,6 +20,10 @@ insert into sys_func values ('13', '4', null, null, 'GET', '/**/*', '1', now(), 
 insert into sys_func values ('14', '4', null, null, 'POST', '/**/*', '1', now(), '1', now());
 insert into sys_func values ('15', '4', null, null, 'PUT', '/**/*', '1', now(), '1', now());
 insert into sys_func values ('16', '4', null, null, 'DELETE', '/**/*', '1', now(), '1', now());
+insert into sys_func values ('17', '5', null, null, 'GET', '/**/*', '1', now(), '1', now());
+insert into sys_func values ('18', '5', null, null, 'POST', '/**/*', '1', now(), '1', now());
+insert into sys_func values ('19', '5', null, null, 'PUT', '/**/*', '1', now(), '1', now());
+insert into sys_func values ('20', '5', null, null, 'DELETE', '/**/*', '1', now(), '1', now());
 
 insert into sys_role values ('1', '管理员', 'EVO_ADMIN', '1', now(), '1', now());
 
@@ -38,6 +43,10 @@ insert into sys_role_func values (1, 13);
 insert into sys_role_func values (1, 14);
 insert into sys_role_func values (1, 15);
 insert into sys_role_func values (1, 16);
+insert into sys_role_func values (1, 17);
+insert into sys_role_func values (1, 18);
+insert into sys_role_func values (1, 19);
+insert into sys_role_func values (1, 20);
 
 insert into sys_user values ('1', 'admin', '$2a$08$pdWJYgAsN6/3GT/I5zeSbeKChDXrNH/DrM5QkB1nSopsS8K0F1xIS', '管理员', 'EVO_ADMIN', 'admin@evo.com', '18643100000', 'YN000000', null, null, null, null, '1', now(), '1', now());
 
