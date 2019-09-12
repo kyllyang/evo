@@ -5,6 +5,7 @@ import com.github.framework.evo.communication.bizz.MailBizz;
 import com.github.framework.evo.communication.dto.MailDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -12,7 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
  * Date: 2019-09-12 08:32
  */
 @Slf4j
-@RestController("/mail")
+@RequestMapping("/mail")
+@RestController
 public class MailRest implements MailApi {
 	@Autowired
 	private MailBizz mailBizz;
