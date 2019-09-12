@@ -21,6 +21,7 @@ public class DockerSwarmApi extends RestTemplateApi {
 	private static final String LIST_SERVICES_PATH = "/services";
 	private static final String INSPECT_SERVICE_PATH = "/services/{id}";
 	private static final String UPDATE_SERVICE_PATH = "/services/{id}/update?version={version}";
+	private static final String LIST_TASKS_PATH = "/tasks";
 
 	@PostConstruct
 	public void init() {
@@ -49,5 +50,9 @@ public class DockerSwarmApi extends RestTemplateApi {
 
 	public String updateService(String id, String version, JsonNode serviceNode) {
 		return exchange(url + UPDATE_SERVICE_PATH.replace("{id}", id).replace("{version}", version), HttpMethod.POST, serviceNode.toString());
+	}
+
+	public String listTasks() {
+		return exchange(url + LIST_TASKS_PATH, HttpMethod.GET);
 	}
 }

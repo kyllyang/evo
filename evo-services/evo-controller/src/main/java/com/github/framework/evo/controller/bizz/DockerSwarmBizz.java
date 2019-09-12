@@ -12,6 +12,7 @@ import com.github.framework.evo.controller.model.dockerswarm.NodeDto;
 import com.github.framework.evo.controller.model.dockerswarm.PortDto;
 import com.github.framework.evo.controller.model.dockerswarm.ServiceDto;
 import com.github.framework.evo.controller.model.dockerswarm.SwarmDto;
+import com.github.framework.evo.controller.model.dockerswarm.TaskDto;
 import com.github.framework.evo.controller.model.dockerswarm.VirtualIPDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -120,6 +121,26 @@ public class DockerSwarmBizz {
 		});
 
 		dockerSwarmApi.updateService(serviceDto.getId(), serviceDto.getVersionIndex().toString(), serviceNode);
+	}
+
+	public List<TaskDto> listTasks() {
+		JsonNode jsonNode = JsonUtil.jsonToNode(dockerSwarmApi.listTasks());
+
+		List<TaskDto> taskDtoList = new ArrayList<>();
+		jsonNode.forEach(taskJsonNode -> taskDtoList.add(toTaskDto(taskJsonNode)));
+
+		taskDtoList.sort((o1, o2) -> {
+			if (o1.getImage().equals(o2.getImage())) {
+				return 0;
+			}
+
+			Set<String> set = new TreeSet<>();
+			set.add(o1.getImage());
+			set.add(o2.getImage());
+			return set.toArray(new String[0])[0].equals(o1.getImage()) ? -1 : 1;
+		});
+
+		return taskDtoList;
 	}
 
 	private NodeDto toNodeDto(JsonNode nodeJsonNode) {
@@ -236,5 +257,34 @@ public class DockerSwarmBizz {
 		virtualIPDto.setAddr(virtualIPJsonNode.get("Addr").textValue());
 
 		return virtualIPDto;
+	}
+
+	private TaskDto toTaskDto(JsonNode taskJsonNode) {
+		TaskDto taskDto = new TaskDto();
+
+		taskDto.setId(taskJsonNode.get("ID").textValue());
+		taskDto.setVersionIndex(taskJsonNode.get("Version").get("Index").intValue());
+		taskDto.setCreatedAt(taskJsonNode.get("CreatedAt").textValue());
+		taskDto.setUpdatedAt(taskJsonNode.get("UpdatedAt").textValue());
+
+		JsonNode specJsonNode = taskJsonNode.get("Spec");
+
+		JsonNode containerSpecJsonNode = specJsonNode.get("ContainerSpec");
+		taskDto.setImage(containerSpecJsonNode.get("Image").textValue());
+
+		taskDto.setServiceId(taskJsonNode.get("ServiceID").textValue());
+		taskDto.setNodeId(taskJsonNode.get("NodeID").textValue());
+
+		JsonNode statusJsonNode = taskJsonNode.get("Status");
+		taskDto.setState(statusJsonNode.get("State").textValue());
+		taskDto.setMessage(statusJsonNode.get("Message").textValue());
+
+		JsonNode containerStatusJsonNode = statusJsonNode.get("ContainerStatus");
+		taskDto.setContainerId(containerStatusJsonNode.get("ContainerID").textValue());
+		taskDto.setPid(containerStatusJsonNode.get("PID").intValue());
+
+		taskDto.setDesiredState(taskJsonNode.get("DesiredState").textValue());
+
+		return taskDto;
 	}
 }

@@ -55,4 +55,9 @@ public class DockerSwarmRest {
 	public void updateService(@PathVariable String id, @RequestParam int replicas) {
 		dockerSwarmBizz.updateService(id, replicas);
 	}
+
+	@GetMapping("/tasks")
+	public void listTasks() {
+		dockerSwarmBizz.listTasks();
+	}
 }
