@@ -4,6 +4,7 @@ import com.github.framework.evo.controller.bizz.DockerSwarmBizz;
 import com.github.framework.evo.controller.model.dockerswarm.NodeDto;
 import com.github.framework.evo.controller.model.dockerswarm.ServiceDto;
 import com.github.framework.evo.controller.model.dockerswarm.SwarmDto;
+import com.github.framework.evo.controller.model.dockerswarm.TaskDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -57,7 +58,7 @@ public class DockerSwarmRest {
 	}
 
 	@GetMapping("/tasks")
-	public void listTasks() {
-		dockerSwarmBizz.listTasks();
+	public List<TaskDto> listTasks() {
+		return dockerSwarmBizz.listTasks();
 	}
 }
