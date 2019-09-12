@@ -74,6 +74,17 @@ public class DockerSwarmBizz {
 		List<ServiceDto> serviceDtoList = new ArrayList<>();
 		jsonNode.forEach(serviceJsonNode -> serviceDtoList.add(toServiceDto(serviceJsonNode)));
 
+		serviceDtoList.sort((o1, o2) -> {
+			if (o1.getName().equals(o2.getName())) {
+				return 0;
+			}
+
+			Set<String> set = new TreeSet<>();
+			set.add(o1.getName());
+			set.add(o2.getName());
+			return set.toArray(new String[0])[0].equals(o1.getName()) ? -1 : 1;
+		});
+
 		return serviceDtoList;
 	}
 
