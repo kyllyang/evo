@@ -13,7 +13,7 @@ public class NodeDto {
 	private String createdAt;
 	private String updatedAt;
 	private String role;
-	private Boolean availability;
+	private String availability;
 	private String hostname;
 	private String architecture;
 	private String os;

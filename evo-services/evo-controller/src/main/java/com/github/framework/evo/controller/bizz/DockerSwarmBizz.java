@@ -108,7 +108,7 @@ public class DockerSwarmBizz {
 
 		JsonNode specJsonNode = nodeJsonNode.get("Spec");
 		nodeDto.setRole(specJsonNode.get("Role").textValue());
-		nodeDto.setAvailability(specJsonNode.get("Availability").booleanValue());
+		nodeDto.setAvailability(specJsonNode.get("Availability").textValue());
 
 		JsonNode descriptionJsonNode = nodeJsonNode.get("Description");
 		nodeDto.setHostname(descriptionJsonNode.get("Hostname").textValue());
@@ -120,6 +120,8 @@ public class DockerSwarmBizz {
 		JsonNode resourcesJsonNode = descriptionJsonNode.get("Resources");
 		nodeDto.setNanoCPUs(resourcesJsonNode.get("NanoCPUs").textValue());
 		nodeDto.setMemoryBytes(resourcesJsonNode.get("MemoryBytes").textValue());
+		log.info("NanoCPUs: " + resourcesJsonNode.get("NanoCPUs").intValue());
+		log.info("MemoryBytes: " + resourcesJsonNode.get("MemoryBytes").intValue());
 
 		JsonNode engineJsonNode = descriptionJsonNode.get("Engine");
 		nodeDto.setEngineVersion(engineJsonNode.get("EngineVersion").textValue());
