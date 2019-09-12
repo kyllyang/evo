@@ -120,8 +120,8 @@ public class DockerSwarmBizz {
 		JsonNode resourcesJsonNode = descriptionJsonNode.get("Resources");
 		nodeDto.setNanoCPUs(resourcesJsonNode.get("NanoCPUs").textValue());
 		nodeDto.setMemoryBytes(resourcesJsonNode.get("MemoryBytes").textValue());
-		log.info("NanoCPUs: " + resourcesJsonNode.get("NanoCPUs").intValue());
-		log.info("MemoryBytes: " + resourcesJsonNode.get("MemoryBytes").intValue());
+		log.info("NanoCPUs: " + resourcesJsonNode.get("NanoCPUs").longValue());
+		log.info("MemoryBytes: " + resourcesJsonNode.get("MemoryBytes").longValue());
 
 		JsonNode engineJsonNode = descriptionJsonNode.get("Engine");
 		nodeDto.setEngineVersion(engineJsonNode.get("EngineVersion").textValue());
