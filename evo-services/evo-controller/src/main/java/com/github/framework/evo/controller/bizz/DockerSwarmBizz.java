@@ -174,7 +174,13 @@ public class DockerSwarmBizz {
 		}
 		serviceDto.setMountDtoList(mountDtoList);
 
-		serviceDto.setReplicas(specJsonNode.get("Mode").get("Replicated").get("Replicas").intValue());
+		JsonNode modeJsonNode = specJsonNode.get("Mode");
+		if (modeJsonNode.has("Replicated")) {
+			serviceDto.setMode("Replicated");
+			serviceDto.setReplicas(modeJsonNode.get("Replicated").get("Replicas").intValue());
+		} else if (modeJsonNode.has("Global")) {
+			serviceDto.setMode("Global");
+		}
 
 		JsonNode endpointJsonNode = serviceJsonNode.get("Endpoint");
 		List<PortDto> portDtoList = new ArrayList<>();

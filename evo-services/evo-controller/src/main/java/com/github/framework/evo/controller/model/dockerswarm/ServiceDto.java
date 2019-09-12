@@ -17,6 +17,7 @@ public class ServiceDto {
 	private String name;
 	private String image;
 	private List<MountDto> mountDtoList;
+	private String mode;
 	private Integer replicas;
 	private List<PortDto> portDtoList;
 	private List<VirtualIPDto> virtualIPDtoList;
