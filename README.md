@@ -9,7 +9,7 @@
 20100 ~ 20104 evo-sys # 用户、角色、功能、模块<br/>
 20105 ~ 20109 evo-auth # 认证服务，自定义token<br/>
 20110 ~ 20114 evo-oauth2 # 认证服务，Spring Security<br/>
-20115 ~ 20119 evo-sms # 短信服务
+20115 ~ 20119 evo-communication # 通信服务（短信、邮件、站内消息）
 20120 ~ 20124 evo-datadict # 数据字典<br/>
 20125 ~ 20129 evo-activiti # 工作流 Activiti<br/>
 20130 ~ 20134 evo-flowable # 工作流 Flowable<br/>

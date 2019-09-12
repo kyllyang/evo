@@ -309,7 +309,7 @@
 			</dependency>
 			<dependency>
 				<groupId>com.github.framework</groupId>
-				<artifactId>evo-sms-api</artifactId>
+				<artifactId>evo-communication-api</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>

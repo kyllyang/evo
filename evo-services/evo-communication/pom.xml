@@ -9,16 +9,12 @@
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>evo-auth</artifactId>
+	<artifactId>evo-communication</artifactId>
 
 	<dependencies>
 		<dependency>
 			<groupId>com.github.framework</groupId>
-			<artifactId>evo-base-data-redis-spring-boot-starter</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.github.framework</groupId>
-			<artifactId>evo-auth-common</artifactId>
+			<artifactId>evo-base-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>com.github.framework</groupId>
