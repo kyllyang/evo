@@ -183,13 +183,16 @@ public class DockerSwarmBizz {
 		}
 
 		JsonNode endpointJsonNode = serviceJsonNode.get("Endpoint");
-		List<PortDto> portDtoList = new ArrayList<>();
-		endpointJsonNode.get("Ports").forEach(portJsonNode -> portDtoList.add(toPortDto(portJsonNode)));
-		serviceDto.setPortDtoList(portDtoList);
-
-		List<VirtualIPDto> virtualIPDtoList = new ArrayList<>();
-		endpointJsonNode.get("VirtualIPs").forEach(virtualIPJsonNode -> virtualIPDtoList.add(toVirtualIPDto(virtualIPJsonNode)));
-		serviceDto.setVirtualIPDtoList(virtualIPDtoList);
+		if (endpointJsonNode.has("Ports")) {
+			List<PortDto> portDtoList = new ArrayList<>();
+			endpointJsonNode.get("Ports").forEach(portJsonNode -> portDtoList.add(toPortDto(portJsonNode)));
+			serviceDto.setPortDtoList(portDtoList);
+		}
+		if (endpointJsonNode.has("VirtualIPs")) {
+			List<VirtualIPDto> virtualIPDtoList = new ArrayList<>();
+			endpointJsonNode.get("VirtualIPs").forEach(virtualIPJsonNode -> virtualIPDtoList.add(toVirtualIPDto(virtualIPJsonNode)));
+			serviceDto.setVirtualIPDtoList(virtualIPDtoList);
+		}
 
 		return serviceDto;
 	}
