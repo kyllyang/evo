@@ -19,6 +19,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * User: Kyll
@@ -47,6 +49,17 @@ public class DockerSwarmBizz {
 
 		List<NodeDto> nodeDtoList = new ArrayList<>();
 		jsonNode.forEach(nodeJsonNode -> nodeDtoList.add(toNodeDto(nodeJsonNode)));
+
+		nodeDtoList.sort((o1, o2) -> {
+			if (o1.getAddr().equals(o2.getAddr())) {
+				return 0;
+			}
+
+			Set<String> set = new TreeSet<>();
+			set.add(o1.getAddr());
+			set.add(o2.getAddr());
+			return set.toArray(new String[0])[0].equals(o1.getAddr()) ? -1 : 1;
+		});
 
 		return nodeDtoList;
 	}
