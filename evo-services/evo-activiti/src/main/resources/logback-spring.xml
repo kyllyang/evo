@@ -56,7 +56,8 @@
 						"class": "%logger",
 						"method": "%M",
 						"linenumber": "%L",
-						"rest": "%message"
+						"rest": "%message",
+						"stacktrace": "%exception{50}"
 						}
 					</pattern>
 				</pattern>
