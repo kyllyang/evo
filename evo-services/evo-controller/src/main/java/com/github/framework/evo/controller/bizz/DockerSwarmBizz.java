@@ -19,7 +19,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -139,6 +141,17 @@ public class DockerSwarmBizz {
 			set.add(o2.getImage());
 			return set.toArray(new String[0])[0].equals(o1.getImage()) ? -1 : 1;
 		});
+
+		Map<String, ServiceDto> serviceDtoMap = new HashMap<>();
+		Map<String, NodeDto> nodeDtoMap = new HashMap<>();
+
+		for (TaskDto taskDto : taskDtoList) {
+			String serviceId = taskDto.getServiceId();
+			taskDto.setService(serviceDtoMap.computeIfAbsent(serviceId, k -> inspectService(serviceId)));
+
+			String nodeId = taskDto.getNodeId();
+			taskDto.setNode(nodeDtoMap.computeIfAbsent(nodeId, k -> inspectNode(nodeId)));
+		}
 
 		return taskDtoList;
 	}

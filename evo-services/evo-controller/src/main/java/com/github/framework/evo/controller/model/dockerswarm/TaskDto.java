@@ -20,4 +20,7 @@ public class TaskDto {
 	private String containerId;
 	private Integer pid;
 	private String desiredState;
+
+	private ServiceDto service;
+	private NodeDto node;
 }
