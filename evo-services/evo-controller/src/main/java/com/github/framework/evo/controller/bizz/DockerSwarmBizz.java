@@ -129,9 +129,6 @@ public class DockerSwarmBizz {
 	}
 
 	public List<TaskDto> listTasks() {
-		long start = System.currentTimeMillis();
-		log.info("开始");
-
 		JsonNode jsonNode = JsonUtil.jsonToNode(dockerSwarmApi.listTasks());
 
 		List<TaskDto> taskDtoList = new ArrayList<>();
@@ -172,7 +169,6 @@ public class DockerSwarmBizz {
 			throw new BusinessException(SR.RC.CONTROLLER_TASKS, e);
 		}
 
-		log.info("结束 {}", System.currentTimeMillis() - start);
 		return taskDtoList;
 	}
 
