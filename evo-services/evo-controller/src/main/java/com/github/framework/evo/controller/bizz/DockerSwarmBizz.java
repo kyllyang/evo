@@ -4,6 +4,8 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.framework.evo.autoconfigure.controller.ControllerProperties;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.uitl.JsonUtil;
 import com.github.framework.evo.controller.api.DockerSwarmApi;
 import com.github.framework.evo.controller.model.dockerswarm.ManagerStatusDto;
@@ -24,6 +26,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * User: Kyll
@@ -148,12 +151,25 @@ public class DockerSwarmBizz {
 		Map<String, ServiceDto> serviceDtoMap = new HashMap<>();
 		Map<String, NodeDto> nodeDtoMap = new HashMap<>();
 
+		CountDownLatch countDownLatch = new CountDownLatch(taskDtoList.size() * 2);
 		for (TaskDto taskDto : taskDtoList) {
-			String serviceId = taskDto.getServiceId();
-			taskDto.setService(serviceDtoMap.computeIfAbsent(serviceId, k -> inspectService(serviceId)));
+			new Thread(() -> {
+				String serviceId = taskDto.getServiceId();
+				taskDto.setService(serviceDtoMap.computeIfAbsent(serviceId, k -> inspectService(serviceId)));
+				countDownLatch.countDown();
+			}).start();
 
-			String nodeId = taskDto.getNodeId();
-			taskDto.setNode(nodeDtoMap.computeIfAbsent(nodeId, k -> inspectNode(nodeId)));
+			new Thread(() -> {
+				String nodeId = taskDto.getNodeId();
+				taskDto.setNode(nodeDtoMap.computeIfAbsent(nodeId, k -> inspectNode(nodeId)));
+				countDownLatch.countDown();
+			}).start();
+		}
+
+		try {
+			countDownLatch.await();
+		} catch (InterruptedException e) {
+			throw new BusinessException(SR.RC.CONTROLLER_TASKS, e);
 		}
 
 		log.info("结束 {}", System.currentTimeMillis() - start);

@@ -28,6 +28,8 @@ public class SR {
 		MESSAGE_MAP.put(RC.AUTH_VERIFY_CODE_SEND, "向[%s]发送验证码[%s]失败");
 		MESSAGE_MAP.put(RC.AUTH_LOGOUT, "用户登出失败");
 		MESSAGE_MAP.put(RC.AUTH_ACCESS_TOKEN_INVALID, "访问令牌无效");
+
+		MESSAGE_MAP.put(RC.CONTROLLER_TASKS, "获取Docker Swarm Task失败");
 	}
 
 	public static String getMessage(RC rc, Object... args) {
@@ -50,7 +52,9 @@ public class SR {
 		AUTH_VERIFY_CODE_INVALID("AUTH-0006"),
 		AUTH_VERIFY_CODE_SEND("AUTH-0007"),
 		AUTH_LOGOUT("AUTH-0008"),
-		AUTH_ACCESS_TOKEN_INVALID("AUTH-0009");
+		AUTH_ACCESS_TOKEN_INVALID("AUTH-0009"),
+
+		CONTROLLER_TASKS("CONTROLLER-0001");
 
 		private String code;
 

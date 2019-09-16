@@ -18,6 +18,10 @@ public class BusinessException extends BaseException {
 		this(rc.getCode(), SR.getMessage(rc, args), null, null);
 	}
 
+	public BusinessException(SR.RC rc, Throwable throwable, Object... args) {
+		this(rc.getCode(), SR.getMessage(rc, args), null, throwable);
+	}
+
 	public BusinessException(String message) {
 		this(null, message, null, null);
 	}
