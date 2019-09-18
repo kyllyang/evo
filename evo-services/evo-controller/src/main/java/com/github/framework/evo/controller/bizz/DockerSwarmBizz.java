@@ -118,7 +118,7 @@ public class DockerSwarmBizz {
 		ObjectNode networkNode = networksNode.addObject();
 		networkNode.put("Target", controllerProperties.getDockerSwarm().getNetwork().getName());
 		ArrayNode portsNode = serviceNode.putObject("EndpointSpec").putArray("Ports");
-		serviceDto.getPortDtoList().forEach(portDto -> {
+		serviceDto.getPortList().forEach(portDto -> {
 			ObjectNode portNode = portsNode.addObject();
 			portNode.put("Protocol", portDto.getProtocol());
 			portNode.put("PublishedPort", portDto.getPublishedPort());
@@ -209,7 +209,7 @@ public class DockerSwarmBizz {
 			managerStatusDto.setLeader(managerStatusJsonNode.get("Leader").booleanValue());
 			managerStatusDto.setReachability(managerStatusJsonNode.get("Reachability").textValue());
 			managerStatusDto.setAddr(managerStatusJsonNode.get("Addr").textValue());
-			nodeDto.setManagerStatusDto(managerStatusDto);
+			nodeDto.setManagerStatus(managerStatusDto);
 		}
 
 		return nodeDto;
@@ -247,12 +247,12 @@ public class DockerSwarmBizz {
 		if (endpointJsonNode.has("Ports")) {
 			List<PortDto> portDtoList = new ArrayList<>();
 			endpointJsonNode.get("Ports").forEach(portJsonNode -> portDtoList.add(toPortDto(portJsonNode)));
-			serviceDto.setPortDtoList(portDtoList);
+			serviceDto.setPortList(portDtoList);
 		}
 		if (endpointJsonNode.has("VirtualIPs")) {
 			List<VirtualIPDto> virtualIPDtoList = new ArrayList<>();
 			endpointJsonNode.get("VirtualIPs").forEach(virtualIPJsonNode -> virtualIPDtoList.add(toVirtualIPDto(virtualIPJsonNode)));
-			serviceDto.setVirtualIPDtoList(virtualIPDtoList);
+			serviceDto.setVirtualIPList(virtualIPDtoList);
 		}
 
 		return serviceDto;
