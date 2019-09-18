@@ -27,12 +27,12 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.netflix.eureka.registry" level="WARN" additivity="false">
+	<!--<logger name="com.netflix.eureka.registry" level="WARN" additivity="false">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
-	</logger>
+	</logger>-->
 
-	<root level="INFO">
+	<root level="DEBUG">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
 	</root>
