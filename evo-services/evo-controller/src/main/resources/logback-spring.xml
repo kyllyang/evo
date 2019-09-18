@@ -65,6 +65,12 @@
 		</encoder>
 	</appender>
 
+	<logger name="feign" level="DEBUG" additivity="false">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="ROLLINGFILE"/>
+		<appender-ref ref="JSONFILE"/>
+	</logger>
+
 	<logger name="com.github.framework.evo" level="DEBUG" additivity="false">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
