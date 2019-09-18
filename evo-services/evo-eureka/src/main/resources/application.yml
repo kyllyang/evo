@@ -15,7 +15,7 @@ eureka:
     lease-renewal-interval-in-seconds: 5 # 心跳间隔
     instance-id: ${spring.cloud.client.ip-address}:${spring.application.name}:${server.port}
   client:
-    register-with-eureka: false
+    register-with-eureka: true # 注册自己，共controller服务调用
     fetch-registry: false
     service-url:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
