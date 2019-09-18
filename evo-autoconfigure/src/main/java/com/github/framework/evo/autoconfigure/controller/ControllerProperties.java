@@ -12,6 +12,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class ControllerProperties {
 	private DockerSwarm dockerSwarm = new DockerSwarm();
 	private Config config = new Config();
+	private Eureka eureka = new Eureka();
 
 	@Data
 	public static class DockerSwarm {
@@ -33,6 +34,14 @@ public class ControllerProperties {
 			 */
 			private String name = "evo-overlay";
 		}
+	}
+
+	@Data
+	public static class Eureka {
+		/**
+		 * 注册中心的 Spring Application Name
+		 */
+		private String serviceId = "evo-eureka";
 	}
 
 	@Data

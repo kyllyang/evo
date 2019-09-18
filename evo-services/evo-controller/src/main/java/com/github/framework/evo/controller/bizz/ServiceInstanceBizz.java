@@ -1,7 +1,5 @@
 package com.github.framework.evo.controller.bizz;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.github.framework.evo.common.uitl.JsonUtil;
 import com.github.framework.evo.controller.api.EurekaApi;
 import com.github.framework.evo.controller.api.ServiceInstanceApi;
 import com.github.framework.evo.controller.model.ServiceInstanceDto;
@@ -11,9 +9,7 @@ import org.springframework.cloud.netflix.eureka.EurekaClientConfigBean;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * User: Kyll
@@ -31,7 +27,7 @@ public class ServiceInstanceBizz {
 
 	public List<ServiceInstanceDto> find() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
-		for (String serverUrl : findServerUrl()) {
+		/*for (String serverUrl : findServerUrl()) {
 			JsonNode applicationsJN = JsonUtil.jsonToNode(eurekaApi.instances(serverUrl)).get("applications");
 			applicationsJN.withArray("application").forEach(applicationJN -> {
 				String name = applicationJN.get("name").textValue();
@@ -73,7 +69,7 @@ public class ServiceInstanceBizz {
 					serviceInstanceDtoList.add(serviceInstanceDto);
 				});
 			});
-		}
+		}*/
 		return serviceInstanceDtoList;
 	}
 
@@ -88,13 +84,13 @@ public class ServiceInstanceBizz {
 
 	public void online(String serviceId, String instanceId) {
 		for (String serverUrl : findServerUrl()) {
-			eurekaApi.backIntoService(serverUrl, serviceId, instanceId);
+		//	eurekaApi.backIntoService(serverUrl, serviceId, instanceId);
 		}
 	}
 
 	public void offline(String serviceId, String instanceId) {
 		for (String serverUrl : findServerUrl()) {
-			eurekaApi.outOfService(serverUrl, serviceId, instanceId);
+		//	eurekaApi.outOfService(serverUrl, serviceId, instanceId);
 		}
 	}
 

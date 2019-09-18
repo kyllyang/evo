@@ -38,6 +38,7 @@ insert into config_property values (null, 'master', 'evo', 'default', 'evo.sessi
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.controller.docker-swarm.host', '10.20.196.19', 'Docker Swarm Http REST API host [Default localhost]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.controller.docker-swarm.port', '2375', 'Docker Swarm Http REST API port [Default 2375]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.controller.docker-swarm.network.name', 'evo-overlay', 'Overlay网络名称 [Default evo-overlay]', '1', now(), '1', now());
+insert into config_property values (null, 'master', 'evo', 'default', 'evo.controller.eureka.service-id', 'evo-eureka', '注册中心的 Spring Application Name [Default evo-eureka]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.controller.config.service-id', 'evo-config', '配置中心的 Spring Application Name [Default evo-config]', '1', now(), '1', now());
 # datasource
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.framework.datasource.url', 'jdbc:mysql://192.168.18.134:3306/evo_framework?useUnicode=true&characterEncoding=UTF8&useSSL=false&allowPublicKeyRetrieval=true', null, '1', now(), '1', now());
