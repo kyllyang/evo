@@ -19,6 +19,6 @@ public class ServiceDto {
 	private List<MountDto> mountDtoList;
 	private String mode;
 	private Integer replicas;
-	private List<PortDto> portDtoList;
-	private List<VirtualIPDto> virtualIPDtoList;
+	private List<PortDto> portList;
+	private List<VirtualIPDto> virtualIPList;
 }

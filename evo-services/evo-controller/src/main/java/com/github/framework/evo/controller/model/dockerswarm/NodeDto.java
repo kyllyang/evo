@@ -22,5 +22,5 @@ public class NodeDto {
 	private String engineVersion;
 	private String state;
 	private String addr;
-	private ManagerStatusDto managerStatusDto;
+	private ManagerStatusDto managerStatus;
 }
