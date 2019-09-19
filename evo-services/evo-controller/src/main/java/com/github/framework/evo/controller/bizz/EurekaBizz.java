@@ -23,7 +23,7 @@ public class EurekaBizz {
 	@Autowired
 	private EurekaApi eurekaApi;
 
-	public List<ServiceInstanceDto> apps() {
+	public List<ServiceInstanceDto> listInstances() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
 		JsonNode applicationsJN = JsonUtil.jsonToNode(eurekaApi.apps()).get("applications");
 		applicationsJN.withArray("application").forEach(applicationJN -> {

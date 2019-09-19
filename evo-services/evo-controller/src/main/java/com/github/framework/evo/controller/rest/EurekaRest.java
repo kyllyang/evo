@@ -21,9 +21,9 @@ public class EurekaRest {
 	@Autowired
 	private EurekaBizz eurekaBizz;
 
-	@GetMapping("/services")
-	public void listServices() {
-		eurekaBizz.apps();
+	@GetMapping("/instances")
+	public void listInstances() {
+		eurekaBizz.listInstances();
 	}
 
 	@PutMapping("/online/{serviceId}/{instanceId}")
