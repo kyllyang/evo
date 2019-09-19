@@ -1,4 +1,4 @@
-package com.github.framework.evo.controller.model;
+package com.github.framework.evo.controller.model.eureka;
 
 import lombok.Data;
 
