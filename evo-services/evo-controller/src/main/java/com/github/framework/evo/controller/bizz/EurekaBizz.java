@@ -6,6 +6,7 @@ import com.github.framework.evo.controller.api.EurekaApi;
 import com.github.framework.evo.controller.model.eureka.ServiceInstanceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -25,11 +26,10 @@ public class EurekaBizz {
 
 	public List<ServiceInstanceDto> listInstances() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
-		Object object = eurekaApi.apps();
-		log.info("object: " + object);
-		log.info("object: " + object.getClass());
+		ResponseEntity<String> responseEntity = eurekaApi.apps();
+		log.info("object: " + responseEntity.getBody());
 
-		JsonNode applicationsJN = JsonUtil.jsonToNode(object.toString()).get("applications");
+		JsonNode applicationsJN = JsonUtil.jsonToNode(responseEntity.getBody()).get("applications");
 		applicationsJN.withArray("application").forEach(applicationJN -> {
 			String name = applicationJN.get("name").textValue();
 
