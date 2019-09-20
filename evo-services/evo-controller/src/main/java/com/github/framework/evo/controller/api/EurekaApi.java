@@ -1,6 +1,8 @@
 package com.github.framework.evo.controller.api;
 
+import feign.Headers;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "${evo.controller.eureka.service-id}", path = "/eureka")
 public interface EurekaApi {
 	@GetMapping("/apps")
-	Object apps();
+	@Headers("Accept-Type: " + MediaType.TEXT_PLAIN_VALUE)
+	String apps();
 
 	@PutMapping("/apps/{serviceId}/{instanceId}/status")
+
 	String outOfService(@PathVariable("serviceId") String serviceId, @PathVariable("instanceId") String instanceId, @RequestParam("value") String value);
 
 	@DeleteMapping("/apps/{serviceId}/{instanceId}/status")
