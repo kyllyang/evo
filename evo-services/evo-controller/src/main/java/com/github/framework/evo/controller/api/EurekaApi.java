@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Map;
+
 /**
  * User: Kyll
  * Date: 2019-05-23 10:48
@@ -14,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "${evo.controller.eureka.service-id}", path = "/eureka")
 public interface EurekaApi {
 	@GetMapping("/apps")
-	String apps();
+	Map apps();
 
 	@PutMapping("/apps/{serviceId}/{instanceId}/status")
 	String outOfService(@PathVariable("serviceId") String serviceId, @PathVariable("instanceId") String instanceId, @RequestParam("value") String value);

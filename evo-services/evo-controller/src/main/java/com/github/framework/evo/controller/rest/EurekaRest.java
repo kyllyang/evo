@@ -1,6 +1,7 @@
 package com.github.framework.evo.controller.rest;
 
 import com.github.framework.evo.controller.bizz.EurekaBizz;
+import com.github.framework.evo.controller.model.eureka.ServiceInstanceDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -9,6 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
 
 /**
  * User: Kyll
@@ -22,8 +25,8 @@ public class EurekaRest {
 	private EurekaBizz eurekaBizz;
 
 	@GetMapping("/instances")
-	public void listInstances() {
-		eurekaBizz.listInstances();
+	public List<ServiceInstanceDto> listInstances() {
+		return eurekaBizz.listInstances();
 	}
 
 	@PutMapping("/online/{serviceId}/{instanceId}")

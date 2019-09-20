@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.Map;
 
 /**
  * User: Kyll
@@ -59,6 +60,15 @@ public class JsonUtil {
 		} catch (IOException e) {
 			throw new JsonOperateException("读取 JSON 失败", e);
 		}
+	}
+
+	/**
+	 * 读取 Map 对象， 转换为节点树
+	 * @param map map 对象
+	 * @return JsonNode
+	 */
+	public static JsonNode jsonToNode(Map map) {
+		return mapper.valueToTree(map);
 	}
 
 	/**
