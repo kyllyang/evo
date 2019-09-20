@@ -26,10 +26,10 @@ public class EurekaBizz {
 
 	public List<ServiceInstanceDto> listInstances() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
-		ResponseEntity<String> responseEntity = eurekaApi.apps();
-		log.info("object: " + responseEntity.getBody());
+		ResponseEntity<byte[]> responseEntity = eurekaApi.apps();
+		log.info("object: " + new String(responseEntity.getBody()));
 
-		JsonNode applicationsJN = JsonUtil.jsonToNode(responseEntity.getBody()).get("applications");
+		JsonNode applicationsJN = JsonUtil.jsonToNode(new String(responseEntity.getBody())).get("applications");
 		applicationsJN.withArray("application").forEach(applicationJN -> {
 			String name = applicationJN.get("name").textValue();
 

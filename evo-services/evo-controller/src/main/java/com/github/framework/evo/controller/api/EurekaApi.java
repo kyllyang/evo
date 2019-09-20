@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "${evo.controller.eureka.service-id}", path = "/eureka")
 public interface EurekaApi {
 	@GetMapping("/apps")
-	ResponseEntity<String> apps();
+	ResponseEntity<byte[]> apps();
 
 	@PutMapping("/apps/{serviceId}/{instanceId}/status")
 
