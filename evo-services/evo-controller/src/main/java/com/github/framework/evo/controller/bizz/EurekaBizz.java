@@ -2,6 +2,7 @@ package com.github.framework.evo.controller.bizz;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.github.framework.evo.common.uitl.JsonUtil;
+import com.github.framework.evo.common.uitl.StringUtil;
 import com.github.framework.evo.controller.api.EurekaApi;
 import com.github.framework.evo.controller.model.eureka.ServiceInstanceDto;
 import lombok.extern.slf4j.Slf4j;
@@ -27,9 +28,9 @@ public class EurekaBizz {
 	public List<ServiceInstanceDto> listInstances() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
 		ResponseEntity<byte[]> responseEntity = eurekaApi.apps();
-		log.info("object123: " + new String(responseEntity.getBody()));
+		log.info("object123: " + StringUtil.ungzip(responseEntity.getBody()));
 
-		JsonNode applicationsJN = JsonUtil.jsonToNode(new String(responseEntity.getBody())).get("applications");
+		JsonNode applicationsJN = JsonUtil.jsonToNode(new String(StringUtil.ungzip(responseEntity.getBody()))).get("applications");
 		applicationsJN.withArray("application").forEach(applicationJN -> {
 			String name = applicationJN.get("name").textValue();
 

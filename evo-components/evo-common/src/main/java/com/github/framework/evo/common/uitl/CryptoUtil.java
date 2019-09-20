@@ -113,8 +113,4 @@ public class CryptoUtil {
 		}
 		return ivParameterSpec;
 	}
-
-	public static void main(String[] args) {
-		System.out.println(AlgorithmUtil.random(32));
-	}
 }

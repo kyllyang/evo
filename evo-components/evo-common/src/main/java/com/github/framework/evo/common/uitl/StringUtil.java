@@ -1,19 +1,25 @@
 package com.github.framework.evo.common.uitl;
 
 import com.github.framework.evo.common.exception.StringOperateException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.AntPathMatcher;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.GZIPInputStream;
 
 /**
  * User: Kyll
  * Date: 2018-02-09 14:59
  */
+@Slf4j
 public class StringUtil {
 	public static boolean isBlank(String str) {
 		return StringUtils.isBlank(str);
@@ -147,5 +153,40 @@ public class StringUtil {
 			pos = str.indexOf(c, pos + 1);
 		}
 		return strList.toArray(new String[0]);
+	}
+
+	public static byte[] ungzip(byte[] bytes) {
+		byte[] result = null;
+		ByteArrayOutputStream out = new ByteArrayOutputStream();
+		GZIPInputStream gzip = null;
+		try {
+			gzip = new GZIPInputStream(new ByteArrayInputStream(bytes));
+
+			byte[] buffer = new byte[1024];
+			int n;
+			while ((n = gzip.read(buffer)) >= 0) {
+				out.write(buffer, 0, n);
+			}
+
+			result = out.toByteArray();
+		} catch (IOException e) {
+			log.error("解压gzip错误", e);
+		} finally {
+			if (gzip != null) {
+				try {
+					gzip.close();
+				} catch (IOException e) {
+					log.error("关闭gzip流错误", e);
+				}
+			}
+
+			try {
+				out.close();
+			} catch (IOException e) {
+				log.error("关闭out流错误", e);
+			}
+		}
+
+		return result;
 	}
 }
