@@ -27,7 +27,7 @@ public class EurekaBizz {
 	public List<ServiceInstanceDto> listInstances() {
 		List<ServiceInstanceDto> serviceInstanceDtoList = new ArrayList<>();
 		ResponseEntity<byte[]> responseEntity = eurekaApi.apps();
-		log.info("object: " + new String(responseEntity.getBody()));
+		log.info("object123: " + new String(responseEntity.getBody()));
 
 		JsonNode applicationsJN = JsonUtil.jsonToNode(new String(responseEntity.getBody())).get("applications");
 		applicationsJN.withArray("application").forEach(applicationJN -> {
