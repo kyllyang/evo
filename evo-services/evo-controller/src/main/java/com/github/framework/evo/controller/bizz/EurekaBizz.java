@@ -14,6 +14,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeSet;
 
 /**
  * User: Kyll
@@ -71,6 +73,18 @@ public class EurekaBizz {
 				serviceInstanceDtoList.add(serviceInstanceDto);
 			});
 		});
+
+		serviceInstanceDtoList.sort((o1, o2) -> {
+			if (o1.getApp().equals(o2.getApp())) {
+				return 0;
+			}
+
+			Set<String> set = new TreeSet<>();
+			set.add(o1.getApp());
+			set.add(o2.getApp());
+			return set.toArray(new String[0])[0].equals(o1.getApp()) ? -1 : 1;
+		});
+
 		return serviceInstanceDtoList;
 	}
 
