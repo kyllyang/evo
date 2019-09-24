@@ -34,11 +34,11 @@ public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigPro
 	private ConfigApi configApi;
 
 	public ConfigInfoDto findPage(ConfigItemQuery query) {
-		List<ConfigProperty> configPropertyList = dao.findAll(toExample(query, true), Sort.by(Sort.Direction.ASC, "label", "application", "profile", "key"));
-log.info(configPropertyList.toString());
+		List<ConfigProperty> configPropertyList = dao.findAll(toSpecification(query, true), Sort.by(Sort.Direction.ASC, "label", "application", "profile", "key"));
+
 		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
 		profileSet.add("default");
-		log.info(profileSet.toString());
+
 		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
 		for (ConfigProperty configProperty : configPropertyList) {
 			profileSet.add(configProperty.getProfile());
@@ -58,10 +58,10 @@ log.info(configPropertyList.toString());
 				return itemDto;
 			}).getValueMap().put(profile, configProperty.getValue());
 		}
-		log.info(configItemDtoMap.toString());
+
 		int total = configItemDtoMap.size();
 		int pageSize = query.getPageSize();
-		int start = query.getPageNo() * pageSize;
+		int start = (query.getPageNo() - 1) * pageSize;
 		int end = start + pageSize;
 		if (end > total) {
 			end = total;
@@ -72,7 +72,7 @@ log.info(configPropertyList.toString());
 
 		PageList<ConfigItemDto> pageList = new PageList<>();
 		BaseHelper.copyPage(pageList, total, query, new ArrayList<>(configItemDtoMap.values()).subList(start, end));
-		log.info(pageList.toString());
+
 		ConfigInfoDto configInfoDto = new ConfigInfoDto();
 		configInfoDto.setProfiles(profileSet.toArray(new String[0]));
 		configInfoDto.setConfigItemList(pageList);

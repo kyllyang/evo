@@ -14,10 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.criteria.Predicate;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -25,7 +29,7 @@ import java.util.Map;
  * User: Kyll
  * Date: 2018-02-09 16:52
  */
-public abstract class BaseJpaBizz<Dao extends JpaRepository, E extends BaseJpaEntity, PK extends Serializable, Dto> extends BaseBizz<E, PK, Dto> {
+public abstract class BaseJpaBizz<Dao extends JpaRepository & JpaSpecificationExecutor, E extends BaseJpaEntity, PK extends Serializable, Dto> extends BaseBizz<E, PK, Dto> {
 	@Autowired
 	protected Dao dao;
 
@@ -51,7 +55,7 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository, E extends BaseJpaEn
 
 	@SuppressWarnings("unchecked")
 	public PageList<Dto> findPage(PageDto condition) {
-		Page<E> page = dao.findAll(toExample(condition), toPageable(condition));
+		Page<E> page = dao.findAll(toSpecification(condition), toPageable(condition));
 
 		PageList<Dto> pageList = new PageList<>();
 		BaseHelper.copyPage(pageList, page.getTotalElements(), condition, toDto(page.getContent()));
@@ -100,6 +104,39 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository, E extends BaseJpaEn
 		dao.deleteById(id);
 	}
 
+	protected <T> Specification<T> toSpecification(Object condition) {
+		return toSpecification(getEntityClass(), condition, null, false);
+	}
+
+	protected <T> Specification<T> toSpecification(Object condition, boolean like) {
+		return toSpecification(getEntityClass(), condition, null, like);
+	}
+
+	protected <T> Specification<T> toSpecification(Class<T> clazz, Object condition, SpecificationCreater specificationCreater, boolean like) {
+		T t = BeanUtil.newInstance(clazz);
+		BeanUtil.copy(t, condition);
+
+		return (Specification<T>) (root, criteriaQuery, criteriaBuilder) -> {
+			List<Predicate> predicateList = new ArrayList<>();
+
+			Map<String, Object> map = BeanUtil.beanToMap(t);
+			for (Map.Entry<String, Object> entry : map.entrySet()) {
+				String key = entry.getKey();
+				if (key.equals("pageNo") || key.equals("pageSize") || key.equals("pageSort") || key.equals("pageOrder")) {
+					continue;
+				}
+
+				Object value = entry.getValue();
+				if (value != null && StringUtil.isNotBlank(value.toString())) {
+					predicateList.add(like ? criteriaBuilder.like(root.get(key), "%" + value + "%") : criteriaBuilder.equal(root.get(key), value));
+				}
+			}
+
+			criteriaQuery.where(predicateList.toArray(new Predicate[0]));
+			return null;
+		};
+	}
+
 	@SuppressWarnings("unchecked")
 	protected <T> Example<T> toExample(Object condition) {
 		return toExample(getEntityClass(), condition, null, false);
@@ -124,16 +161,17 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository, E extends BaseJpaEn
 				}
 
 				Object value = entry.getValue();
-				if (value != null && StringUtil.isNotBlank(value.toString())) {
+				if (value == null || StringUtil.isBlank(value.toString())) {
+					exampleMatcher.withIgnorePaths(key);
+				} else {
 					if (like) {
-						exampleMatcher = exampleMatcher.withMatcher(key, ExampleMatcher.GenericPropertyMatchers.ignoreCase().contains());
+						exampleMatcher.withMatcher(key, ExampleMatcher.GenericPropertyMatchers.ignoreCase().contains());
 					}
 				}
 			}
 		} else {
 			exampleCreater.create(exampleMatcher, condition);
 		}
-
 
 		return Example.of(t, exampleMatcher);
 	}
@@ -144,5 +182,9 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository, E extends BaseJpaEn
 
 	public static interface ExampleCreater {
 		void create(ExampleMatcher exampleMatcher, Object condition);
+	}
+
+	public static interface SpecificationCreater {
+		void create(Specification specification, Object condition);
 	}
 }
