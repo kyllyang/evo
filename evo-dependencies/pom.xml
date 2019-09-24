@@ -14,28 +14,28 @@
 	<packaging>pom</packaging>
 
 	<properties>
-		<spring-boot.version>2.1.5.RELEASE</spring-boot.version>
-		<spring-cloud.version>Greenwich.SR1</spring-cloud.version>
-		<spring-boot-admin-starter-server.version>2.1.2</spring-boot-admin-starter-server.version>
-		<spring-boot-maven-plugin.version>2.1.2.RELEASE</spring-boot-maven-plugin.version>
-		<maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
-		<lombok.version>1.18.4</lombok.version>
-		<tomcat-embed-core.version>9.0.19</tomcat-embed-core.version>
-		<mysql-connector-java.version>8.0.15</mysql-connector-java.version>
+		<spring-boot.version>2.1.6.RELEASE</spring-boot.version>
+		<spring-cloud.version>Greenwich.SR2</spring-cloud.version>
+		<spring-boot-admin-starter-server.version>2.1.6</spring-boot-admin-starter-server.version>
+		<spring-boot-maven-plugin.version>2.1.6.RELEASE</spring-boot-maven-plugin.version>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<lombok.version>1.18.8</lombok.version>
+		<tomcat-embed-core.version>9.0.22</tomcat-embed-core.version>
+		<mysql-connector-java.version>8.0.16</mysql-connector-java.version>
 		<springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 		<springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
 		<jjwt.version>0.9.1</jjwt.version>
-		<logstash-logback-encoder.version>5.3</logstash-logback-encoder.version>
-		<spring-cloud-zuul-ratelimit.version>2.2.3.RELEASE</spring-cloud-zuul-ratelimit.version>
-		<micrometer-registry-prometheus.version>1.1.4</micrometer-registry-prometheus.version>
-		<mybatis-spring-boot-starter.version>2.0.0</mybatis-spring-boot-starter.version>
+		<logstash-logback-encoder.version>6.1</logstash-logback-encoder.version>
+		<spring-cloud-zuul-ratelimit.version>2.2.4.RELEASE</spring-cloud-zuul-ratelimit.version>
+		<micrometer-registry-prometheus.version>1.2.0</micrometer-registry-prometheus.version>
+		<mybatis-spring-boot-starter.version>2.1.0</mybatis-spring-boot-starter.version>
 		<mapper-spring-boot-starter.version>2.1.5</mapper-spring-boot-starter.version>
-		<pagehelper-spring-boot-starter.version>1.2.10</pagehelper-spring-boot-starter.version>
-		<mybatis-plus-boot-starter.version>3.1.0</mybatis-plus-boot-starter.version>
+		<pagehelper-spring-boot-starter.version>1.2.12</pagehelper-spring-boot-starter.version>
+		<mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
 		<activiti-spring-boot-starter-basic.version>5.22.0</activiti-spring-boot-starter-basic.version>
-		<flowable-spring-boot-starter.version>6.4.1</flowable-spring-boot-starter.version>
-		<flowable-spring-boot-starter-actuator.version>6.4.1</flowable-spring-boot-starter-actuator.version>
-		<guava.version>27.0.1-jre</guava.version>
+		<flowable-spring-boot-starter.version>6.4.2</flowable-spring-boot-starter.version>
+		<flowable-spring-boot-starter-actuator.version>6.4.2</flowable-spring-boot-starter-actuator.version>
+		<guava.version>28.0-jre</guava.version>
 		<commons-crypto.version>1.0.0</commons-crypto.version>
 	</properties>
 
