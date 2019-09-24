@@ -29,7 +29,7 @@ import java.util.TreeMap;
  */
 @Slf4j
 @Service
-public class ConfigCenterBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigProperty, Long, ConfigPropertyDto> {
+public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigProperty, Long, ConfigPropertyDto> {
 	@Autowired
 	private ConfigApi configApi;
 

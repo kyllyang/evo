@@ -1,7 +1,7 @@
 package com.github.framework.evo.controller.rest;
 
 import com.github.framework.evo.common.validate.group.PageGroup;
-import com.github.framework.evo.controller.bizz.ConfigCenterBizz;
+import com.github.framework.evo.controller.bizz.ConfigPropertyBizz;
 import com.github.framework.evo.controller.model.ConfigInfoDto;
 import com.github.framework.evo.controller.model.ConfigItemQuery;
 import com.github.framework.evo.controller.model.ConfigPropertyDto;
@@ -20,24 +20,24 @@ import org.springframework.web.bind.annotation.RestController;
  * Date: 2019-05-24 13:07
  */
 @Slf4j
-@RequestMapping("/config-center")
+@RequestMapping("/config-property")
 @RestController
-public class ConfigCenterRest {
+public class ConfigPropertyRest {
 	@Autowired
-	private ConfigCenterBizz configCenterBizz;
+	private ConfigPropertyBizz configPropertyBizz;
 
-	@PostMapping("/config-item/page")
+	@PostMapping("/item/page")
 	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemQuery query) {
-		return configCenterBizz.findPage(query);
+		return configPropertyBizz.findPage(query);
 	}
 
-	@PutMapping("/config-item/{application}/{profile}/{label}/{key}")
+	@PutMapping("/item/{application}/{profile}/{label}/{key}")
 	public void updateConfigProperty(@PathVariable("application") String application, @PathVariable("profile") String profile, @PathVariable("label") String label, @PathVariable("key") String key, @RequestBody ConfigPropertyDto configPropertyDto) {
-		configCenterBizz.updateConfigProperty(application, profile, label, key, configPropertyDto);
+		configPropertyBizz.updateConfigProperty(application, profile, label, key, configPropertyDto);
 	}
 
-	@PostMapping("/config-item/refresh/{destination}")
+	@PostMapping("/item/refresh/{destination}")
 	public void refreshConfigProperty(@PathVariable("destination") String destination) {
-		configCenterBizz.refreshConfigProperty(destination);
+		configPropertyBizz.refreshConfigProperty(destination);
 	}
 }
