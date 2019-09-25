@@ -21,7 +21,7 @@ eureka:
       defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
 ---
 spring:
-  profiles: blue,sit
+  profiles: sit,vm
 eureka:
   instance:
     hostname: ${spring.application.name}-service
