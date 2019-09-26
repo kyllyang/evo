@@ -8,6 +8,7 @@ import com.github.framework.evo.controller.model.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -25,6 +26,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConfigPropertyRest {
 	@Autowired
 	private ConfigPropertyBizz configPropertyBizz;
+
+	@GetMapping("/profiles")
+	public String[] getProfiles() {
+		return configPropertyBizz.getProfiles();
+	}
 
 	@PostMapping("/item/page")
 	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemQuery query) {

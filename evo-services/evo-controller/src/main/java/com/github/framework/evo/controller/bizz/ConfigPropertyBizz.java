@@ -33,6 +33,14 @@ public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigPro
 	@Autowired
 	private ConfigApi configApi;
 
+	public String[] getProfiles() {
+		Set<String> profileSet = new LinkedHashSet<>();
+		profileSet.add("default");
+		profileSet.addAll(dao.findProfiles());
+
+		return profileSet.toArray(new String[0]);
+	}
+
 	public ConfigInfoDto findPage(ConfigItemQuery query) {
 		List<ConfigProperty> configPropertyList = dao.findAll(toSpecification(query, true), Sort.by(Sort.Direction.ASC, "label", "application", "profile", "key"));
 
