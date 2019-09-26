@@ -19,6 +19,7 @@ public class DockerSwarmApi extends RestTemplateApi {
 	private static final String LIST_NODES_PATH = "/nodes";
 	private static final String INSPECT_NODE_PATH = "/nodes/{id}";
 	private static final String UPDATE_NODE_PATH = "/nodes/{id}/update?version={version}";
+	private static final String DELETE_NODE_PATH = "/nodes/{id}?force={force}";
 	private static final String LIST_SERVICES_PATH = "/services";
 	private static final String INSPECT_SERVICE_PATH = "/services/{id}";
 	private static final String UPDATE_SERVICE_PATH = "/services/{id}/update?version={version}";
@@ -43,6 +44,10 @@ public class DockerSwarmApi extends RestTemplateApi {
 
 	public String updateNode(String id, String version, JsonNode jsonNode) {
 		return exchange(url + UPDATE_NODE_PATH.replace("{id}", id).replace("{version}", version), HttpMethod.POST, jsonNode.toString());
+	}
+
+	public String deleteNode(String id, String force) {
+		return exchange(url + UPDATE_NODE_PATH.replace("{id}", id).replace("{force}", force), HttpMethod.DELETE);
 	}
 
 	public String listServices() {

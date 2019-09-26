@@ -82,6 +82,10 @@ public class DockerSwarmBizz {
 		dockerSwarmApi.updateNode(nodeDto.getId(), nodeDto.getVersionIndex().toString(), objectNode);
 	}
 
+	public void deleteNode(String id, boolean force) {
+		dockerSwarmApi.deleteNode(id, Boolean.valueOf(force).toString());
+	}
+
 	public List<ServiceDto> listServices() {
 		JsonNode jsonNode = JsonUtil.jsonToNode(dockerSwarmApi.listServices());
 
