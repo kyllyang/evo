@@ -2,7 +2,6 @@ package com.github.framework.evo.controller.model;
 
 import lombok.Data;
 
-import java.util.Date;
 import java.util.Map;
 
 /**
@@ -16,6 +15,4 @@ public class ConfigItemDto {
 	private String key;
 	private Map<String, String> valueMap;
 	private String comment;
-	private Date createTime;
-	private Date updateTime;
 }

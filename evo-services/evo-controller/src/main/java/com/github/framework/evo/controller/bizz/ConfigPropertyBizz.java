@@ -53,8 +53,6 @@ public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigPro
 				itemDto.setKey(key);
 				itemDto.setValueMap(new HashMap<>());
 				itemDto.setComment(configProperty.getComment());
-				itemDto.setCreateTime(configProperty.getCreateTime());
-				itemDto.setUpdateTime(configProperty.getUpdateTime());
 				return itemDto;
 			}).getValueMap().put(profile, configProperty.getValue());
 		}
