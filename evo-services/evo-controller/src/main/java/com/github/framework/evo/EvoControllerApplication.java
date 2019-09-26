@@ -1,5 +1,6 @@
 package com.github.framework.evo;
 
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
@@ -10,6 +11,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * User: Kyll
  * Date: 2017-11-27 11:57
  */
+@MapperScan(basePackages = "com.github.framework.evo.controller.dao")
 @EnableSwagger2
 @EnableFeignClients(basePackages = "com.github.framework.evo")
 @EnableCircuitBreaker

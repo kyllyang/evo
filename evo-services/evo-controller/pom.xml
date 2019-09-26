@@ -14,7 +14,7 @@
 	<dependencies>
 		<dependency>
 			<groupId>com.github.framework</groupId>
-			<artifactId>evo-base-data-jpa-spring-boot-starter</artifactId>
+			<artifactId>evo-base-data-mybatis-plus-spring-boot-starter</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>mysql</groupId>

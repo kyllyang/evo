@@ -10,10 +10,10 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class ConfigItemQuery extends PageDto {
+public class ConfigItemCondition extends PageDto {
 	private String label;
 	private String application;
-	private String profile;
+	private String[] profiles;
 	private String key;
 	private String value;
 	private String comment;

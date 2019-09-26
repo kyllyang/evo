@@ -1,18 +1,17 @@
 package com.github.framework.evo.controller.bizz;
 
 import com.github.framework.evo.base.assist.BaseHelper;
-import com.github.framework.evo.base.bizz.BaseJpaBizz;
+import com.github.framework.evo.base.bizz.BasePlusBizz;
 import com.github.framework.evo.common.model.PageList;
 import com.github.framework.evo.controller.api.ConfigApi;
 import com.github.framework.evo.controller.dao.ConfigPropertyDao;
 import com.github.framework.evo.controller.entity.ConfigProperty;
 import com.github.framework.evo.controller.model.ConfigInfoDto;
 import com.github.framework.evo.controller.model.ConfigItemDto;
-import com.github.framework.evo.controller.model.ConfigItemQuery;
+import com.github.framework.evo.controller.model.ConfigItemCondition;
 import com.github.framework.evo.controller.model.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -29,20 +28,20 @@ import java.util.TreeMap;
  */
 @Slf4j
 @Service
-public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigProperty, Long, ConfigPropertyDto> {
+public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigProperty, Long, ConfigPropertyDto> {
 	@Autowired
 	private ConfigApi configApi;
 
 	public String[] getProfiles() {
 		Set<String> profileSet = new LinkedHashSet<>();
 		profileSet.add("default");
-		profileSet.addAll(dao.findProfiles());
+		profileSet.addAll(dao.selectProfiles());
 
 		return profileSet.toArray(new String[0]);
 	}
 
-	public ConfigInfoDto findPage(ConfigItemQuery query) {
-		List<ConfigProperty> configPropertyList = dao.findAll(toSpecification(query, true), Sort.by(Sort.Direction.ASC, "label", "application", "profile", "key"));
+	public ConfigInfoDto findPage(ConfigItemCondition condition) {
+		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
 
 		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
 		profileSet.add("default");
@@ -66,8 +65,8 @@ public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigPro
 		}
 
 		int total = configItemDtoMap.size();
-		int pageSize = query.getPageSize();
-		int start = (query.getPageNo() - 1) * pageSize;
+		int pageSize = condition.getPageSize();
+		int start = (condition.getPageNo() - 1) * pageSize;
 		int end = start + pageSize;
 		if (end > total) {
 			end = total;
@@ -77,7 +76,7 @@ public class ConfigPropertyBizz extends BaseJpaBizz<ConfigPropertyDao, ConfigPro
 		}
 
 		PageList<ConfigItemDto> pageList = new PageList<>();
-		BaseHelper.copyPage(pageList, total, query, new ArrayList<>(configItemDtoMap.values()).subList(start, end));
+		BaseHelper.copyPage(pageList, total, condition, new ArrayList<>(configItemDtoMap.values()).subList(start, end));
 
 		ConfigInfoDto configInfoDto = new ConfigInfoDto();
 		configInfoDto.setProfiles(profileSet.toArray(new String[0]));

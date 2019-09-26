@@ -3,7 +3,7 @@ package com.github.framework.evo.controller.rest;
 import com.github.framework.evo.common.validate.group.PageGroup;
 import com.github.framework.evo.controller.bizz.ConfigPropertyBizz;
 import com.github.framework.evo.controller.model.ConfigInfoDto;
-import com.github.framework.evo.controller.model.ConfigItemQuery;
+import com.github.framework.evo.controller.model.ConfigItemCondition;
 import com.github.framework.evo.controller.model.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +33,8 @@ public class ConfigPropertyRest {
 	}
 
 	@PostMapping("/item/page")
-	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemQuery query) {
-		return configPropertyBizz.findPage(query);
+	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemCondition condition) {
+		return configPropertyBizz.findPage(condition);
 	}
 
 	@PutMapping("/item/{application}/{profile}/{label}/{key}")

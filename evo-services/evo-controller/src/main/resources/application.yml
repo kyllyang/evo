@@ -24,9 +24,6 @@ spring:
       max-lifetime: 1800000 # 连接的生命时长, 建议设置比数据库超时时长少30秒
       minimum-idle: 10
       read-only: false # 连接只读数据库时配置为true, 保证安全
-  jpa:
-    show-sql: true
-    open-in-view: false
   rabbitmq:
     addresses: ${evo.rabbitmq.addresses}
     host: ${evo.rabbitmq.host}
@@ -43,6 +40,12 @@ spring:
       probability: 1.0
   main:
     allow-bean-definition-overriding: true
+mybatis-plus:
+  type-aliases-package: com.github.framework.evo.controller.entity
+  mapper-locations: classpath:mapper/**/*.xml
+  global-config:
+    db-config:
+      select-strategy: ignored
 evo-config:
   ribbon:
     ReadTimeout: 60000
