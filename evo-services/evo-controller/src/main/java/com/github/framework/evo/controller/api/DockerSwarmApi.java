@@ -47,7 +47,7 @@ public class DockerSwarmApi extends RestTemplateApi {
 	}
 
 	public String deleteNode(String id, String force) {
-		return exchange(url + UPDATE_NODE_PATH.replace("{id}", id).replace("{force}", force), HttpMethod.DELETE);
+		return exchange(url + DELETE_NODE_PATH.replace("{id}", id).replace("{force}", force), HttpMethod.DELETE);
 	}
 
 	public String listServices() {
