@@ -79,7 +79,7 @@ public class DockerSwarmBizz {
 		objectNode.put("Role", nodeDto.getRole());
 		objectNode.put("Availability", nodeDto.getAvailability());
 
-		dockerSwarmApi.updateNode(nodeDto.getId(), objectNode);
+		dockerSwarmApi.updateNode(nodeDto.getId(), nodeDto.getVersionIndex().toString(), objectNode);
 	}
 
 	public List<ServiceDto> listServices() {
