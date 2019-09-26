@@ -49,7 +49,11 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		if (profiles == null || profiles.length == 0) {
 			profileSet.add("default");
 		} else {
-			profileSet.addAll(Arrays.asList(profiles));
+			List<String> profileList = Arrays.asList(profiles);
+			if (profileList.contains("default")) {
+				profileSet.add("default");
+			}
+			profileSet.addAll(profileList);
 		}
 
 		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
