@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -44,11 +45,18 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
 
 		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
-		profileSet.add("default");
+		String[] profiles = condition.getProfiles();
+		if (profiles == null || profiles.length == 0) {
+			profileSet.add("default");
+		} else {
+			profileSet.addAll(Arrays.asList(profiles));
+		}
 
 		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
 		for (ConfigProperty configProperty : configPropertyList) {
-			profileSet.add(configProperty.getProfile());
+			if (profiles == null || profiles.length == 0) {
+				profileSet.add(configProperty.getProfile());
+			}
 
 			String key = configProperty.getKey();
 			String profile = configProperty.getProfile();
