@@ -50,7 +50,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 			profileSet.add("default");
 		} else {
 			List<String> profileList = Arrays.asList(profiles);
-			if (profileList.contains("default")) {
+			if (profileList.contains("default")) {// 调整顺序
 				profileSet.add("default");
 			}
 			profileSet.addAll(profileList);

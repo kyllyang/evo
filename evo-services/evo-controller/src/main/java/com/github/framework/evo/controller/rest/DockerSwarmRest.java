@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,6 +41,11 @@ public class DockerSwarmRest {
 	@GetMapping("/nodes/{id}")
 	public NodeDto inspectNode(@PathVariable String id) {
 		return dockerSwarmBizz.inspectNode(id);
+	}
+
+	@PutMapping("/nodes")
+	public void updateNode(NodeDto nodeDto) {
+		dockerSwarmBizz.updateNode(nodeDto);
 	}
 
 	@GetMapping("/services")

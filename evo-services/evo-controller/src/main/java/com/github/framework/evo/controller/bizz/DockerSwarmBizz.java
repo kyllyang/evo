@@ -74,6 +74,14 @@ public class DockerSwarmBizz {
 		return toNodeDto(JsonUtil.jsonToNode(dockerSwarmApi.inspectNode(id)));
 	}
 
+	public void updateNode(NodeDto nodeDto) {
+		ObjectNode objectNode = JsonUtil.createObjectNode();
+		objectNode.put("Role", nodeDto.getRole());
+		objectNode.put("Availability", nodeDto.getAvailability());
+
+		dockerSwarmApi.updateNode(nodeDto.getId(), objectNode);
+	}
+
 	public List<ServiceDto> listServices() {
 		JsonNode jsonNode = JsonUtil.jsonToNode(dockerSwarmApi.listServices());
 
