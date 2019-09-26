@@ -1,5 +1,7 @@
 package com.github.framework.evo.autoconfigure.controller;
 
+import com.github.framework.evo.common.exception.HttpInvokeException;
+import com.github.framework.evo.common.uitl.IoUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -7,12 +9,17 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.web.client.ResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurationSupport;
+
+import java.io.IOException;
 
 /**
  * User: Kyll
@@ -31,7 +38,22 @@ public class ControllerConfiguration {
 	@ConditionalOnMissingBean(RestTemplate.class)
 	@Bean
 	public RestTemplate restTemplate() {
-		return new RestTemplate();
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setErrorHandler(new ResponseErrorHandler() {
+			@Override
+			public boolean hasError(ClientHttpResponse clientHttpResponse) throws IOException {
+				return clientHttpResponse.getStatusCode().isError();
+			}
+
+			@Override
+			public void handleError(ClientHttpResponse clientHttpResponse) throws IOException {
+				HttpStatus httpStatus = clientHttpResponse.getStatusCode();
+				if (httpStatus.isError()) {
+					throw new HttpInvokeException(clientHttpResponse.getStatusCode().value(), clientHttpResponse.getStatusText(), clientHttpResponse.getHeaders(), IoUtil.toString(clientHttpResponse.getBody()));
+				}
+			}
+		});
+		return restTemplate;
 	}
 
 	@Bean

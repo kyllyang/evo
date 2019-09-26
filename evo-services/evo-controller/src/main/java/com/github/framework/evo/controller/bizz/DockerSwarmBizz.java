@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.github.framework.evo.autoconfigure.controller.ControllerProperties;
 import com.github.framework.evo.common.SR;
 import com.github.framework.evo.common.exception.BusinessException;
+import com.github.framework.evo.common.exception.HttpInvokeException;
 import com.github.framework.evo.common.uitl.JsonUtil;
 import com.github.framework.evo.controller.api.DockerSwarmApi;
 import com.github.framework.evo.controller.model.dockerswarm.ManagerStatusDto;
@@ -83,7 +84,11 @@ public class DockerSwarmBizz {
 	}
 
 	public void deleteNode(String id, boolean force) {
-		dockerSwarmApi.deleteNode(id, Boolean.valueOf(force).toString());
+		try {
+			dockerSwarmApi.deleteNode(id, Boolean.valueOf(force).toString());
+		} catch (HttpInvokeException e) {
+			throw new BusinessException(SR.RC.CONTROLLER_DOCKER_SWARM_NODES, e, e.getEntity().getBody());
+		}
 	}
 
 	public List<ServiceDto> listServices() {
@@ -178,7 +183,7 @@ public class DockerSwarmBizz {
 		try {
 			countDownLatch.await();
 		} catch (InterruptedException e) {
-			throw new BusinessException(SR.RC.CONTROLLER_TASKS, e);
+			throw new BusinessException(SR.RC.CONTROLLER_DOCKER_SWARM_TASKS, e);
 		}
 
 		return taskDtoList;
