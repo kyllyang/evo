@@ -325,9 +325,11 @@ public class DockerSwarmBizz {
 		taskDto.setState(statusJsonNode.get("State").textValue());
 		taskDto.setMessage(statusJsonNode.get("Message").textValue());
 
-		JsonNode containerStatusJsonNode = statusJsonNode.get("ContainerStatus");
-		taskDto.setContainerId(containerStatusJsonNode.get("ContainerID").textValue());
-		taskDto.setPid(containerStatusJsonNode.get("PID").intValue());
+		if (statusJsonNode.has("ContainerStatus")) {
+			JsonNode containerStatusJsonNode = statusJsonNode.get("ContainerStatus");
+			taskDto.setContainerId(containerStatusJsonNode.get("ContainerID").textValue());
+			taskDto.setPid(containerStatusJsonNode.get("PID").intValue());
+		}
 
 		taskDto.setDesiredState(taskJsonNode.get("DesiredState").textValue());
 
