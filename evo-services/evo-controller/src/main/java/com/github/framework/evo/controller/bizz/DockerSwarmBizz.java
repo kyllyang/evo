@@ -166,31 +166,24 @@ public class DockerSwarmBizz {
 		Map<String, ServiceDto> serviceDtoMap = new HashMap<>();
 		Map<String, NodeDto> nodeDtoMap = new HashMap<>();
 
-		log.info("taskDtoList.size(): {}", taskDtoList.size());
 		CountDownLatch countDownLatch = new CountDownLatch(taskDtoList.size() * 2);
 		for (TaskDto taskDto : taskDtoList) {
 			new Thread(() -> {
 				String serviceId = taskDto.getServiceId();
-				log.info("serviceId {}", serviceId);
 				taskDto.setService(serviceDtoMap.computeIfAbsent(serviceId, k -> inspectService(serviceId)));
 				countDownLatch.countDown();
-				log.info("serviceId {} {}", serviceId, countDownLatch.getCount());
 			}).start();
 
 			new Thread(() -> {
 				String nodeId = taskDto.getNodeId();
-				log.info("nodeId {}", nodeId);
 				taskDto.setNode(nodeDtoMap.computeIfAbsent(nodeId, k -> inspectNode(nodeId)));
 				countDownLatch.countDown();
-				log.info("nodeId {} {}", nodeId, countDownLatch.getCount());
 			}).start();
 		}
 
 		try {
-			if (countDownLatch.await(3000, TimeUnit.MILLISECONDS)) {
-				log.info("true");
-			} else {
-				log.info("false");
+			if (!countDownLatch.await(3000, TimeUnit.MILLISECONDS)) {
+				log.warn("inspectService or inspectNode is timeout");
 			}
 		} catch (InterruptedException e) {
 			throw new BusinessException(SR.RC.CONTROLLER_DOCKER_SWARM_TASKS, e);
