@@ -25,7 +25,7 @@ spring:
   profiles: sit,vm
 eureka:
   instance:
-    hostname: ${spring.application.name}-service
+    hostname: ${spring.application.name}-filter-service
   client:
     service-url:
       defaultZone: http://evo-eureka-service:20000/eureka
