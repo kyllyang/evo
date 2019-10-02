@@ -21,14 +21,14 @@ insert into config_property values (null, 'master', 'evo', 'default', 'evo.hiber
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.hibernate.show-sql', 'true', '是否显示SQL [Default true]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.hibernate.format-sql', 'false', '是否格式化SQL [Default false]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.hibernate.packages', 'com.github.framework.evo.demo', '扫描实体包 [Default com.github.framework.evo.demo]', '1', now(), '1', now());
-insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.addresses', '192.168.18.132:5672', null, '1', now(), '1', now());
-insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.host', '192.168.18.132', null, '1', now(), '1', now());
+insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.addresses', '192.168.1.200:5672', null, '1', now(), '1', now());
+insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.host', '192.168.1.200', null, '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.port', '5672', null, '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.virtual-host', 'evo_vhost', null, '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.username', 'evo', null, '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.rabbitmq.password', 'evo', null, '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.redis.company-prefix', 'EVO', '公司前缀 [Default EVO]', '1', now(), '1', now());
-insert into config_property values (null, 'master', 'evo', 'default', 'evo.redis.cluster.nodes', '192.168.18.129:7001, 192.168.18.129:7002, 192.168.18.129:7003, 192.168.18.129:7004, 192.168.18.129:7005, 192.168.18.129:7006', 'Redis集群', '1', now(), '1', now());
+insert into config_property values (null, 'master', 'evo', 'default', 'evo.redis.cluster.nodes', '192.168.1.202:7001, 192.168.1.202:7002, 192.168.1.202:7003, 192.168.1.202:7004, 192.168.1.202:7005, 192.168.1.202:7006', 'Redis集群', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.ribbon.NFLoadBalancerRuleClassName', 'com.netflix.loadbalancer.RoundRobinRule', '负载均衡策略', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.password.strength', '10', 'BCrypt强哈希函数强度。强度参数越大，散列密码所需的工作(以指数形式)就越多 [Default 10]', '1', now(), '1', now());
 insert into config_property values (null, 'master', 'evo', 'default', 'evo.sms.enabled', 'false', 'true 开启; false 关闭 [Default false]', '1', now(), '1', now());

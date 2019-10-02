@@ -182,7 +182,7 @@ public class DockerSwarmBizz {
 		}
 
 		try {
-			if (!countDownLatch.await(3000, TimeUnit.MILLISECONDS)) {
+			if (!countDownLatch.await(taskDtoList.size() * 1000, TimeUnit.MILLISECONDS)) {
 				log.warn("inspectService or inspectNode is timeout");
 			}
 		} catch (InterruptedException e) {
