@@ -14,5 +14,6 @@ public class ConfigItemDto {
 	private String application;
 	private String key;
 	private Map<String, String> valueMap;
+	private Map<String, String> idMap;
 	private String comment;
 }

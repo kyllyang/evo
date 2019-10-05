@@ -17,27 +17,31 @@
     </resultMap>
 
 	<select id="selectProfiles" resultType="string">
-		select t.profile from config_property t group by t.profile order by t.profile asc
+		select t.profile from config_property t
+		 where t.label = 'master'
+		   and t.application = 'evo'
+		 group by t.profile
+		 order by t.profile asc
 	</select>
 
 	<select id="selectAll" resultMap="ConfigPropertyResultMap">
 		select t.id, t.label, t.application, t.profile, t.key_, t.value, t.comment,
 		       t.create_by, t.create_time, t.update_by, t.update_time
 		  from config_property t
-		<where>
-			<if test="c.profiles != null and c.profiles.length > 0">
-				and t.profile in
-				<foreach collection="c.profiles" open="(" close=")" separator="," item="item">
-					#{item}
-				</foreach>
-			</if>
-			<if test="c.key != null and c.key != ''">
-				and t.key_ like concat('%', #{c.key}, '%')
-			</if>
-			<if test="c.value != null and c.value != ''">
-				and t.value like concat('%', #{c.value}, '%')
-			</if>
-		</where>
+		 where t.label = 'master'
+		   and t.application = 'evo'
+		<if test="c.profiles != null and c.profiles.length > 0">
+			and t.profile in
+			<foreach collection="c.profiles" open="(" close=")" separator="," item="item">
+				#{item}
+			</foreach>
+		</if>
+		<if test="c.key != null and c.key != ''">
+			and t.key_ like concat('%', #{c.key}, '%')
+		</if>
+		<if test="c.value != null and c.value != ''">
+			and t.value like concat('%', #{c.value}, '%')
+		</if>
 		order by t.label asc, t.application asc, t.profile asc, t.key_ asc
 	</select>
 

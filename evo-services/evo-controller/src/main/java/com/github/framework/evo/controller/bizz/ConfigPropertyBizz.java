@@ -67,15 +67,18 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 			String key = configProperty.getKey();
 			String profile = configProperty.getProfile();
 
-			configItemDtoMap.computeIfAbsent(key, s -> {
+			ConfigItemDto configItemDto = configItemDtoMap.computeIfAbsent(key, s -> {
 				ConfigItemDto itemDto = new ConfigItemDto();
 				itemDto.setLabel(configProperty.getLabel());
 				itemDto.setApplication(configProperty.getApplication());
 				itemDto.setKey(key);
 				itemDto.setValueMap(new HashMap<>());
+				itemDto.setIdMap(new HashMap<>());
 				itemDto.setComment(configProperty.getComment());
 				return itemDto;
-			}).getValueMap().put(profile, configProperty.getValue());
+			});
+			configItemDto.getValueMap().put(profile, configProperty.getValue());
+			configItemDto.getIdMap().put(profile, String.valueOf(configProperty.getId()));
 		}
 
 		int total = configItemDtoMap.size();
