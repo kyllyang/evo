@@ -11,6 +11,7 @@ import com.github.framework.evo.controller.model.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,6 +41,11 @@ public class ConfigPropertyRest {
 		return configPropertyBizz.findPage(condition);
 	}
 
+	@GetMapping("/{id}")
+	public ConfigPropertyDto get(@PathVariable("id") Long id) {
+		return configPropertyBizz.get(id);
+	}
+
 	@PostMapping("/check")
 	public boolean check(@Validated(CheckGroup.class) @RequestBody ConfigItemCondition condition) {
 		return configPropertyBizz.check(condition);
@@ -53,6 +59,11 @@ public class ConfigPropertyRest {
 	@PutMapping
 	public void update(@Validated({UpdateGroup.class}) @RequestBody ConfigPropertyDto dto) {
 		configPropertyBizz.update(dto);
+	}
+
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable("id") Long id) {
+		configPropertyBizz.delete(id);
 	}
 
 	@PostMapping("/item/refresh/{destination}")
