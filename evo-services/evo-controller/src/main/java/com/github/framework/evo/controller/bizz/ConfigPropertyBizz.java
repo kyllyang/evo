@@ -2,6 +2,8 @@ package com.github.framework.evo.controller.bizz;
 
 import com.github.framework.evo.base.assist.BaseHelper;
 import com.github.framework.evo.base.bizz.BasePlusBizz;
+import com.github.framework.evo.common.SR;
+import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.model.PageList;
 import com.github.framework.evo.controller.api.ConfigApi;
 import com.github.framework.evo.controller.dao.ConfigPropertyDao;
@@ -96,11 +98,26 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return configInfoDto;
 	}
 
-	public void updateConfigProperty(String application, String profile, String label, String key, ConfigPropertyDto configPropertyDto) {
-		ConfigProperty configProperty = dao.findByApplicationAndProfileAndLabelAndKey(application, profile, label, key);
-		configProperty.setValue(configPropertyDto.getValue());
-		configProperty.setComment(configPropertyDto.getComment());
-		this.update(toDto(configProperty));
+	public boolean check(ConfigItemCondition condition) {
+		List<ConfigProperty> list = dao.selectByCheck(condition);
+		if (!list.isEmpty() && !list.get(0).getId().equals(condition.getId())) {
+			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_EXIST, condition.getProfile(), condition.getKey(), condition.getValue());
+		}
+		return true;
+	}
+
+	@Override
+	public Long create(ConfigPropertyDto dto) {
+		dto.setLabel("master");
+		dto.setApplication("evo");
+		return super.create(dto);
+	}
+
+	@Override
+	public void update(ConfigPropertyDto dto) {
+		dto.setLabel("master");
+		dto.setApplication("evo");
+		super.update(dto);
 	}
 
 	public void refreshConfigProperty(String destination) {

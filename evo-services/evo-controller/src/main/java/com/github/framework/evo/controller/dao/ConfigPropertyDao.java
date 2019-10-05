@@ -16,5 +16,5 @@ public interface ConfigPropertyDao extends BaseMapper<ConfigProperty> {
 
 	List<ConfigProperty> selectAll(@Param("c") ConfigItemCondition condition);
 
-	ConfigProperty findByApplicationAndProfileAndLabelAndKey(String application, String profile, String label, String key);
+	List<ConfigProperty> selectByCheck(@Param("c") ConfigItemCondition condition);
 }

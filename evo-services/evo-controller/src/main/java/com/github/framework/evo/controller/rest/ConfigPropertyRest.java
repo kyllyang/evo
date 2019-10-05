@@ -1,6 +1,9 @@
 package com.github.framework.evo.controller.rest;
 
+import com.github.framework.evo.common.validate.group.CheckGroup;
+import com.github.framework.evo.common.validate.group.CreateGroup;
 import com.github.framework.evo.common.validate.group.PageGroup;
+import com.github.framework.evo.common.validate.group.UpdateGroup;
 import com.github.framework.evo.controller.bizz.ConfigPropertyBizz;
 import com.github.framework.evo.controller.model.ConfigInfoDto;
 import com.github.framework.evo.controller.model.ConfigItemCondition;
@@ -37,9 +40,19 @@ public class ConfigPropertyRest {
 		return configPropertyBizz.findPage(condition);
 	}
 
-	@PutMapping("/item/{application}/{profile}/{label}/{key}")
-	public void updateConfigProperty(@PathVariable("application") String application, @PathVariable("profile") String profile, @PathVariable("label") String label, @PathVariable("key") String key, @RequestBody ConfigPropertyDto configPropertyDto) {
-		configPropertyBizz.updateConfigProperty(application, profile, label, key, configPropertyDto);
+	@PostMapping("/check")
+	public boolean check(@Validated(CheckGroup.class) @RequestBody ConfigItemCondition condition) {
+		return configPropertyBizz.check(condition);
+	}
+
+	@PostMapping
+	public Long create(@Validated({CreateGroup.class}) @RequestBody ConfigPropertyDto dto) {
+		return configPropertyBizz.create(dto);
+	}
+
+	@PutMapping
+	public void update(@Validated({UpdateGroup.class}) @RequestBody ConfigPropertyDto dto) {
+		configPropertyBizz.update(dto);
 	}
 
 	@PostMapping("/item/refresh/{destination}")

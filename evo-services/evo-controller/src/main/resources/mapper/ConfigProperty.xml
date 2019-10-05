@@ -41,4 +41,13 @@
 		order by t.label asc, t.application asc, t.profile asc, t.key_ asc
 	</select>
 
+	<select id="selectByCheck" resultMap="ConfigPropertyResultMap">
+		select t.id, t.label, t.application, t.profile, t.key_, t.value, t.comment,
+		       t.create_by, t.create_time, t.update_by, t.update_time
+		  from config_property t
+		 where t.label = 'master'
+		   and t.application = 'evo'
+		   and t.profile = #{c.profile}
+		   and t.key_ = #{c.key}
+	</select>
 </mapper>
