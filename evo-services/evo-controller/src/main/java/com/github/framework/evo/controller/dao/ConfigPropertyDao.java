@@ -2,7 +2,7 @@ package com.github.framework.evo.controller.dao;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.github.framework.evo.controller.entity.ConfigProperty;
-import com.github.framework.evo.controller.model.ConfigItemCondition;
+import com.github.framework.evo.controller.model.configproperty.ConfigItemCondition;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

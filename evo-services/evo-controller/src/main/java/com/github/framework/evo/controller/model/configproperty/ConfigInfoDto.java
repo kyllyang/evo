@@ -1,4 +1,4 @@
-package com.github.framework.evo.controller.model;
+package com.github.framework.evo.controller.model.configproperty;
 
 import com.github.framework.evo.common.model.PageList;
 import lombok.Data;
