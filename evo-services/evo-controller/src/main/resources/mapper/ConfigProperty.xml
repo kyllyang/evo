@@ -54,4 +54,5 @@
 		   and t.profile = #{c.profile}
 		   and t.key_ = #{c.key}
 	</select>
+
 </mapper>
