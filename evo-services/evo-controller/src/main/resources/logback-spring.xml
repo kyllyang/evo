@@ -65,7 +65,7 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.github.framework.evo" level="DEBUG" additivity="false">
+	<logger name="com.github.framework.evo" level="WARN" additivity="false">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
 		<appender-ref ref="JSONFILE"/>
@@ -78,7 +78,7 @@
 		<appender-ref ref="JSONFILE"/>
 	</logger>
 
-	<root level="INFO">
+	<root level="WARN">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
 		<appender-ref ref="JSONFILE"/>
