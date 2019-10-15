@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Random;
+
 /**
  * User: Kyll
  * Date: 2019-05-24 13:07
@@ -30,6 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConfigPropertyRest {
 	@Autowired
 	private ConfigPropertyBizz configPropertyBizz;
+	private Random random = new Random();
 
 	@GetMapping("/profiles")
 	public String[] getProfiles() {
@@ -38,6 +41,11 @@ public class ConfigPropertyRest {
 
 	@PostMapping("/item/page")
 	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemCondition condition) {
+		try {
+			Thread.sleep(random.nextInt(5000));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 		return configPropertyBizz.findPage(condition);
 	}
 
