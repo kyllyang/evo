@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -36,6 +37,7 @@ import java.util.TreeMap;
 public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigProperty, Long, ConfigPropertyDto> {
 	@Autowired
 	private ConfigApi configApi;
+	private Random random = new Random();
 
 	public String[] getProfiles() {
 		Set<String> profileSet = new LinkedHashSet<>();
@@ -47,6 +49,12 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
 		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
+
+		try {
+			Thread.sleep(random.nextInt(5000));
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
 		String[] profiles = condition.getProfiles();

@@ -32,7 +32,6 @@ import java.util.Random;
 public class ConfigPropertyRest {
 	@Autowired
 	private ConfigPropertyBizz configPropertyBizz;
-	private Random random = new Random();
 
 	@GetMapping("/profiles")
 	public String[] getProfiles() {
@@ -41,11 +40,6 @@ public class ConfigPropertyRest {
 
 	@PostMapping("/item/page")
 	public ConfigInfoDto findPage(@Validated(PageGroup.class) @RequestBody ConfigItemCondition condition) {
-		try {
-			Thread.sleep(random.nextInt(5000));
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
 		return configPropertyBizz.findPage(condition);
 	}
 
