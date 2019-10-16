@@ -45,7 +45,6 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return profileSet.toArray(new String[0]);
 	}
 
-	@Transactional(readOnly = true)
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
 		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
 
