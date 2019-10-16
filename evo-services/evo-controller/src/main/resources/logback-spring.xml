@@ -78,6 +78,12 @@
 		<appender-ref ref="JSONFILE"/>
 	</logger>
 
+	<logger name="com.zaxxer.hikari" level="TRACE" additivity="false">
+		<appender-ref ref="CONSOLE"/>
+		<appender-ref ref="ROLLINGFILE"/>
+		<appender-ref ref="JSONFILE"/>
+	</logger>
+
 	<root level="WARN">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
