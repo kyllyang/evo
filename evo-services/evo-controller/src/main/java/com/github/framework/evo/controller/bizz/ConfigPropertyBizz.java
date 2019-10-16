@@ -45,8 +45,10 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return profileSet.toArray(new String[0]);
 	}
 
+	@Transactional
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
 		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
+		update(toDto(configPropertyList.get(0)));
 
 		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
 		String[] profiles = condition.getProfiles();
