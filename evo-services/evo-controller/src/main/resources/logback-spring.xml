@@ -71,20 +71,7 @@
 		<appender-ref ref="JSONFILE"/>
 	</logger>
 
-	<!-- JPA Sql Parameter -->
-	<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" additivity="false">
-		<appender-ref ref="CONSOLE"/>
-		<appender-ref ref="ROLLINGFILE"/>
-		<appender-ref ref="JSONFILE"/>
-	</logger>
-
-	<logger name="com.zaxxer.hikari" level="TRACE" additivity="false">
-		<appender-ref ref="CONSOLE"/>
-		<appender-ref ref="ROLLINGFILE"/>
-		<appender-ref ref="JSONFILE"/>
-	</logger>
-
-	<root level="WARN">
+	<root level="INFO">
 		<appender-ref ref="CONSOLE"/>
 		<appender-ref ref="ROLLINGFILE"/>
 		<appender-ref ref="JSONFILE"/>
