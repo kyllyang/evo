@@ -48,10 +48,8 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 	public ConfigItemDto getByIds(Long[] ids) {
 		List<ConfigProperty> configPropertyList = dao.selectBatchIds(Arrays.asList(ids));
 
-		Set<String> profileSet = new HashSet<>();
 		Set<String> keySet = new HashSet<>();
 		for (ConfigProperty configProperty : configPropertyList) {
-			profileSet.add(configProperty.getProfile());
 			keySet.add(configProperty.getKey());
 		}
 
@@ -60,7 +58,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, key);
 		}
 
-		return convertToConfigItemDtoMap(configPropertyList, getProfileSet(profileSet.toArray(new String[0]))).get(key);
+		return convertToConfigItemDtoMap(configPropertyList, getProfileSet()).get(key);
 	}
 
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
