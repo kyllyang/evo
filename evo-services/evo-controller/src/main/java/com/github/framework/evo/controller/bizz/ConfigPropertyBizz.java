@@ -5,7 +5,9 @@ import com.github.framework.evo.base.bizz.BasePlusBizz;
 import com.github.framework.evo.common.SR;
 import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.model.PageList;
+import com.github.framework.evo.common.uitl.ArrayUtil;
 import com.github.framework.evo.common.uitl.BeanUtil;
+import com.github.framework.evo.common.uitl.StringUtil;
 import com.github.framework.evo.controller.api.ConfigApi;
 import com.github.framework.evo.controller.dao.ConfigPropertyDao;
 import com.github.framework.evo.controller.entity.ConfigProperty;
@@ -21,6 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
@@ -38,44 +41,25 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 	private ConfigApi configApi;
 
 	public String[] getProfiles() {
-		Set<String> profileSet = new LinkedHashSet<>();
-		profileSet.add("default");
-		profileSet.addAll(dao.selectProfiles());
-
-		return profileSet.toArray(new String[0]);
+		return getProfiles(getProfileSet());
 	}
 
-	@Transactional
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
 		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
-		update(toDto(configPropertyList.get(0)));
 
-		Set<String> profileSet = new LinkedHashSet<>();// 设置环境列 default, 环境1, 环境2...
-		String[] profiles = condition.getProfiles();
-		if (profiles == null || profiles.length == 0) {
-			profileSet.add("default");
-		} else {
-			List<String> profileList = Arrays.asList(profiles);
-			if (profileList.contains("default")) {// 调整顺序
-				profileSet.add("default");
-			}
-			profileSet.addAll(profileList);
-		}
+		final Set<String> profileSet = ArrayUtil.isEmpty(condition.getProfiles()) ? getProfileSet() : getProfileSet(condition.getProfiles());
 
 		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
 		for (ConfigProperty configProperty : configPropertyList) {
-			if (profiles == null || profiles.length == 0) {
-				profileSet.add(configProperty.getProfile());
-			}
-
 			String key = configProperty.getKey();
+
 			ConfigItemDto configItemDto = configItemDtoMap.computeIfAbsent(key, s -> {
 				ConfigItemDto itemDto = new ConfigItemDto();
 				itemDto.setLabel(configProperty.getLabel());
 				itemDto.setApplication(configProperty.getApplication());
 				itemDto.setKey(key);
-				itemDto.setValueMap(new HashMap<>());
-				itemDto.setIdMap(new HashMap<>());
+				itemDto.setValueMap(createProfileMap(profileSet));
+				itemDto.setIdMap(createProfileMap(profileSet));
 				itemDto.setComment(configProperty.getComment());
 				return itemDto;
 			});
@@ -84,7 +68,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 			configItemDto.getValueMap().put(profile, configProperty.getValue());
 			configItemDto.getIdMap().put(profile, String.valueOf(configProperty.getId()));
 
-			if ("default".equals(profile)) {
+			if (StringUtil.isBlank(configItemDto.getComment())) {
 				configItemDto.setComment(configProperty.getComment());
 			}
 		}
@@ -104,7 +88,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		BaseHelper.copyPage(pageList, total, condition, new ArrayList<>(configItemDtoMap.values()).subList(start, end));
 
 		ConfigInfoDto configInfoDto = new ConfigInfoDto();
-		configInfoDto.setProfiles(profileSet.toArray(new String[0]));
+		configInfoDto.setProfiles(getProfiles(profileSet));
 		configInfoDto.setConfigItemList(pageList);
 		return configInfoDto;
 	}
@@ -155,5 +139,36 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		} else if (list.size() > 1) {
 			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, "default", dto.getKey());
 		}
+	}
+
+	private String[] getProfiles(Set<String> profileSet) {
+		return profileSet.toArray(new String[0]);
+	}
+
+	private Set<String> getProfileSet() {
+		Set<String> profileSet = new LinkedHashSet<>();
+		profileSet.add("default");
+		profileSet.addAll(dao.selectProfiles());
+		return profileSet;
+	}
+
+	private Set<String> getProfileSet(String[] profiles) {
+		Set<String> profileSet = new LinkedHashSet<>();
+
+		List<String> profileList = Arrays.asList(profiles);
+		if (profileList.contains("default")) {// 调整顺序
+			profileSet.add("default");
+		}
+		profileSet.addAll(profileList);
+
+		return profileSet;
+	}
+
+	private Map<String, String> createProfileMap(Set<String> profileSet) {
+		Map<String, String> map = new LinkedHashMap<>();
+		for (String profile : profileSet) {
+			map.put(profile, null);
+		}
+		return map;
 	}
 }
