@@ -21,8 +21,6 @@ public class ConfigItemDto {
 	private Map<String, String> valueMap;
 	private Map<String, String> idMap;
 	private String comment;
-	@NotBlank(groups = {CheckGroup.class, CreateGroup.class, UpdateGroup.class})
 	private Long[] ids;
-	@NotBlank(groups = {CheckGroup.class, CreateGroup.class, UpdateGroup.class})
 	private String[] values;
 }
