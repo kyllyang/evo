@@ -17,7 +17,6 @@
 		<module>evo-eureka</module>
 		<module>evo-admin</module>
 		<module>evo-config</module>
-		<module>evo-activiti</module>
 		<module>evo-auth</module>
 		<module>evo-datadict</module>
 		<module>evo-flowable</module>

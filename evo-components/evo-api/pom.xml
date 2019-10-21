@@ -13,7 +13,6 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>evo-auth-api</module>
-		<module>evo-activiti-api</module>
 		<module>evo-datadict-api</module>
 		<module>evo-sys-api</module>
 		<module>evo-flowable-api</module>
