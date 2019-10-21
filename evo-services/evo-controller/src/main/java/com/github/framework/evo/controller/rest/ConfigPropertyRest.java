@@ -43,7 +43,7 @@ public class ConfigPropertyRest {
 	}
 
 	@PostMapping("/query")
-	public ConfigItemDto query(@Validated(CheckGroup.class) @RequestBody ConfigItemCondition condition) {
+	public ConfigItemDto query(@Validated @RequestBody ConfigItemCondition condition) {
 		return configPropertyBizz.getByIds(condition.getIds());
 	}
 
