@@ -167,7 +167,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 	private Map<String, String> createProfileMap(Set<String> profileSet) {
 		Map<String, String> map = new LinkedHashMap<>();
 		for (String profile : profileSet) {
-			map.put(profile, "");
+			map.put(profile, "1");
 		}
 		return map;
 	}
