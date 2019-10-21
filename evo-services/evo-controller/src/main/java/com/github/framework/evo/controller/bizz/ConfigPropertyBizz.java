@@ -23,13 +23,13 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * User: Kyll
@@ -48,17 +48,19 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 	public ConfigItemDto getByIds(Long[] ids) {
 		List<ConfigProperty> configPropertyList = dao.selectBatchIds(Arrays.asList(ids));
 
-		Set<String> profileSet = new TreeSet<>();
+		Set<String> profileSet = new HashSet<>();
+		Set<String> keySet = new HashSet<>();
 		for (ConfigProperty configProperty : configPropertyList) {
-			profileSet.add(configProperty.getKey());
+			profileSet.add(configProperty.getProfile());
+			keySet.add(configProperty.getKey());
 		}
 
-		String key = profileSet.iterator().next();
-		if (profileSet.size() > 1) {
+		String key = keySet.iterator().next();
+		if (keySet.size() > 1) {
 			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, key);
 		}
 
-		return convertToConfigItemDtoMap(configPropertyList, profileSet).get(key);
+		return convertToConfigItemDtoMap(configPropertyList, getProfileSet(profileSet.toArray(new String[0]))).get(key);
 	}
 
 	public ConfigInfoDto findPage(ConfigItemCondition condition) {
