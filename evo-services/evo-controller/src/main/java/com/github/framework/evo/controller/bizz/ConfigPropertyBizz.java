@@ -6,7 +6,6 @@ import com.github.framework.evo.common.SR;
 import com.github.framework.evo.common.exception.BusinessException;
 import com.github.framework.evo.common.model.PageList;
 import com.github.framework.evo.common.uitl.ArrayUtil;
-import com.github.framework.evo.common.uitl.BeanUtil;
 import com.github.framework.evo.common.uitl.StringUtil;
 import com.github.framework.evo.controller.api.ConfigApi;
 import com.github.framework.evo.controller.dao.ConfigPropertyDao;
@@ -22,7 +21,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -85,53 +83,56 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return configInfoDto;
 	}
 
-	public boolean check(ConfigItemCondition condition) {
-		List<ConfigProperty> list = dao.selectByCheck(condition);
-		if (!list.isEmpty() && !list.get(0).getId().equals(condition.getId())) {
-			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_EXIST, condition.getProfile(), condition.getKey(), condition.getValue());
+	public boolean check(ConfigItemDto configItemDto) {
+		Long[] ids = configItemDto.getIds();
+		String[] values = configItemDto.getValues();
+		String key = configItemDto.getKey();
+		String[] profiles = getProfileSet().toArray(new String[0]);
+
+		for (int i = 0; i < profiles.length; i++) {
+			ConfigItemCondition condition = new ConfigItemCondition();
+			condition.setId(ids[i]);
+			condition.setValue(values[i]);
+			condition.setProfile(profiles[i]);
+			condition.setKey(key);
+
+			List<ConfigProperty> list = dao.selectByCheck(condition);
+			if (!list.isEmpty() && !list.get(0).getId().equals(condition.getId())) {
+				throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_EXIST, condition.getProfile(), condition.getKey(), condition.getValue());
+			}
 		}
+
 		return true;
 	}
 
-	@Override
-	public Long create(ConfigPropertyDto dto) {
-		dto.setLabel("master");
-		dto.setApplication("evo");
-		return super.create(dto);
-	}
-
 	@Transactional
-	@Override
-	public void update(ConfigPropertyDto dto) {
-		dto.setLabel("master");
-		dto.setApplication("evo");
-		super.update(dto);
+	public void createOrUpdate(ConfigItemDto configItemDto) {
+		Long[] ids = configItemDto.getIds();
+		String[] profiles = getProfileSet().toArray(new String[0]);
+		String key = configItemDto.getKey();
+		String[] values = configItemDto.getValues();
+		String comment = configItemDto.getComment();
 
-		updateDefaultComment(dto);
+		for (int i = 0; i < profiles.length; i++) {
+			ConfigPropertyDto dto = new ConfigPropertyDto();
+			dto.setId(ids[i]);
+			dto.setLabel("master");
+			dto.setApplication("evo");
+			dto.setProfile(profiles[i]);
+			dto.setKey(key);
+			dto.setValue(values[i]);
+			dto.setComment(comment);
+
+			if (dto.getId() == null) {
+				create(dto);
+			} else {
+				update(dto);
+			}
+		}
 	}
 
 	public void refreshConfigProperty(String destination) {
 		configApi.busRefresh(destination);
-	}
-
-	private void updateDefaultComment(ConfigPropertyDto dto) {
-		Map<String, Object> conditionMap = new HashMap<>();
-		conditionMap.put("label", "master");
-		conditionMap.put("application", "evo");
-		conditionMap.put("profile", "default");
-		conditionMap.put("key_", dto.getKey());
-		List<ConfigProperty> list = dao.selectByMap(conditionMap);
-
-		int size = list.size();
-		if (size == 1) {
-			ConfigProperty cp = list.get(0);
-			cp.setComment(dto.getComment());
-
-			BeanUtil.copy(dto, cp);
-			super.update(dto);
-		} else if (list.size() > 1) {
-			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, "default", dto.getKey());
-		}
 	}
 
 	private String[] getProfiles(Set<String> profileSet) {

@@ -8,7 +8,6 @@ import com.github.framework.evo.controller.bizz.ConfigPropertyBizz;
 import com.github.framework.evo.controller.model.configproperty.ConfigInfoDto;
 import com.github.framework.evo.controller.model.configproperty.ConfigItemCondition;
 import com.github.framework.evo.controller.model.configproperty.ConfigItemDto;
-import com.github.framework.evo.controller.model.configproperty.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
@@ -48,18 +47,18 @@ public class ConfigPropertyRest {
 	}
 
 	@PostMapping("/check")
-	public boolean check(@Validated(CheckGroup.class) @RequestBody ConfigItemCondition condition) {
-		return configPropertyBizz.check(condition);
+	public boolean check(@Validated(CheckGroup.class) @RequestBody ConfigItemDto configItemDto) {
+		return configPropertyBizz.check(configItemDto);
 	}
 
 	@PostMapping
-	public Long create(@Validated({CreateGroup.class}) @RequestBody ConfigPropertyDto dto) {
-		return configPropertyBizz.create(dto);
+	public void create(@Validated({CreateGroup.class}) @RequestBody ConfigItemDto configItemDto) {
+		configPropertyBizz.createOrUpdate(configItemDto);
 	}
 
 	@PutMapping
-	public void update(@Validated({UpdateGroup.class}) @RequestBody ConfigPropertyDto dto) {
-		configPropertyBizz.update(dto);
+	public void update(@Validated({UpdateGroup.class}) @RequestBody ConfigItemDto configItemDto) {
+		configPropertyBizz.createOrUpdate(configItemDto);
 	}
 
 	@DeleteMapping("/{id}")
