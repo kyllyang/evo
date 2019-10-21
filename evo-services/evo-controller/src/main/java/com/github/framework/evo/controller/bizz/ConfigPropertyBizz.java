@@ -29,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Kyll
@@ -44,34 +45,25 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return getProfiles(getProfileSet());
 	}
 
-	public ConfigInfoDto findPage(ConfigItemCondition condition) {
-		List<ConfigProperty> configPropertyList = dao.selectAll(condition);
+	public ConfigItemDto getByIds(Long[] ids) {
+		List<ConfigProperty> configPropertyList = dao.selectBatchIds(Arrays.asList(ids));
 
-		final Set<String> profileSet = ArrayUtil.isEmpty(condition.getProfiles()) ? getProfileSet() : getProfileSet(condition.getProfiles());
-
-		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
+		Set<String> profileSet = new TreeSet<>();
 		for (ConfigProperty configProperty : configPropertyList) {
-			String key = configProperty.getKey();
-
-			ConfigItemDto configItemDto = configItemDtoMap.computeIfAbsent(key, s -> {
-				ConfigItemDto itemDto = new ConfigItemDto();
-				itemDto.setLabel(configProperty.getLabel());
-				itemDto.setApplication(configProperty.getApplication());
-				itemDto.setKey(key);
-				itemDto.setValueMap(createProfileMap(profileSet));
-				itemDto.setIdMap(createProfileMap(profileSet));
-				itemDto.setComment(configProperty.getComment());
-				return itemDto;
-			});
-
-			String profile = configProperty.getProfile();
-			configItemDto.getValueMap().put(profile, configProperty.getValue());
-			configItemDto.getIdMap().put(profile, String.valueOf(configProperty.getId()));
-
-			if (StringUtil.isBlank(configItemDto.getComment())) {
-				configItemDto.setComment(configProperty.getComment());
-			}
+			profileSet.add(configProperty.getKey());
 		}
+
+		String key = profileSet.iterator().next();
+		if (profileSet.size() > 1) {
+			throw new BusinessException(SR.RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, key);
+		}
+
+		return convertToConfigItemDtoMap(configPropertyList, profileSet).get(key);
+	}
+
+	public ConfigInfoDto findPage(ConfigItemCondition condition) {
+		Set<String> profileSet = ArrayUtil.isEmpty(condition.getProfiles()) ? getProfileSet() : getProfileSet(condition.getProfiles());
+		Map<String, ConfigItemDto> configItemDtoMap = convertToConfigItemDtoMap(dao.selectAll(condition), profileSet);
 
 		int total = configItemDtoMap.size();
 		int pageSize = condition.getPageSize();
@@ -101,6 +93,7 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		return true;
 	}
 
+	@Override
 	public Long create(ConfigPropertyDto dto) {
 		dto.setLabel("master");
 		dto.setApplication("evo");
@@ -170,5 +163,34 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 			map.put(profile, null);
 		}
 		return map;
+	}
+
+	private Map<String, ConfigItemDto> convertToConfigItemDtoMap(List<ConfigProperty> configPropertyList, Set<String> profileSet) {
+		Map<String, ConfigItemDto> configItemDtoMap = new TreeMap<>();// 设置配置属性关联的属性值
+
+		for (ConfigProperty configProperty : configPropertyList) {
+			String key = configProperty.getKey();
+
+			ConfigItemDto configItemDto = configItemDtoMap.computeIfAbsent(key, s -> {
+				ConfigItemDto itemDto = new ConfigItemDto();
+				itemDto.setLabel(configProperty.getLabel());
+				itemDto.setApplication(configProperty.getApplication());
+				itemDto.setKey(key);
+				itemDto.setValueMap(createProfileMap(profileSet));
+				itemDto.setIdMap(createProfileMap(profileSet));
+				itemDto.setComment(configProperty.getComment());
+				return itemDto;
+			});
+
+			String profile = configProperty.getProfile();
+			configItemDto.getValueMap().put(profile, configProperty.getValue());
+			configItemDto.getIdMap().put(profile, String.valueOf(configProperty.getId()));
+
+			if (StringUtil.isBlank(configItemDto.getComment())) {
+				configItemDto.setComment(configProperty.getComment());
+			}
+		}
+
+		return configItemDtoMap;
 	}
 }

@@ -17,6 +17,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 public class ConfigItemCondition extends PageDto {
 	private Long id;
+	private Long[] ids;
 	private String label;
 	private String application;
 	private String[] profiles;

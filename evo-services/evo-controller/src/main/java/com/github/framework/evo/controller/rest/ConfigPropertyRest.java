@@ -7,6 +7,7 @@ import com.github.framework.evo.common.validate.group.UpdateGroup;
 import com.github.framework.evo.controller.bizz.ConfigPropertyBizz;
 import com.github.framework.evo.controller.model.configproperty.ConfigInfoDto;
 import com.github.framework.evo.controller.model.configproperty.ConfigItemCondition;
+import com.github.framework.evo.controller.model.configproperty.ConfigItemDto;
 import com.github.framework.evo.controller.model.configproperty.ConfigPropertyDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,9 +42,9 @@ public class ConfigPropertyRest {
 		return configPropertyBizz.findPage(condition);
 	}
 
-	@GetMapping("/{id}")
-	public ConfigPropertyDto get(@PathVariable("id") Long id) {
-		return configPropertyBizz.get(id);
+	@PostMapping("/query")
+	public ConfigItemDto query(@Validated(CheckGroup.class) @RequestBody ConfigItemCondition condition) {
+		return configPropertyBizz.getByIds(condition.getIds());
 	}
 
 	@PostMapping("/check")

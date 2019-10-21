@@ -33,7 +33,7 @@ public class SR {
 		MESSAGE_MAP.put(RC.CONTROLLER_DOCKER_SWARM_TASKS, "获取Docker Swarm Task失败");
 
 		MESSAGE_MAP.put(RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_EXIST, "配置属性[%s,%s,%s]已经存在");
-		MESSAGE_MAP.put(RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, "配置属性[%s,%s]存在多个");
+		MESSAGE_MAP.put(RC.CONTROLLER_SPRING_CLOUD_CONFIG_PROPERTY_DUPLICATE, "配置属性[%s]存在多个");
 	}
 
 	public static String getMessage(RC rc, Object... args) {
