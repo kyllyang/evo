@@ -18,7 +18,6 @@ public interface EurekaApi {
 	ResponseEntity<byte[]> apps();
 
 	@PutMapping("/apps/{serviceId}/{instanceId}/status")
-
 	String outOfService(@PathVariable("serviceId") String serviceId, @PathVariable("instanceId") String instanceId, @RequestParam("value") String value);
 
 	@DeleteMapping("/apps/{serviceId}/{instanceId}/status")

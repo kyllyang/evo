@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
  */
 @FeignClient(value = "evo-config", path = "/actuator")
 public interface ConfigApi {
+	@PostMapping("/bus-refresh")
+	void busRefresh();
+
 	@PostMapping("/bus-refresh/{destination}")
 	void busRefresh(@PathVariable("destination") String destination);
 }

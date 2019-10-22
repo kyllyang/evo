@@ -131,7 +131,11 @@ public class ConfigPropertyBizz extends BasePlusBizz<ConfigPropertyDao, ConfigPr
 		}
 	}
 
-	public void refreshConfigProperty(String destination) {
+	public void refresh() {
+		configApi.busRefresh();
+	}
+
+	public void refresh(String destination) {
 		configApi.busRefresh(destination);
 	}
 

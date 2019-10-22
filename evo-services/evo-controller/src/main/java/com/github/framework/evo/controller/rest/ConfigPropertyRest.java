@@ -66,8 +66,13 @@ public class ConfigPropertyRest {
 		configPropertyBizz.delete(id);
 	}
 
-	@PostMapping("/item/refresh/{destination}")
-	public void refreshConfigProperty(@PathVariable("destination") String destination) {
-		configPropertyBizz.refreshConfigProperty(destination);
+	@PostMapping("/refresh")
+	public void refresh() {
+		configPropertyBizz.refresh();
+	}
+
+	@PostMapping("/refresh/{destination}")
+	public void refresh(@PathVariable("destination") String destination) {
+		configPropertyBizz.refresh(destination);
 	}
 }
