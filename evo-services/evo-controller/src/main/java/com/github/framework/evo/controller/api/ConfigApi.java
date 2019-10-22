@@ -1,8 +1,8 @@
 package com.github.framework.evo.controller.api;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * User: Kyll
@@ -13,6 +13,6 @@ public interface ConfigApi {
 	@PostMapping("/bus-refresh")
 	void busRefresh();
 
-	@PostMapping("/bus-refresh/{destination}")
-	void busRefresh(@PathVariable("destination") String destination);
+	@PostMapping("/bus-refresh")
+	void busRefresh(@RequestParam("destination") String destination);
 }
