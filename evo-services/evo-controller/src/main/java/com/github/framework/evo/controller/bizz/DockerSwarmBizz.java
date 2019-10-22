@@ -146,6 +146,14 @@ public class DockerSwarmBizz {
 		dockerSwarmApi.updateService(serviceDto.getId(), serviceDto.getVersionIndex().toString(), serviceNode);
 	}
 
+	public void deleteService(String id) {
+		try {
+			dockerSwarmApi.deleteService(id);
+		} catch (HttpInvokeException e) {
+			throw new BusinessException(SR.RC.CONTROLLER_DOCKER_SWARM_SERVICES, e, e.getEntity().getBody());
+		}
+	}
+
 	public List<TaskDto> listTasks() {
 		JsonNode jsonNode = JsonUtil.jsonToNode(dockerSwarmApi.listTasks());
 

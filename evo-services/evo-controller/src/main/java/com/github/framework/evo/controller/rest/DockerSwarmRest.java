@@ -70,6 +70,11 @@ public class DockerSwarmRest {
 		dockerSwarmBizz.updateService(id, replicas);
 	}
 
+	@DeleteMapping("/services/{id}")
+	public void deleteService(@PathVariable String id) {
+		dockerSwarmBizz.deleteService(id);
+	}
+
 	@GetMapping("/tasks")
 	public List<TaskDto> listTasks() {
 		return dockerSwarmBizz.listTasks();
