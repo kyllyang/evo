@@ -123,6 +123,8 @@ public class DockerSwarmBizz {
 		serviceNode.put("Name", serviceDto.getName());
 		ObjectNode containerSpecNode = serviceNode.putObject("TaskTemplate").putObject("ContainerSpec");
 		containerSpecNode.put("Image", serviceDto.getImage());
+		ArrayNode envNode = containerSpecNode.putArray("Env");
+		serviceDto.getEnvDtoList().forEach(envNode::add);
 		ArrayNode mountsNode = containerSpecNode.putArray("Mounts");
 		serviceDto.getMountDtoList().forEach(mountDto -> {
 			ObjectNode mountNode = mountsNode.addObject();
@@ -256,6 +258,12 @@ public class DockerSwarmBizz {
 
 		JsonNode containerSpecJsonNode = specJsonNode.get("TaskTemplate").get("ContainerSpec");
 		serviceDto.setImage(containerSpecJsonNode.get("Image").textValue());
+
+		List<String> envDtoList = new ArrayList<>();
+		if (containerSpecJsonNode.has("Env")) {
+			containerSpecJsonNode.get("Env").forEach(envJsonNode -> envDtoList.add(envJsonNode.textValue()));
+		}
+		serviceDto.setEnvDtoList(envDtoList);
 
 		List<MountDto> mountDtoList = new ArrayList<>();
 		if (containerSpecJsonNode.has("Mounts")) {

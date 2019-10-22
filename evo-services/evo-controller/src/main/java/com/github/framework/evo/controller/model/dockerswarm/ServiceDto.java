@@ -16,6 +16,7 @@ public class ServiceDto {
 	private String updatedAt;
 	private String name;
 	private String image;
+	private List<String> envDtoList;
 	private List<MountDto> mountDtoList;
 	private String mode;
 	private Integer replicas;
