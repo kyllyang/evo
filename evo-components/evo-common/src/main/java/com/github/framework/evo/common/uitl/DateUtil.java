@@ -167,6 +167,10 @@ public class DateUtil {
 		return LocalTime.now();
 	}
 
+	public static LocalDate toDate(int year, int month, int dayOfMonth) {
+		return LocalDate.of(year, month, dayOfMonth);
+	}
+
 	public static LocalDate toDate(long millis) {
 		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate();
 	}
