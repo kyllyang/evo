@@ -119,4 +119,15 @@
 		</pluginRepository>
 	</pluginRepositories>
 
+	<distributionManagement>
+		<repository>
+			<id>vm-nexus-releases</id>
+			<url>http://192.168.204.135:8081/repository/maven-releases/</url>
+		</repository>
+		<snapshotRepository>
+			<id>vm-nexus-snapshots</id>
+			<url>http://192.168.204.135:8081/repository/maven-snapshots/</url>
+		</snapshotRepository>
+	</distributionManagement>
+
 </project>
