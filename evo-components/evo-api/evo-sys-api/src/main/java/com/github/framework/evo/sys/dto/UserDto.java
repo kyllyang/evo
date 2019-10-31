@@ -27,4 +27,5 @@ public class UserDto implements Serializable {
 	private Long[] roleIds;
 	private List<RoleDto> roleDtoList;
 
+	private Long updateBy;
 }

@@ -86,7 +86,9 @@ public abstract class BaseXmlBizz<Dao extends BaseXmlDao, E extends BaseXmlEntit
 		E entity = (E) dao.get(getPKValue(dto));
 		BeanUtil.copy(entity, dto);
 
-		entity.setUpdateBy(getUserContextId());
+		if (entity.getUpdateBy() == null) {
+			entity.setUpdateBy(getUserContextId());
+		}
 		entity.setUpdateTime(DateUtil.now());
 
 		dao.update(entity);

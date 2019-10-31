@@ -133,7 +133,9 @@ public class UserBizz extends BaseXmlBizz<UserDao, User, Long, UserDto> {
 			userDto.setLastLoginIp(userDto.getLoginIp());
 		}
 
-		this.update(userDto);
+		userDto.setUpdateBy(userDto.getId());
+
+		super.update(userDto);
 	}
 
 	@Transactional
