@@ -37,6 +37,7 @@
 		<flowable-spring-boot-starter-actuator.version>6.4.2</flowable-spring-boot-starter-actuator.version>
 		<guava.version>28.0-jre</guava.version>
 		<commons-crypto.version>1.0.0</commons-crypto.version>
+		<poi-ooxml.version>4.1.1</poi-ooxml.version>
 	</properties>
 
 	<dependencyManagement>
@@ -151,6 +152,11 @@
 				<artifactId>commons-crypto</artifactId>
 				<version>${commons-crypto.version}</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.poi</groupId>
+				<artifactId>poi-ooxml</artifactId>
+				<version>${poi-ooxml.version}</version>
+			</dependency>
 			<!-- evo framework -->
 			<dependency>
 				<groupId>com.github.framework</groupId>
@@ -250,6 +256,11 @@
 			<dependency>
 				<groupId>com.github.framework</groupId>
 				<artifactId>evo-common</artifactId>
+				<version>${revision}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.github.framework</groupId>
+				<artifactId>evo-common-excel</artifactId>
 				<version>${revision}</version>
 			</dependency>
 			<dependency>
