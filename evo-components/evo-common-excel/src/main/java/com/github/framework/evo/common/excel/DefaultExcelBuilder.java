@@ -51,14 +51,15 @@ public class DefaultExcelBuilder {
 
 	public <T> DefaultExcelBuilder datas(List<T> list, RowData<T> rowData) {
 		for (T t : list) {
-			String[] values = rowData.getValues(t);
+			XSSFRow row = ExcelTool.createXSSFRow(sheet);
+
+			String[] values = rowData.getValues(t, row.getRowNum());
 
 			int numberOfCells = headerRow.getPhysicalNumberOfCells();
 			if (values.length != numberOfCells) {
 				throw new ExcelOperateException(String.format("列标题数量[%s]与数据项数量[%s]不符", numberOfCells, values.length));
 			}
 
-			XSSFRow row = ExcelTool.createXSSFRow(sheet);
 			for (int i = 0; i < numberOfCells; i++) {
 				ExcelTool.createXSSFCell(row, i, row.getRowNum() % 2 == 0 ? evenCellStyle : oddCellStyle, values[i]);
 			}
@@ -72,6 +73,6 @@ public class DefaultExcelBuilder {
 	}
 
 	public interface RowData<T> {
-		String[] getValues(T t);
+		String[] getValues(T t, int rowNum);
 	}
 }
