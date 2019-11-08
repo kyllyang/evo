@@ -6,6 +6,7 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -42,6 +43,10 @@ public class ExcelTool {
 		return cellStyle;
 	}
 
+	public static XSSFFont createFont(XSSFWorkbook workbook) {
+		return workbook.createFont();
+	}
+
 	public static XSSFRow createXSSFRow(XSSFSheet sheet) {
 		return createXSSFRow(sheet, sheet.getPhysicalNumberOfRows());
 	}
@@ -55,6 +60,10 @@ public class ExcelTool {
 		xssfCell.setCellStyle(cellStyle);
 		xssfCell.setCellValue(new XSSFRichTextString(text));
 		return xssfCell;
+	}
+
+	public static void setColumnWidth(XSSFSheet sheet, int columnIndex, int width) {
+		sheet.setColumnWidth(columnIndex, calculateColumnWidth(width));
 	}
 
 	public static int calculateColumnWidth(int width) {

@@ -3,6 +3,7 @@ package com.github.framework.evo.common.excel;
 import com.github.framework.evo.common.exception.ExcelOperateException;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -24,7 +25,12 @@ public class DefaultExcelBuilder {
 	public DefaultExcelBuilder() {
 		this.workbook = ExcelTool.createXSSFWorkbook();
 
+		XSSFFont font = ExcelTool.createFont(workbook);
+		font.setBold(true);
+
 		this.headerCellStyle = ExcelTool.createCellStyle(workbook, IndexedColors.SKY_BLUE);
+		this.headerCellStyle.setFont(font);
+
 		this.oddCellStyle = ExcelTool.createCellStyle(workbook, IndexedColors.GREY_25_PERCENT);
 		this.evenCellStyle = ExcelTool.createCellStyle(workbook, IndexedColors.WHITE);
 	}
@@ -36,6 +42,19 @@ public class DefaultExcelBuilder {
 
 	public DefaultExcelBuilder sheet(String sheetName) {
 		this.sheet = ExcelTool.createSheet(workbook, sheetName);
+		return this;
+	}
+
+	public DefaultExcelBuilder columnWidth(int width) {
+		for (int i = 0, numberOfCells = headerRow.getPhysicalNumberOfCells(); i < numberOfCells; i++) {
+			ExcelTool.setColumnWidth(sheet, i, width);
+		}
+
+		return this;
+	}
+
+	public DefaultExcelBuilder columnWidth(int columnIndex, int width) {
+		ExcelTool.setColumnWidth(sheet, columnIndex, width);
 		return this;
 	}
 
