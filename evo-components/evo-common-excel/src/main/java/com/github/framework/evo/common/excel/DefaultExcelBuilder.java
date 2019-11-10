@@ -28,9 +28,9 @@ public class DefaultExcelBuilder {
 		XSSFFont font = ExcelTool.createFont(workbook);
 		font.setBold(true);
 
-		this.headerCellStyle = ExcelTool.createCellStyle(workbook, font, IndexedColors.SKY_BLUE);
-		this.oddCellStyle = ExcelTool.createCellStyle(workbook, IndexedColors.GREY_25_PERCENT);
-		this.evenCellStyle = ExcelTool.createCellStyle(workbook, IndexedColors.WHITE);
+		this.headerCellStyle = ExcelTool.createCellStyle(workbook, font, null, null, IndexedColors.SKY_BLUE, null);
+		this.oddCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
+		this.evenCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.WHITE, null);
 	}
 
 	public DefaultExcelBuilder sheet() {
