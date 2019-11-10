@@ -81,113 +81,102 @@ public class DateUtil {
 		return date == null ? null : DateTimeFormatter.ofPattern(pattern).format(LocalDateTime.ofInstant(Instant.ofEpochMilli(date.getTime()), ZoneId.systemDefault()));
 	}
 
+	@Deprecated
 	public static Date removeHMS(Date date) {
 		return parseDate(formatDate(date));
 	}
 
 	@Deprecated
 	public static Date plusNanos(Date date, long nanos) {
-		return toDate(toDateTime(date).plusNanos(nanos));
+		return toDate(toLocalDateTime(date).plusNanos(nanos));
 	}
 
 	@Deprecated
 	public static Date plusSeconds(Date date, long seconds) {
-		return toDate(toDateTime(date).plusSeconds(seconds));
+		return toDate(toLocalDateTime(date).plusSeconds(seconds));
 	}
 
 	@Deprecated
 	public static Date plusMinutes(Date date, long minutes) {
-		return toDate(toDateTime(date).plusMinutes(minutes));
+		return toDate(toLocalDateTime(date).plusMinutes(minutes));
 	}
 
 	@Deprecated
 	public static Date plusHours(Date date, long hours) {
-		return toDate(toDateTime(date).plusHours(hours));
+		return toDate(toLocalDateTime(date).plusHours(hours));
 	}
 
 	@Deprecated
 	public static Date plusDays(Date date, long days) {
-		return toDate(toDateTime(date).plusDays(days));
+		return toDate(toLocalDateTime(date).plusDays(days));
 	}
 
 	@Deprecated
 	public static Date plusWeeks(Date date, long weeks) {
-		return toDate(toDateTime(date).plusWeeks(weeks));
+		return toDate(toLocalDateTime(date).plusWeeks(weeks));
 	}
 
 	@Deprecated
 	public static Date plusMonths(Date date, long months) {
-		return toDate(toDateTime(date).plusMonths(months));
+		return toDate(toLocalDateTime(date).plusMonths(months));
 	}
 
 	@Deprecated
 	public static Date plusYears(Date date, long years) {
-		return toDate(toDateTime(date).plusYears(years));
+		return toDate(toLocalDateTime(date).plusYears(years));
 	}
 
 	@Deprecated
 	public static Date minusNanos(Date date, long nanos) {
-		return toDate(toDateTime(date).minusNanos(nanos));
+		return toDate(toLocalDateTime(date).minusNanos(nanos));
 	}
 
 	@Deprecated
 	public static Date minusSeconds(Date date, long seconds) {
-		return toDate(toDateTime(date).minusSeconds(seconds));
+		return toDate(toLocalDateTime(date).minusSeconds(seconds));
 	}
 
 	@Deprecated
 	public static Date minusMinutes(Date date, long minutes) {
-		return toDate(toDateTime(date).minusMinutes(minutes));
+		return toDate(toLocalDateTime(date).minusMinutes(minutes));
 	}
 
 	@Deprecated
 	public static Date minusHours(Date date, long hours) {
-		return toDate(toDateTime(date).minusHours(hours));
+		return toDate(toLocalDateTime(date).minusHours(hours));
 	}
 
 	@Deprecated
 	public static Date minusDays(Date date, long days) {
-		return toDate(toDateTime(date).minusDays(days));
+		return toDate(toLocalDateTime(date).minusDays(days));
 	}
 
 	@Deprecated
 	public static Date minusWeeks(Date date, long weeks) {
-		return toDate(toDateTime(date).minusWeeks(weeks));
+		return toDate(toLocalDateTime(date).minusWeeks(weeks));
 	}
 
 	@Deprecated
 	public static Date minusMonths(Date date, long months) {
-		return toDate(toDateTime(date).minusMonths(months));
+		return toDate(toLocalDateTime(date).minusMonths(months));
 	}
 
 	@Deprecated
 	public static Date minusYears(Date date, long years) {
-		return toDate(toDateTime(date).minusYears(years));
-	}
-
-	public static LocalDate toDate(Date date) {
-		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
-	}
-
-	public static LocalDateTime toDateTime(Date date) {
-		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
-	}
-
-	public static LocalTime toTime(Date date) {
-		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalTime();
+		return toDate(toLocalDateTime(date).minusYears(years));
 	}
 	// Date 传统用法 END
 
 	// JDK8 新用法 START
-	public static LocalDate nowDate() {
+	public static LocalDate nowLocalDate() {
 		return LocalDate.now();
 	}
 
-	public static LocalDateTime nowDateTime() {
+	public static LocalDateTime nowLocalDateTime() {
 		return LocalDateTime.now();
 	}
 
-	public static LocalTime nowTime() {
+	public static LocalTime nowLocalTime() {
 		return LocalTime.now();
 	}
 
@@ -215,28 +204,52 @@ public class DateUtil {
 		return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(pattern));
 	}
 
-	public static String formatDate(LocalDate localDate) {
+	public static String formatLocalDate(LocalDate localDate) {
 		return format(localDate, PATTERN_DATE);
 	}
 
-	public static String formatDateCompact(LocalDate localDate) {
+	public static String formatLocalDate(Date date) {
+		return format(toLocalDate(date), PATTERN_DATE);
+	}
+
+	public static String formatLocalDateCompact(LocalDate localDate) {
 		return format(localDate, PATTERN_DATE_COMPACT);
 	}
 
-	public static String formatDateTime(LocalDateTime localDateTime) {
+	public static String formatLocalDateCompact(Date date) {
+		return format(toLocalDate(date), PATTERN_DATE_COMPACT);
+	}
+
+	public static String formatLocalDateTime(LocalDateTime localDateTime) {
 		return format(localDateTime, PATTERN_DATE_TIME);
 	}
 
-	public static String formatDateTimeCompact(LocalDateTime localDateTime) {
+	public static String formatLocalDateTime(Date date) {
+		return format(toLocalDateTime(date), PATTERN_DATE_TIME);
+	}
+
+	public static String formatLocalDateTimeCompact(LocalDateTime localDateTime) {
 		return format(localDateTime, PATTERN_DATE_TIME_COMPACT);
 	}
 
-	public static String formatTime(LocalTime localTime) {
+	public static String formatLocalDateTimeCompact(Date date) {
+		return format(toLocalDateTime(date), PATTERN_DATE_TIME_COMPACT);
+	}
+
+	public static String formatLocalTime(LocalTime localTime) {
 		return format(localTime, PATTERN_DATE_TIME);
 	}
 
-	public static String formatTimeCompact(LocalTime localTime) {
+	public static String formatLocalTime(Date date) {
+		return format(toLocalTime(date), PATTERN_DATE_TIME);
+	}
+
+	public static String formatLocalTimeCompact(LocalTime localTime) {
 		return format(localTime, PATTERN_DATE_TIME_COMPACT);
+	}
+
+	public static String formatLocalTimeCompact(Date date) {
+		return format(toLocalTime(date), PATTERN_DATE_TIME_COMPACT);
 	}
 
 	public static String format(TemporalAccessor temporal, String pattern) {
@@ -251,12 +264,24 @@ public class DateUtil {
 		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate();
 	}
 
+	public static LocalDate toLocalDate(Date date) {
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
 	public static LocalDateTime toLocalDateTime(long millis) {
 		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDateTime();
 	}
 
+	public static LocalDateTime toLocalDateTime(Date date) {
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalDateTime();
+	}
+
 	public static LocalTime toLocalTime(long millis) {
 		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalTime();
+	}
+
+	public static LocalTime toLocalTime(Date date) {
+		return Instant.ofEpochMilli(date.getTime()).atZone(ZoneId.systemDefault()).toLocalTime();
 	}
 
 	public static Date toDate(LocalDate localDate) {

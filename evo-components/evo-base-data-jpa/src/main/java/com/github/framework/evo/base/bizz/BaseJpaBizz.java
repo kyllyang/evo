@@ -78,7 +78,7 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository & JpaSpecificationEx
 
 		entity.setCreateBy(getUserContextId());
 		entity.setUpdateBy(entity.getCreateBy());
-		entity.setCreateTime(DateUtil.now());
+		entity.setCreateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 		entity.setUpdateTime(entity.getCreateTime());
 
 		dao.save(entity);
@@ -93,7 +93,7 @@ public abstract class BaseJpaBizz<Dao extends JpaRepository & JpaSpecificationEx
 		BeanUtil.copy(entity, dto);
 
 		entity.setUpdateBy(getUserContextId());
-		entity.setUpdateTime(DateUtil.now());
+		entity.setUpdateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 
 		dao.save(entity);
 	}

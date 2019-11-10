@@ -72,7 +72,7 @@ public abstract class BaseXmlBizz<Dao extends BaseXmlDao, E extends BaseXmlEntit
 
 		entity.setCreateBy(getUserContextId());
 		entity.setUpdateBy(entity.getCreateBy());
-		entity.setCreateTime(DateUtil.now());
+		entity.setCreateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 		entity.setUpdateTime(entity.getCreateTime());
 
 		dao.insert(entity);
@@ -89,7 +89,7 @@ public abstract class BaseXmlBizz<Dao extends BaseXmlDao, E extends BaseXmlEntit
 		if (entity.getUpdateBy() == null) {
 			entity.setUpdateBy(getUserContextId());
 		}
-		entity.setUpdateTime(DateUtil.now());
+		entity.setUpdateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 
 		dao.update(entity);
 	}

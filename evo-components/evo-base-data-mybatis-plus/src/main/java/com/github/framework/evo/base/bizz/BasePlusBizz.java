@@ -120,7 +120,7 @@ public abstract class BasePlusBizz<Dao extends BaseMapper, E extends BasePlusEnt
 
 		entity.setCreateBy(getUserContextId());
 		entity.setUpdateBy(entity.getCreateBy());
-		entity.setCreateTime(DateUtil.now());
+		entity.setCreateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 		entity.setUpdateTime(entity.getCreateTime());
 
 		dao.insert(entity);
@@ -134,7 +134,7 @@ public abstract class BasePlusBizz<Dao extends BaseMapper, E extends BasePlusEnt
 		BeanUtil.copy(entity, dto);
 
 		entity.setUpdateBy(getUserContextId());
-		entity.setUpdateTime(DateUtil.now());
+		entity.setUpdateTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 
 		dao.updateById(entity);
 	}

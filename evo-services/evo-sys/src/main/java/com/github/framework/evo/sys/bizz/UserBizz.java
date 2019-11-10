@@ -125,7 +125,7 @@ public class UserBizz extends BaseXmlBizz<UserDao, User, Long, UserDto> {
 		UserDto userDto = this.get(id);
 		userDto.setLastLoginTime(userDto.getLoginTime());
 		userDto.setLastLoginIp(userDto.getLoginIp());
-		userDto.setLoginTime(DateUtil.now());
+		userDto.setLoginTime(DateUtil.toDate(DateUtil.nowLocalTime()));
 		userDto.setLoginIp(loginIp);
 
 		if (userDto.getLastLoginTime() == null || StringUtil.isBlank(userDto.getLastLoginIp())) {
