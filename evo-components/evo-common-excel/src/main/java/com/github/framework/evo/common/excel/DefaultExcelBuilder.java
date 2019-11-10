@@ -87,6 +87,11 @@ public class DefaultExcelBuilder {
 		return this;
 	}
 
+	public DefaultExcelBuilder forceFormulaRecalculation(boolean value) {
+		sheet.setForceFormulaRecalculation(value);
+		return this;
+	}
+
 	public XSSFWorkbook build() {
 		return workbook;
 	}
