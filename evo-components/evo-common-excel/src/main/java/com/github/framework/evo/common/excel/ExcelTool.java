@@ -57,7 +57,9 @@ public class ExcelTool {
 
 	public static XSSFCell createXSSFCell(XSSFRow row, int columnIndex, CellStyle cellStyle, String text) {
 		XSSFCell xssfCell = row.createCell(columnIndex);
-		xssfCell.setCellStyle(cellStyle);
+		if (cellStyle != null) {
+			xssfCell.setCellStyle(cellStyle);
+		}
 		xssfCell.setCellValue(new XSSFRichTextString(text));
 		return xssfCell;
 	}
