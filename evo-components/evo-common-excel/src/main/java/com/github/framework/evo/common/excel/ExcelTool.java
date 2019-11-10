@@ -84,6 +84,18 @@ public class ExcelTool {
 		return xssfCell;
 	}
 
+	public static XSSFCell createXSSFCell(XSSFSheet sheet, int rowIndex, int columnIndex, CellStyle cellStyle, String value) {
+		XSSFRow xssfRow = sheet.getRow(rowIndex);
+		if (xssfRow == null) {
+			xssfRow = createXSSFRow(sheet, rowIndex);
+		}
+		XSSFCell xssfCell = xssfRow.getCell(columnIndex);
+		if (xssfCell == null) {
+			xssfCell = createXSSFCell(xssfRow, columnIndex, cellStyle, value);
+		}
+		return xssfCell;
+	}
+
 	public static void setColumnWidth(XSSFSheet sheet, int columnIndex, int width) {
 		sheet.setColumnWidth(columnIndex, calculateColumnWidth(width));
 	}
