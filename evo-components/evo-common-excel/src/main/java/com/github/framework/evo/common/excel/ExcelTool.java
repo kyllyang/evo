@@ -1,6 +1,7 @@
 package com.github.framework.evo.common.excel;
 
 import com.github.framework.evo.common.exception.ExcelOperateException;
+import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
@@ -38,9 +39,32 @@ public class ExcelTool {
 	}
 
 	public static CellStyle createCellStyle(XSSFWorkbook workbook, IndexedColors indexedColors) {
+		return createCellStyle(workbook, null, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, IndexedColors indexedColors) {
+		return createCellStyle(workbook, xssfFont, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, IndexedColors indexedColors, BorderStyle borderStyle) {
 		CellStyle cellStyle = workbook.createCellStyle();
-		cellStyle.setFillForegroundColor(indexedColors.getIndex());
-		cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+		if (xssfFont != null) {
+			cellStyle.setFont(xssfFont);
+		}
+
+		if (indexedColors != null) {
+			cellStyle.setFillForegroundColor(indexedColors.getIndex());
+			cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+		}
+
+		if (borderStyle != null) {
+			cellStyle.setBorderBottom(borderStyle);
+			cellStyle.setBorderLeft(borderStyle);
+			cellStyle.setBorderRight(borderStyle);
+			cellStyle.setBorderTop(borderStyle);
+		}
+
 		return cellStyle;
 	}
 
