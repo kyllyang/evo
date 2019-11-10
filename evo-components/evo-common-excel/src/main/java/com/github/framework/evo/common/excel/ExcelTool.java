@@ -80,7 +80,6 @@ public class ExcelTool {
 		if (cellStyle != null) {
 			xssfCell.setCellStyle(cellStyle);
 		}
-		xssfCell.setCellType(CellType.FORMULA);
 		xssfCell.setCellFormula(formula);
 		return xssfCell;
 	}
