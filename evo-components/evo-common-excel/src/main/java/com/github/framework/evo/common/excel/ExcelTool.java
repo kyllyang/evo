@@ -5,7 +5,9 @@ import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -39,32 +41,47 @@ public class ExcelTool {
 	}
 
 	public static CellStyle createCellStyle(XSSFWorkbook workbook, IndexedColors indexedColors) {
-		return createCellStyle(workbook, null, indexedColors, null);
+		return createCellStyle(workbook, null, null, null, indexedColors, null);
 	}
 
 	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, IndexedColors indexedColors) {
-		return createCellStyle(workbook, xssfFont, indexedColors, null);
+		return createCellStyle(workbook, xssfFont, null, null, indexedColors, null);
 	}
 
-	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, IndexedColors indexedColors, BorderStyle borderStyle) {
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, HorizontalAlignment horizontalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, xssfFont, horizontalAlignment, null, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, VerticalAlignment verticalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, xssfFont, null, verticalAlignment, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, xssfFont, horizontalAlignment, verticalAlignment, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, IndexedColors indexedColors, BorderStyle borderStyle) {
 		CellStyle cellStyle = workbook.createCellStyle();
 
 		if (xssfFont != null) {
 			cellStyle.setFont(xssfFont);
 		}
-
+		if (horizontalAlignment != null) {
+			cellStyle.setAlignment(horizontalAlignment);
+		}
+		if (verticalAlignment != null) {
+			cellStyle.setVerticalAlignment(verticalAlignment);
+		}
 		if (indexedColors != null) {
 			cellStyle.setFillForegroundColor(indexedColors.getIndex());
 			cellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		}
-
 		if (borderStyle != null) {
 			cellStyle.setBorderBottom(borderStyle);
 			cellStyle.setBorderLeft(borderStyle);
 			cellStyle.setBorderRight(borderStyle);
 			cellStyle.setBorderTop(borderStyle);
 		}
-
 		return cellStyle;
 	}
 
