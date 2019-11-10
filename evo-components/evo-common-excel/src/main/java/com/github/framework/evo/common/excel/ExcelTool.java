@@ -44,6 +44,18 @@ public class ExcelTool {
 		return createCellStyle(workbook, null, null, null, indexedColors, null);
 	}
 
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, HorizontalAlignment horizontalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, null, horizontalAlignment, null, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, VerticalAlignment verticalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, null, null, verticalAlignment, indexedColors, null);
+	}
+
+	public static CellStyle createCellStyle(XSSFWorkbook workbook, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, IndexedColors indexedColors) {
+		return createCellStyle(workbook, null, horizontalAlignment, verticalAlignment, indexedColors, null);
+	}
+
 	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, IndexedColors indexedColors) {
 		return createCellStyle(workbook, xssfFont, null, null, indexedColors, null);
 	}
