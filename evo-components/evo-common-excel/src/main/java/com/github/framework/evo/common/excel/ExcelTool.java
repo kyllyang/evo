@@ -2,6 +2,7 @@ package com.github.framework.evo.common.excel;
 
 import com.github.framework.evo.common.exception.ExcelOperateException;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.Workbook;
@@ -55,12 +56,32 @@ public class ExcelTool {
 		return sheet.createRow(rownum);
 	}
 
-	public static XSSFCell createXSSFCell(XSSFRow row, int columnIndex, CellStyle cellStyle, String text) {
+	public static XSSFCell createXSSFCell(XSSFRow row, int columnIndex, CellStyle cellStyle, String value) {
 		XSSFCell xssfCell = row.createCell(columnIndex);
 		if (cellStyle != null) {
 			xssfCell.setCellStyle(cellStyle);
 		}
-		xssfCell.setCellValue(new XSSFRichTextString(text));
+		xssfCell.setCellValue(new XSSFRichTextString(value));
+		return xssfCell;
+	}
+
+	public static XSSFCell createXSSFCellNumber(XSSFRow row, int columnIndex, CellStyle cellStyle, Number value) {
+		XSSFCell xssfCell = row.createCell(columnIndex);
+		if (cellStyle != null) {
+			xssfCell.setCellStyle(cellStyle);
+		}
+		xssfCell.setCellType(CellType.NUMERIC);
+		xssfCell.setCellValue(value.doubleValue());
+		return xssfCell;
+	}
+
+	public static XSSFCell createXSSFCellFormula(XSSFRow row, int columnIndex, CellStyle cellStyle, String formula) {
+		XSSFCell xssfCell = row.createCell(columnIndex);
+		if (cellStyle != null) {
+			xssfCell.setCellStyle(cellStyle);
+		}
+		xssfCell.setCellType(CellType.FORMULA);
+		xssfCell.setCellFormula(formula);
 		return xssfCell;
 	}
 
