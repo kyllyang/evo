@@ -271,4 +271,11 @@ public class DateUtil {
 	public static long timeIntervalDays(String startTime, String endTime) {
 		return Duration.between(LocalTime.parse(startTime), LocalTime.parse(endTime)).toDays();
 	}
+
+	public static long yearMonthIntervalMonth(String startYearMonth, String endYearMonth) {
+		Integer[] syds = ArrayUtil.toIntegerArray(startYearMonth.split("-"));
+		Integer[] eyds = ArrayUtil.toIntegerArray(endYearMonth.split("-"));
+
+		return Math.abs(Math.abs(syds[0] - eyds[0]) * 12 + (syds[0] > eyds[0] ? syds[1] : eyds[1]) - (syds[0] > eyds[0] ? eyds[1] : syds[1]));
+	}
 }

@@ -86,4 +86,12 @@ public class ArrayUtil {
 	public static int length(Object[] objects) {
 		return objects == null ? 0 : objects.length;
 	}
+
+	public static Integer[] toIntegerArray(String... strs) {
+		Integer[] result = new Integer[strs.length];
+		for (int i = 0, length = strs.length; i < length; i++) {
+			result[i] = StringUtil.isBlank(strs[i]) ? null : NumberUtil.toInteger(strs[i]);
+		}
+		return result;
+	}
 }

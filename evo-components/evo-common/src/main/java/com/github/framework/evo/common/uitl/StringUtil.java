@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.GZIPInputStream;
@@ -98,7 +99,7 @@ public class StringUtil {
 
 	public static String urlEncodeUTF8(String str) {
 		try {
-			return URLEncoder.encode(str, "UTF-8");
+			return URLEncoder.encode(str, StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new StringOperateException("字符串编码 UTF-8 失败", e);
 		}
@@ -106,7 +107,7 @@ public class StringUtil {
 
 	public static String urlDecodeUTF8(String str) {
 		try {
-			return URLDecoder.decode(str, "UTF-8");
+			return URLDecoder.decode(str, StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new StringOperateException("字符串解码 UTF-8 失败", e);
 		}
@@ -114,7 +115,7 @@ public class StringUtil {
 
 	public static byte[] toUTF8Byte(String str) {
 		try {
-			return str.getBytes("UTF-8");
+			return str.getBytes(StandardCharsets.UTF_8.name());
 		} catch (UnsupportedEncodingException e) {
 			throw new StringOperateException("字符编码转换 UTF-8 异常", e);
 		}
