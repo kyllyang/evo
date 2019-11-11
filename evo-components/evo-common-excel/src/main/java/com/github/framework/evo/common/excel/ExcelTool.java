@@ -9,7 +9,9 @@ import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.DefaultIndexedColorMap;
 import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -65,8 +67,18 @@ public class ExcelTool {
 		return cellStyle;
 	}
 
-	public static XSSFFont createFont(XSSFWorkbook workbook) {
-		return workbook.createFont();
+	public static XSSFFont createFont(XSSFWorkbook workbook, Boolean bold, Boolean italic, IndexedColors indexedColors) {
+		XSSFFont xssfFont = workbook.createFont();
+		if (bold != null) {
+			xssfFont.setBold(bold);
+		}
+		if (italic != null) {
+			xssfFont.setItalic(italic);
+		}
+		if (indexedColors != null) {
+			xssfFont.setColor(XSSFColor.toXSSFColor(new XSSFColor(indexedColors, new DefaultIndexedColorMap())));
+		}
+		return xssfFont;
 	}
 
 	public static XSSFRow createXSSFRow(XSSFSheet sheet) {

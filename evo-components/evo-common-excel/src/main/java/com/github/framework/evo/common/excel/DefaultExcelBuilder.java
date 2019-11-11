@@ -3,7 +3,6 @@ package com.github.framework.evo.common.excel;
 import com.github.framework.evo.common.exception.ExcelOperateException;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
-import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -25,10 +24,7 @@ public class DefaultExcelBuilder {
 	public DefaultExcelBuilder() {
 		this.workbook = ExcelTool.createXSSFWorkbook();
 
-		XSSFFont font = ExcelTool.createFont(workbook);
-		font.setBold(true);
-
-		this.headerCellStyle = ExcelTool.createCellStyle(workbook, font, null, null, IndexedColors.SKY_BLUE, null);
+		this.headerCellStyle = ExcelTool.createCellStyle(workbook, ExcelTool.createFont(workbook, true, null, null), null, null, IndexedColors.SKY_BLUE, null);
 		this.oddCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
 		this.evenCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.WHITE, null);
 	}
