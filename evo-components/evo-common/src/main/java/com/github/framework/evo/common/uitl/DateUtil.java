@@ -196,12 +196,24 @@ public class DateUtil {
 		return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE_TIME_COMPACT));
 	}
 
+	public static LocalTime parseLocalTime(String str) {
+		return LocalTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_TIME));
+	}
+
+	public static LocalTime parseLocalTimeCompact(String str) {
+		return LocalTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_TIME_COMPACT));
+	}
+
 	public static LocalDate parseLocalDate(String str, String pattern) {
 		return LocalDate.parse(str, DateTimeFormatter.ofPattern(pattern));
 	}
 
 	public static LocalDateTime parseLocalDateTime(String str, String pattern) {
 		return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(pattern));
+	}
+
+	public static LocalTime parseLocalTime(String str, String pattern) {
+		return LocalTime.parse(str, DateTimeFormatter.ofPattern(pattern));
 	}
 
 	public static String formatLocalDate(LocalDate localDate) {
@@ -294,6 +306,30 @@ public class DateUtil {
 
 	public static Date toDate(LocalTime localTime) {
 		return Date.from(localTime.atDate(LocalDate.of(1970, 1, 1)).atZone(ZoneId.systemDefault()).toInstant());
+	}
+
+	public static int compareDate(String date1, String date2) {
+		return parseLocalDate(date1, PATTERN_DATE).compareTo(parseLocalDate(date2, PATTERN_DATE));
+	}
+
+	public static int compareDateTime(String dateTime1, String dateTime2) {
+		return parseLocalDateTime(dateTime1, PATTERN_DATE_TIME).compareTo(parseLocalDateTime(dateTime2, PATTERN_DATE_TIME));
+	}
+
+	public static int compareTime(String time1, String time2) {
+		return parseLocalTime(time1, PATTERN_TIME).compareTo(parseLocalTime(time2, PATTERN_TIME));
+	}
+
+	public static int compareDate(String date1, String date2, String pattern) {
+		return parseLocalDate(date1, pattern).compareTo(parseLocalDate(date2, pattern));
+	}
+
+	public static int compareDateTime(String dateTime1, String dateTime2, String pattern) {
+		return parseLocalDateTime(dateTime1, pattern).compareTo(parseLocalDateTime(dateTime2, pattern));
+	}
+
+	public static int compareTime(String time1, String time2, String pattern) {
+		return parseLocalTime(time1, pattern).compareTo(parseLocalTime(time2, pattern));
 	}
 
 	public static boolean inRangeTime(String time, String startTime, String endTime) {

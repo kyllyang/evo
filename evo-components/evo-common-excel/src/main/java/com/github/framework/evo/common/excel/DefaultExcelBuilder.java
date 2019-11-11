@@ -22,7 +22,11 @@ public class DefaultExcelBuilder {
 	private XSSFRow headerRow;
 
 	public DefaultExcelBuilder() {
-		this.workbook = ExcelTool.createXSSFWorkbook();
+		this(ExcelTool.createXSSFWorkbook());
+	}
+
+	public DefaultExcelBuilder(XSSFWorkbook workbook) {
+		this.workbook = workbook == null ? ExcelTool.createXSSFWorkbook() : workbook ;
 
 		this.headerCellStyle = ExcelTool.createCellStyle(workbook, ExcelTool.createFont(workbook, true, null, null), null, null, IndexedColors.SKY_BLUE, null);
 		this.oddCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
@@ -36,6 +40,19 @@ public class DefaultExcelBuilder {
 
 	public DefaultExcelBuilder sheet(String sheetName) {
 		this.sheet = ExcelTool.createSheet(workbook, sheetName);
+		return this;
+	}
+
+	public DefaultExcelBuilder sheet(XSSFSheet sheet) {
+		if (sheet == null) {
+			return sheet();
+		}
+
+		if (sheet.getWorkbook() != this.workbook) {
+			throw new ExcelOperateException("Sheet必须由同一个Workbook创建");
+		}
+
+		this.sheet = sheet;
 		return this;
 	}
 
