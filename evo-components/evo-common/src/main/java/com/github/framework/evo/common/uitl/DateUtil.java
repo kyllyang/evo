@@ -308,7 +308,7 @@ public class DateUtil {
 	}
 
 	public static LocalDate toLocalDate(YearMonth yearMonth, int dayOfMonth) {
-		return yearMonth.atDay(dayOfMonth);
+		return dayOfMonth > 0 ? yearMonth.atDay(dayOfMonth) : yearMonth.atEndOfMonth();
 	}
 
 	public static LocalDate toLocalDate(Date date) {
