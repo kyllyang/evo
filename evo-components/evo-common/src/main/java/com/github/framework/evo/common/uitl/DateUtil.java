@@ -7,6 +7,7 @@ import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.TemporalAccessor;
@@ -22,6 +23,8 @@ public class DateUtil {
 	private static final String PATTERN_DATE_COMPACT = "yyyyMMdd";
 	private static final String PATTERN_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 	private static final String PATTERN_DATE_TIME_COMPACT = "yyyyMMddHHmmss";
+	private static final String PATTERN_YEAR_MONTH = "yyyy-MM";
+	private static final String PATTERN_YEAR_MONTH_COMPACT = "yyyyMM";
 	private static final String PATTERN_TIME = "HH:mm:ss";
 	private static final String PATTERN_TIME_COMPACT = "HHmmss";
 
@@ -180,28 +183,40 @@ public class DateUtil {
 		return LocalTime.now();
 	}
 
+	public static YearMonth nowYearMonth() {
+		return YearMonth.now();
+	}
+
 	public static LocalDate parseLocalDate(String str) {
-		return LocalDate.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE));
+		return parseLocalDate(str, PATTERN_DATE);
 	}
 
 	public static LocalDate parseLocalDateCompact(String str) {
-		return LocalDate.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE_TIME_COMPACT));
+		return parseLocalDate(str, PATTERN_DATE_TIME_COMPACT);
 	}
 
 	public static LocalDateTime parseLocalDateTime(String str) {
-		return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE_TIME));
+		return parseLocalDateTime(str, PATTERN_DATE_TIME);
 	}
 
 	public static LocalDateTime parseLocalDateTimeCompact(String str) {
-		return LocalDateTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_DATE_TIME_COMPACT));
+		return parseLocalDateTime(str, PATTERN_DATE_TIME_COMPACT);
 	}
 
 	public static LocalTime parseLocalTime(String str) {
-		return LocalTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_TIME));
+		return parseLocalTime(str, PATTERN_TIME);
 	}
 
 	public static LocalTime parseLocalTimeCompact(String str) {
-		return LocalTime.parse(str, DateTimeFormatter.ofPattern(PATTERN_TIME_COMPACT));
+		return parseLocalTime(str, PATTERN_TIME_COMPACT);
+	}
+
+	public static YearMonth parseYearMonth(String str) {
+		return parseYearMonth(str, PATTERN_YEAR_MONTH);
+	}
+
+	public static YearMonth parseYearMonthCompact(String str) {
+		return parseYearMonth(str, PATTERN_YEAR_MONTH_COMPACT);
 	}
 
 	public static LocalDate parseLocalDate(String str, String pattern) {
@@ -214,6 +229,10 @@ public class DateUtil {
 
 	public static LocalTime parseLocalTime(String str, String pattern) {
 		return LocalTime.parse(str, DateTimeFormatter.ofPattern(pattern));
+	}
+
+	public static YearMonth parseYearMonth(String str, String pattern) {
+		return YearMonth.parse(str, DateTimeFormatter.ofPattern(pattern));
 	}
 
 	public static String formatLocalDate(LocalDate localDate) {
@@ -264,6 +283,14 @@ public class DateUtil {
 		return format(toLocalTime(date), PATTERN_DATE_TIME_COMPACT);
 	}
 
+	public static String formatYearMonth(YearMonth yearMonth) {
+		return format(yearMonth, PATTERN_YEAR_MONTH);
+	}
+
+	public static String formatYearMonthCompact(YearMonth yearMonth) {
+		return format(yearMonth, PATTERN_YEAR_MONTH_COMPACT);
+	}
+
 	public static String format(TemporalAccessor temporal, String pattern) {
 		return temporal == null ? null : DateTimeFormatter.ofPattern(pattern).format(temporal);
 	}
@@ -274,6 +301,14 @@ public class DateUtil {
 
 	public static LocalDate toLocalDate(long millis) {
 		return Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate();
+	}
+
+	public static LocalDate toLocalDate(YearMonth yearMonth) {
+		return toLocalDate(yearMonth, 1);
+	}
+
+	public static LocalDate toLocalDate(YearMonth yearMonth, int dayOfMonth) {
+		return yearMonth.atDay(dayOfMonth);
 	}
 
 	public static LocalDate toLocalDate(Date date) {
@@ -309,15 +344,19 @@ public class DateUtil {
 	}
 
 	public static int compareDate(String date1, String date2) {
-		return parseLocalDate(date1, PATTERN_DATE).compareTo(parseLocalDate(date2, PATTERN_DATE));
+		return compareDate(date1, date2, PATTERN_DATE);
 	}
 
 	public static int compareDateTime(String dateTime1, String dateTime2) {
-		return parseLocalDateTime(dateTime1, PATTERN_DATE_TIME).compareTo(parseLocalDateTime(dateTime2, PATTERN_DATE_TIME));
+		return compareDateTime(dateTime1, dateTime2, PATTERN_DATE_TIME);
 	}
 
 	public static int compareTime(String time1, String time2) {
-		return parseLocalTime(time1, PATTERN_TIME).compareTo(parseLocalTime(time2, PATTERN_TIME));
+		return compareTime(time1, time2, PATTERN_TIME);
+	}
+
+	public static int compareYearMonth(String date1, String date2) {
+		return compareYearMonth(date1, date2, PATTERN_YEAR_MONTH);
 	}
 
 	public static int compareDate(String date1, String date2, String pattern) {
@@ -330,6 +369,10 @@ public class DateUtil {
 
 	public static int compareTime(String time1, String time2, String pattern) {
 		return parseLocalTime(time1, pattern).compareTo(parseLocalTime(time2, pattern));
+	}
+
+	public static int compareYearMonth(String date1, String date2, String pattern) {
+		return parseYearMonth(date1, pattern).compareTo(parseYearMonth(date2, pattern));
 	}
 
 	public static boolean inRangeTime(String time, String startTime, String endTime) {
