@@ -17,6 +17,9 @@ public interface DataDictApi {
 	@GetMapping("/code/{code}")
 	List<DataDictDto> findByCode(@PathVariable("code") String code);
 
+	@GetMapping("/code/{code}/children")
+	List<DataDictDto> findByCodeForChildren(@PathVariable("code") String code);
+
 	@GetMapping("/code/{code}/key/{key}")
 	DataDictDto findByCodeAndKey(@PathVariable("code") String code, @PathVariable("key") String key);
 
