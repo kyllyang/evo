@@ -22,6 +22,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
+import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -89,6 +90,14 @@ public class CryptoUtil {
 		byte[] bytes = new byte[copy.remaining()];
 		copy.get(bytes);
 		return new String(bytes, StandardCharsets.UTF_8);
+	}
+
+	public static String encryptBase64(String content) {
+		return Base64.getEncoder().encodeToString(content.getBytes(StandardCharsets.UTF_8));
+	}
+
+	public static String decryptBase64(String content) {
+		return new String(Base64.getDecoder().decode(content.getBytes(StandardCharsets.UTF_8)));
 	}
 
 	private static SecretKeySpec createAes256SecretKey(String secretKey) {
