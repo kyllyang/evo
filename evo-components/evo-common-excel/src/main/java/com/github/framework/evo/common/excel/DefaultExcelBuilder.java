@@ -28,13 +28,11 @@ public class DefaultExcelBuilder {
 	}
 
 	public DefaultExcelBuilder(XSSFWorkbook workbook) {
-		log.info("workbook {}", workbook);
 		this.workbook = workbook == null ? ExcelTool.createXSSFWorkbook() : workbook;
-		log.info("this.workbook {}", workbook);
 
-		this.headerCellStyle = ExcelTool.createCellStyle(workbook, ExcelTool.createFont(workbook, true, null, null), null, null, IndexedColors.SKY_BLUE, null);
-		this.oddCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
-		this.evenCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.WHITE, null);
+		this.headerCellStyle = ExcelTool.createCellStyle(this.workbook, ExcelTool.createFont(this.workbook, true, null, null), null, null, IndexedColors.SKY_BLUE, null);
+		this.oddCellStyle = ExcelTool.createCellStyle(this.workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
+		this.evenCellStyle = ExcelTool.createCellStyle(this.workbook, null, null, null, IndexedColors.WHITE, null);
 	}
 
 	public DefaultExcelBuilder sheet() {
