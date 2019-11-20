@@ -1,6 +1,7 @@
 package com.github.framework.evo.common.excel;
 
 import com.github.framework.evo.common.exception.ExcelOperateException;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -13,6 +14,7 @@ import java.util.List;
  * User: Kyll
  * Date: 2019-11-07 16:43
  */
+@Slf4j
 public class DefaultExcelBuilder {
 	private XSSFWorkbook workbook;
 	private CellStyle headerCellStyle;// 列标题样式
@@ -26,7 +28,9 @@ public class DefaultExcelBuilder {
 	}
 
 	public DefaultExcelBuilder(XSSFWorkbook workbook) {
-		this.workbook = workbook == null ? ExcelTool.createXSSFWorkbook() : workbook ;
+		log.info("workbook {}", workbook);
+		this.workbook = workbook == null ? ExcelTool.createXSSFWorkbook() : workbook;
+		log.info("this.workbook {}", workbook);
 
 		this.headerCellStyle = ExcelTool.createCellStyle(workbook, ExcelTool.createFont(workbook, true, null, null), null, null, IndexedColors.SKY_BLUE, null);
 		this.oddCellStyle = ExcelTool.createCellStyle(workbook, null, null, null, IndexedColors.GREY_25_PERCENT, null);
