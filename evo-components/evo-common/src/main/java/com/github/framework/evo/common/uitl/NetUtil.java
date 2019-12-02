@@ -15,7 +15,7 @@ import java.util.Enumeration;
  */
 @Slf4j
 public class NetUtil {
-	public InetAddress getLocalHostLANAddress() {
+	public static InetAddress getLocalHostLANAddress() {
 		InetAddress candidateAddress = null;
 		// 遍历所有的网络接口
 		try {
