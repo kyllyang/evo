@@ -12,7 +12,7 @@ import javax.persistence.Table;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Table(name = "zuul_route", catalog = "evo_framework")
+@Table(name = "zuul_route")
 public class EvoZuulRoute extends BaseMapperEntity<Long> {
 	private Long id;
 	private String routeId;
