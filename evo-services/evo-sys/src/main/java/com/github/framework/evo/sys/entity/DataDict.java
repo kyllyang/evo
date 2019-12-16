@@ -1,4 +1,4 @@
-package com.github.framework.evo.datadict.entity;
+package com.github.framework.evo.sys.entity;
 
 import com.github.framework.evo.base.entity.BaseXmlEntity;
 import lombok.Data;

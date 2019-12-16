@@ -31,6 +31,13 @@ spring:
     virtual-host: ${evo.rabbitmq.virtual-host}
     username: ${evo.rabbitmq.username}
     password: ${evo.rabbitmq.password}
+  redis:
+    cluster:
+      nodes: ${evo.redis.cluster.nodes}
+  cache:
+    redis:
+      time-to-live: 3600s
+      use-key-prefix: false
   jackson:
     time-zone: GMT+8
   sleuth:

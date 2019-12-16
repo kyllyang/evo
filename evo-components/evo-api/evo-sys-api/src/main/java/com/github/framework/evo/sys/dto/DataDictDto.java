@@ -1,4 +1,4 @@
-package com.github.framework.evo.datadict.dto;
+package com.github.framework.evo.sys.dto;
 
 import lombok.Data;
 

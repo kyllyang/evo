@@ -1,4 +1,4 @@
-package com.github.framework.evo.datadict.condition;
+package com.github.framework.evo.sys.condition;
 
 import com.github.framework.evo.common.model.PageDto;
 import lombok.Builder;

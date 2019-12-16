@@ -1,9 +1,9 @@
-package com.github.framework.evo.datadict.rest;
+package com.github.framework.evo.sys.rest;
 
 import com.github.framework.evo.base.rest.BaseRest;
-import com.github.framework.evo.datadict.bizz.DataDictBizz;
-import com.github.framework.evo.datadict.condition.DataDictCondition;
-import com.github.framework.evo.datadict.dto.DataDictDto;
+import com.github.framework.evo.sys.bizz.DataDictBizz;
+import com.github.framework.evo.sys.condition.DataDictCondition;
+import com.github.framework.evo.sys.dto.DataDictDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;

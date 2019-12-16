@@ -315,11 +315,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.github.framework</groupId>
-				<artifactId>evo-datadict-api</artifactId>
-				<version>${revision}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.github.framework</groupId>
 				<artifactId>evo-communication-api</artifactId>
 				<version>${revision}</version>
 			</dependency>

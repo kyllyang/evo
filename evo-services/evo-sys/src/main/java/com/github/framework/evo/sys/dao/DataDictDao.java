@@ -1,7 +1,7 @@
-package com.github.framework.evo.datadict.dao;
+package com.github.framework.evo.sys.dao;
 
 import com.github.framework.evo.base.dao.BaseXmlDao;
-import com.github.framework.evo.datadict.entity.DataDict;
+import com.github.framework.evo.sys.entity.DataDict;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

@@ -1,11 +1,11 @@
-package com.github.framework.evo.datadict.bizz;
+package com.github.framework.evo.sys.bizz;
 
 import com.github.framework.evo.base.bizz.BaseXmlBizz;
 import com.github.framework.evo.data.redis.annotation.RedisKey;
-import com.github.framework.evo.datadict.condition.DataDictCondition;
-import com.github.framework.evo.datadict.dao.DataDictDao;
-import com.github.framework.evo.datadict.dto.DataDictDto;
-import com.github.framework.evo.datadict.entity.DataDict;
+import com.github.framework.evo.sys.condition.DataDictCondition;
+import com.github.framework.evo.sys.dao.DataDictDao;
+import com.github.framework.evo.sys.dto.DataDictDto;
+import com.github.framework.evo.sys.entity.DataDict;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;

@@ -18,7 +18,6 @@
 		<module>evo-admin</module>
 		<module>evo-config</module>
 		<module>evo-auth</module>
-		<module>evo-datadict</module>
 		<module>evo-flowable</module>
 		<module>evo-oauth2</module>
 		<module>evo-static</module>
