@@ -44,8 +44,8 @@ public class RoleBizz extends BaseXmlBizz<RoleDao, Role, Long, RoleDto> {
 		return roleList.isEmpty() ? null : toDto(roleList.get(0));
 	}
 
-	public List<RoleDto> findByCodes(String[] codes) {
-		return codes == null || codes.length == 0 ? new ArrayList<>() : toDto(dao.findByCodes(codes));
+	public List<RoleDto> findByCodes(String... codes) {
+		return ArrayUtil.isEmpty(codes) ? new ArrayList<>() : toDto(dao.findByCodes(codes));
 	}
 
 	public List<RoleDto> findByUserId(Long userId) {

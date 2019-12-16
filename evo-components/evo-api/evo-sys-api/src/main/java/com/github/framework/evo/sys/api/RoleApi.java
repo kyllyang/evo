@@ -16,7 +16,7 @@ import java.util.List;
 @FeignClient(value = "evo-sys", path = "/role")
 public interface RoleApi {
 	@PostMapping("/codes")
-	List<RoleDto> findByCodes(@RequestBody String[] codes);
+	List<RoleDto> findByCodes(@RequestBody String... codes);
 
 	@GetMapping("/user/id/{userId}")
 	List<RoleDto> findByUserId(@PathVariable("userId") Long userId);
