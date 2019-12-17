@@ -12,7 +12,7 @@ import java.util.List;
  * User: Kyll
  * Date: 2018-04-13 09:57
  */
-@FeignClient(value = "evo-datadict")
+@FeignClient(value = "evo-sys")
 public interface DataDictApi {
 	@GetMapping("/code/{code}")
 	List<DataDictDto> findByCode(@PathVariable("code") String code);
