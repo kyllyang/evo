@@ -2,6 +2,7 @@ package com.github.framework.evo.common.uitl;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
 import java.util.Iterator;
 
 /**
@@ -44,7 +45,7 @@ public class ArrayUtil {
 		return valid;
 	}
 
-	public static boolean isIn(String[] strs, String value) {
+	public static boolean isIn(String value, String[] strs) {
 		boolean result = false;
 
 		if (strs != null) {
@@ -64,6 +65,10 @@ public class ArrayUtil {
 		}
 
 		return result;
+	}
+
+	public static boolean isIn(String[] values, String[] samples) {
+		return Arrays.stream(values).allMatch(value -> Arrays.asList(samples).contains(value));
 	}
 
 	public static String join(String[] values, String delimited) {
