@@ -2,8 +2,10 @@ package com.github.framework.evo.common.uitl;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * User: Kyll
@@ -69,6 +71,12 @@ public class ArrayUtil {
 
 	public static boolean isIn(String[] values, String[] samples) {
 		return Arrays.stream(values).allMatch(value -> Arrays.asList(samples).contains(value));
+	}
+
+	public static String[] concat(String[]... as) {
+		List<String> list = new ArrayList<>();
+		Arrays.stream(as).filter(ArrayUtil::isNotEmpty).forEach(array -> list.addAll(Arrays.asList(array)));
+		return list.toArray(new String[0]);
 	}
 
 	public static String join(String[] values, String delimited) {
