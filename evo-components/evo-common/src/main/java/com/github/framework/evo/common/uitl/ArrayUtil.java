@@ -69,8 +69,24 @@ public class ArrayUtil {
 		return result;
 	}
 
+	/**
+	 * 数组values中的元素全部存在于数组samples，则返回true
+	 * @param values 待比较数组
+	 * @param samples 样本数组
+	 * @return 全部存在于数组samples，则返回true
+	 */
 	public static boolean isIn(String[] values, String[] samples) {
 		return Arrays.stream(values).allMatch(value -> Arrays.asList(samples).contains(value));
+	}
+
+	/**
+	 * 数组values中的元素任何一个不在数组samples中，则返回true
+	 * @param values 待比较数组
+	 * @param samples 样本数组
+	 * @return 任何一个不在数组samples中，则返回true
+	 */
+	public static boolean isNotIn(String[] values, String[] samples) {
+		return Arrays.stream(values).anyMatch(value -> !Arrays.asList(samples).contains(value));
 	}
 
 	public static String[] concat(String[]... as) {
