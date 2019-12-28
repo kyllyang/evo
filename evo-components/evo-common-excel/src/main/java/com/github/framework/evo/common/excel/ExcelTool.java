@@ -1,6 +1,7 @@
 package com.github.framework.evo.common.excel;
 
 import com.github.framework.evo.common.exception.ExcelOperateException;
+import com.github.framework.evo.common.uitl.StringUtil;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.CellType;
@@ -39,7 +40,7 @@ public class ExcelTool {
 	}
 
 	public static XSSFSheet createSheet(XSSFWorkbook workbook, String sheetName) {
-		return workbook.createSheet(sheetName);
+		return StringUtil.isBlank(sheetName) ? workbook.createSheet() : workbook.createSheet(sheetName);
 	}
 
 	public static CellStyle createCellStyle(XSSFWorkbook workbook, XSSFFont xssfFont, HorizontalAlignment horizontalAlignment, VerticalAlignment verticalAlignment, IndexedColors indexedColors, BorderStyle borderStyle) {
