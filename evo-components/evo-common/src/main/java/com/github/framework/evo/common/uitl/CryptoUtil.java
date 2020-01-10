@@ -15,10 +15,12 @@ import javax.crypto.ShortBufferException;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.io.IOException;
+import java.math.BigInteger;
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.security.spec.AlgorithmParameterSpec;
@@ -100,6 +102,20 @@ public class CryptoUtil {
 		return new String(Base64.getMimeDecoder().decode(content.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
 	}
 
+	public static String encryptSha256(String content) {
+		MessageDigest digest = getMessageDigest("SHA-256");
+		digest.reset();
+		digest.update(StringUtil.toUTF8Byte(content));
+		return String.format("%064x", new BigInteger(1, digest.digest()));
+	}
+
+	public static String encryptSha512(String content) {
+		MessageDigest digest = getMessageDigest("SHA-512");
+		digest.reset();
+		digest.update(StringUtil.toUTF8Byte(content));
+		return String.format("%0128x", new BigInteger(1, digest.digest()));
+	}
+
 	private static SecretKeySpec createAes256SecretKey(String secretKey) {
 		SecretKeySpec secretKeySpec = SECRET_KEY_SPEC_MAP.get(secretKey);
 		if (secretKeySpec == null) {
@@ -121,5 +137,13 @@ public class CryptoUtil {
 			ivParameterSpec = new IvParameterSpec(StringUtil.toUTF8Byte(iv));
 		}
 		return ivParameterSpec;
+	}
+
+	private static MessageDigest getMessageDigest(String algorithm) {
+		try {
+			return MessageDigest.getInstance(algorithm);
+		} catch (NoSuchAlgorithmException e) {
+			throw new CryptoOperateException("算法不存在", e);
+		}
 	}
 }

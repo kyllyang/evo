@@ -12,15 +12,15 @@ management:
       enabled: true
 spring:
   rabbitmq:
-    addresses: ${evo.rabbitmq.addresses}
-    host: ${evo.rabbitmq.host}
+    addresses: 10.20.196.20:5672
+    host: 10.20.196.20
     port: ${evo.rabbitmq.port}
     virtual-host: ${evo.rabbitmq.virtual-host}
     username: ${evo.rabbitmq.username}
     password: ${evo.rabbitmq.password}
   redis:
     cluster:
-      nodes: ${evo.redis.cluster.nodes}
+      nodes: 10.20.196.23:7001, 10.20.196.23:7002, 10.20.196.23:7003, 10.20.196.23:7004, 10.20.196.23:7005, 10.20.196.23:7006
   jackson:
     time-zone: GMT+8
   sleuth:
@@ -31,6 +31,4 @@ spring:
   main:
     allow-bean-definition-overriding: true
 evo:
-  session:
-    user-context:
-      enabled: false
+  re
