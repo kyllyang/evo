@@ -97,7 +97,7 @@ public class CryptoUtil {
 	}
 
 	public static String decryptBase64(String content) {
-		return new String(Base64.getMimeDecoder().decode(content.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
+		return new String(Base64.getDecoder().decode(content.getBytes(StandardCharsets.UTF_8)), StandardCharsets.UTF_8);
 	}
 
 	private static SecretKeySpec createAes256SecretKey(String secretKey) {
