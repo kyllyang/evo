@@ -121,6 +121,25 @@ public class StringUtil {
 		}
 	}
 
+	public static String toUnicode(String str) {
+		StringBuilder unicode = new StringBuilder();
+		for (char c : str.toCharArray()) {
+			if (c <= 127) {// 标准ASCII范围内的字符，直接输出
+				unicode.append(c);
+				continue;
+			}
+
+			unicode.append("\\u");
+
+			String hexString = Integer.toHexString(c);
+			if (hexString.length() < 4) {// 不够四位进行补0操作
+				unicode.append("0000", hexString.length(), 4);
+			}
+			unicode.append(hexString);
+		}
+		return unicode.toString();
+	}
+
 	public static String[] split(String str, String... delimiteds) {
 		if (isBlank(str)) {
 			return null;
